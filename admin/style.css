@@ -1,0 +1,318 @@
+/* raleway-regular - latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/raleway-v13-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Raleway'), local('Raleway-Regular'),
+       url('../fonts/raleway-v13-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/raleway-v13-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/raleway-v13-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/raleway-v13-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/raleway-v13-latin-regular.svg#Raleway') format('svg'); /* Legacy iOS */
+}
+
+h1{font-size:32pt; font-weight: normal;}
+h2{font-size:24pt; font-weight: normal; margin:12px 0px;}
+h3{font-size:16pt; font-weight: normal; margin:8px 0px;}
+h4{font-size:14pt; font-weight: normal; margin:4px 0px;}
+
+body{
+	font-family: 'Raleway', sans-serif;
+	margin: 0px;
+}
+
+.logo{
+	max-width: 300px;
+	padding: 0px 30px;
+	margin: auto;
+}
+
+.tab-navigation-background{
+	width: 100%;
+	background-color: #555;
+	position: sticky;
+	top: 0px;
+}
+
+.tab-navigation{
+	display: flex;
+	flex-flow: row, nowrap;
+	justify-content: space-evenly;
+	width: 100%;
+	max-width: 800px;
+	font-size: 25px;
+	margin: auto;
+	height: 50px;
+}
+
+.tab{
+	flex-grow: 1;
+	text-decoration: none;
+	text-align: center;
+	border-width: 0px;
+	line-height: 50px;
+	color: #eee;
+}
+
+.active-tab{
+	background-color: white;
+	border-width: 0px;
+	color: #03aa2a;
+	background-color: #eee;
+}
+
+.status-bar{
+	display: flex;
+	flex-flow: row, nowrap;
+	justify-content: space-between;
+	width: 100%;
+	max-width: 800px;
+	background-color: #000;
+	color: #eee;
+	margin: auto;
+}
+
+.tab:not(.active-tab):hover{
+	background-color: #bee5c6;
+	color: #333;
+}
+
+.tab:not(.active-tab):hover a{
+	color: #333;
+}
+
+.content{
+	max-width: 1000px;
+	margin: auto;
+	text-align: center;
+	padding-top: 20px;
+}
+
+table{
+	width: 100%;
+	max-width: 550px;
+	margin: auto;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+table td{
+	padding: 10px 5px;
+}
+
+table td a{
+	display:block;
+	text-decoration: none;
+	color: #333;
+}
+
+table td i{
+	color: #555;
+}
+
+table tr:nth-child(odd){
+	background-color: #bee5c6;
+}
+
+.employee_list tr:not:first-child{
+	height: 55px;
+}
+
+.wochenplan{
+	color: #222;
+	max-width: 550px;
+	margin: auto;
+}
+
+.wochenplan td, th{
+	padding: 6px 4px;
+}
+
+.wochenplan td:last-child{
+	padding-right: 10px;
+}
+
+.toolbar-background{
+	width: 100%;
+	background-color: #eee;
+	position: sticky;
+	top: 50px;
+}
+
+.toolbar{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-evenly;
+	align-items: stretch;
+	margin: 10px 0px;
+	max-width: 800px;
+	margin: auto;
+	background-color: #eee;
+	position: sticky;
+	top: 50px;
+	z-index: 5;
+}
+
+.toolbar a{
+	text-decoration: none;
+	color: #666;
+}
+
+.toolbar span{
+	font-size: 12px;
+	color: #555;
+	//width: 80px;
+	text-align: center;
+	padding: 10px 1px;
+	flex-basis: 1px;
+	flex-grow: 1;
+}
+
+.toolbar .fa{
+	font-size: 24px;
+	color: #666;
+	margin-bottom: 5px;
+}
+
+.edit_schedule_form input{
+	font-family: 'Raleway', sans-serif;
+	text-align: center;
+}
+
+.edit_schedule_form input[type="text"]{
+	padding: 3px;
+	margin: 2px;
+	border-width: 0px;
+	//border-bottom: 1px solid grey;
+	background-color: rgba(0,0,0,0);
+	width: 100%;
+	font-size: 16px;
+}
+
+.edit_schedule_form input[type="number"]{
+	padding: 3px;
+	margin: 2px;
+	border-width: 0px;
+	border-bottom: 1px solid grey;
+	background-color: rgba(0,0,0,0);
+	font-size: 24px;
+}
+
+.input_week{
+	width: 50px;
+}
+
+.input_year{
+	width: 70px;
+}
+
+.edit_schedule_form input[type="time"]{
+	width: 75px;
+	padding: 3px;
+	margin: 2px;
+	border-width: 0px;
+	//border-bottom: 1px solid grey;
+	background-color: rgba(0,0,0,0);
+}
+
+.edit_schedule_form input[type="submit"]{
+	padding: 10px 20px;
+	margin: 20px;
+	border-width: 0px;
+	border-radius: 3px;
+	background-color: #03aa2a;
+	font-size: 16px;
+	color: white;
+}
+
+.edit_schedule_form input[type="submit"]:hover{
+	cursor: pointer;
+}
+
+.edit_schedule_form input[type="checkbox"]{
+	width: 15px;
+	height: 15px;
+}
+
+.edit_schedule_form select{
+	width: 130px;
+	border-width: 0px;
+	//border-bottom: 1px solid grey;
+	background-color: rgba(0,0,0,0);
+	padding: 3px;
+	margin: 2px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 14px;
+}
+
+.edit_schedule_form .fa{
+	font-size: 20px;
+	color: #333;
+}
+
+.edit_employee_form input[type="submit"]{
+	padding: 10px 20px;
+	margin: 20px;
+	border-width: 0px;
+	border-radius: 3px;
+	background-color: #03aa2a;
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	color: white;
+}
+
+.edit_employee_form input[type="submit"]:hover{
+	cursor: pointer;
+}
+
+.edit_employee_form label{
+	display: block;
+	font-size: 12px;
+	text-align: left;
+	max-width: 300px;
+	padding-top: 5px;
+	margin: auto;
+}
+
+.edit_employee_form label input{
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	padding: 3px;
+	margin: 2px;
+}
+
+.edit_employee_form label input[type="text"]{
+	width: 100%;
+}
+
+.edit_employee_form label input[type="email"]{
+	width: 100%;
+}
+
+.edit_employee_form label input[type="fon"]{
+	width: 100%;
+}
+
+.edit_employee_form label input[type="number"]{
+	width: 100%;
+}
+
+.edit_employee_form label input[type="date"]{
+	width: 100%;
+}
+
+.edit_employee_form label select{
+	width: 100%;
+	padding: 3px;
+	margin: 2px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+}
+
+.edit_employee_form label textarea{
+	width: 100%;
+	padding: 3px;
+	margin: 2px;
+	resize: none;
+}

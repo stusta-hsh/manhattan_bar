@@ -1,0 +1,138 @@
+/* raleway-regular - latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/raleway-v13-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Raleway'), local('Raleway-Regular'),
+       url('/fonts/raleway-v13-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/fonts/raleway-v13-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/raleway-v13-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('/fonts/raleway-v13-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('/fonts/raleway-v13-latin-regular.svg#Raleway') format('svg'); /* Legacy iOS */
+}
+
+h1{font-size:32pt; font-weight: normal;}
+h2{font-size:24pt; font-weight: normal; margin:12px 0px;}
+h3{font-size:16pt; font-weight: normal; margin:8px 0px;}
+h4{font-size:14pt; font-weight: normal; margin:4px 0px;}
+
+body{
+	margin: auto;
+	font-family: 'Raleway', sans-serif;
+	background-color: black;
+}
+
+.content {
+	//background-color: #000229;
+	background-image: linear-gradient(black, #000229, #000229, red);
+	width: 100%;
+}
+
+.logo{
+	max-width: 500px;
+	padding: 10px 30px;
+	margin: auto;
+	margin-bottom: -15px;
+}
+
+.textbox{
+	color: #eee;
+	max-width: 550px;
+	text-align: center;
+	margin: auto;
+}
+
+.status{
+	margin-bottom: 10px;
+	padding: 0px 20px;
+}
+
+.special{
+	padding: 0px 20px;
+}
+
+.wochenplan{
+	text-align: center;
+	border-collapse: collapse;
+	width: 100%;
+	margin: 50px 0px;
+	color: #ffd;
+}
+
+.wochenplan tr{
+	height: 55px;
+}
+
+.wochenplan td, th{
+	padding: 6px 4px;
+}
+
+.wochenplan tr:nth-child(odd){
+	background-color: rgba(255,255,255,0.15);
+}
+
+.wochenplan td:last-child{
+	padding-right: 10px;
+}
+
+.wheel{
+	position: absolute;
+	top: 68%;
+	left: 5%;
+	height: 55%;
+	margin: -5% 0 0 -5%;
+	-webkit-animation:spin 80s linear infinite;
+	-moz-animation:spin 80s linear infinite;
+	animation:spin 80s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.skyline{
+	position: sticky;
+	bottom: 0px;
+	width: 100%;
+	margin-top: 0px;
+}
+
+.skyline-image-div{
+	position: relative;
+	max-width: 800px;
+	margin:auto;
+}
+
+.skyline-image{
+	width: 100%;
+	display: block;
+	margin: auto;
+}
+
+.skyline-spacer{
+	background-color: black;
+	height: 20px;
+	margin-top: -5px;
+}
+
+.footer{
+	text-align: center;
+	background-color: black;
+	color: #ffd;
+	font-size: 10pt;
+	width: 100%;
+	height: 70px;
+	padding: 30px 0px 100px 0px;
+	margin-top: -10px;
+}
+
+.social-icons{
+	font-size: 24pt;
+	margin: 20px 20px;
+}
+
+.social-icons a{
+	color: #ffd;
+	margin: 0px 15px;
+}
+	

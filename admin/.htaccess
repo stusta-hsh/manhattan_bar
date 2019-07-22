@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Bitte melden Sie sich an"
+AuthUserFile /srv/home/e00038/extern/admin/.htpasswd
+require valid-user
