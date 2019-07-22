@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="200px" height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve">
+<path fill="none" stroke="#000000" stroke-width="3" d="M180,100c0,44.179-35.824,80-80,80c-44.181,0-80-35.821-80-80
+	c0-44.18,35.819-80,80-80C144.176,20,180,55.82,180,100z"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="20" y1="100" x2="180" y2="100"/>
+<circle cx="10" cy="100" r="5"/>
+<circle cx="190" cy="100" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="100" y1="180" x2="100" y2="20"/>
+<circle cx="100" cy="190" r="5"/>
+<circle cx="100" cy="10" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="43.432" y1="156.567" x2="156.568" y2="43.431"/>
+<circle cx="36.36" cy="163.639" r="5"/>
+<circle cx="163.639" cy="36.36" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="156.568" y1="156.567" x2="43.432" y2="43.431"/>
+<circle cx="163.64" cy="163.639" r="5.001"/>
+<circle cx="36.361" cy="36.36" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="22.727" y1="120.705" x2="177.274" y2="79.295"/>
+<circle cx="13.067" cy="123.294" r="5"/>
+<circle cx="186.933" cy="76.707" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="120.706" y1="177.273" x2="79.295" y2="22.726"/>
+<circle cx="123.294" cy="186.933" r="5"/>
+<circle cx="76.707" cy="13.067" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="30.718" y1="140" x2="169.282" y2="60"/>
+<circle cx="22.058" cy="145" r="5"/>
+<circle cx="177.942" cy="55" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="139.999" y1="169.282" x2="60" y2="30.718"/>
+<circle cx="144.999" cy="177.942" r="5"/>
+<circle cx="55" cy="22.058" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="60" y1="169.282" x2="140" y2="30.718"/>
+<circle cx="55" cy="177.942" r="5"/>
+<circle cx="145" cy="22.058" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="169.282" y1="140.001" x2="30.718" y2="60"/>
+<circle cx="177.942" cy="145.001" r="5"/>
+<circle cx="22.058" cy="55" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="79.295" y1="177.274" x2="120.706" y2="22.726"/>
+<circle cx="76.707" cy="186.934" r="5"/>
+<circle cx="123.294" cy="13.066" r="5"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="177.274" y1="120.706" x2="22.726" y2="79.294"/>
+<circle cx="186.934" cy="123.294" r="4.999"/>
+<circle cx="13.067" cy="76.706" r="5"/>
+</svg>
