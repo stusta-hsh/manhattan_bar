@@ -247,6 +247,7 @@
 			Nur für Bewohner der Studentenstadt Freimann
 			<div class="social-icons">
 				<a href="https://www.facebook.com/manhattanbarhsh/"><i class="fa fa-facebook-square"></i></a>
+				<a href="https://www.m.me/manhattanbarhsh"><i class="fa fa-facebook-messenger"></i></a>
 				<a href="mailto:manhattan@stusta.de"><i class="fa fa-envelope-square"></i></a>
 				<a href="https://wiki.stusta.de/Manhattan"><i class="fa fa-book"></i></a>
 			</div>
