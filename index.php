@@ -3,14 +3,13 @@
 	/*
 	*	Erstellt im Juni 2019 von Tim Weber (HSH, 1007)
 	*	auf Grundlage der Statusseite von Daniel Frejek (HSH, 1525)
-	*	Letzte Änderung: 16.07.2019
+	*	Letzte Änderung: 24.07.2019
 	*/
 
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
 	$days_from_monday = [6, 0, 1, 2, 3, 4, 5];
 
 	// Datenbankverbindung initialisieren
-
 	$sql_config = parse_ini_file('sql_config.ini');
 	$db = mysqli_connect($sql_config['host'], $sql_config['username'], $sql_config['password'], $sql_config['dbname']);
 	if(!$db) exit('Database connection error: '.mysqli_connect_error());
