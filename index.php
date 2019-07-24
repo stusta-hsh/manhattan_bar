@@ -3,18 +3,17 @@
 	/*
 	*	Erstellt im Juni 2019 von Tim Weber (HSH, 1007)
 	*	auf Grundlage der Statusseite von Daniel Frejek (HSH, 1525)
-	*	Kontakt: tim.weber@stusta.de
 	*	Letzte Änderung: 16.07.2019
 	*/
 
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
 	$days_from_monday = [6, 0, 1, 2, 3, 4, 5];
 
-	// Datenbankabfrage um den Stand des Schalters zu prüfen.
+	// Datenbankverbindung initialisieren
 
 	$sql_config = parse_ini_file('sql_config.ini');
 	$db = mysqli_connect($sql_config['host'], $sql_config['username'], $sql_config['password'], $sql_config['dbname']);
-	if(!$db) exit("Database connection error: ".mysqli_connect_error());
+	if(!$db) exit('Database connection error: '.mysqli_connect_error());
 
 	// Datenbankabfrage aktueller Wochenplan
 	$sql = 'SELECT * FROM schedules WHERE calendar_week = ?';
@@ -41,53 +40,51 @@
 			$employee_names[$employee['id']] = $employee['first_name'];
 	}
 
+	// Datenbankabfrage Status Manhattan
 	$sql = 'SELECT date, status FROM openstatus ORDER BY date DESC LIMIT 1';
 	$sql_query = mysqli_prepare($db, $sql);
 	if (!$sql_query) die('ERROR: could not prepare sql: $sql');
 	mysqli_stmt_execute($sql_query);
-
 	$result = mysqli_stmt_get_result($sql_query);
-
-	if (mysqli_num_rows($result) == 0)
-		die("db result empty!");
+	if (mysqli_num_rows($result) == 0) die('db result empty!');
 	$row = mysqli_fetch_assoc($result);
 	mysqli_stmt_close($sql_query);
+
 	$status = $row['status'];
 	$lastrefreshed = $row['date'];
-	echo "<!--Last status: ". $status. "  updated: ". $lastrefreshed. " -->";
-
+	echo '<!--Last status: '. $status. '  updated: '. $lastrefreshed. ' -->';
 	$lrd = strtotime($lastrefreshed);
 	$diff = time() - $lrd;
 
 	if ($status != 0 && $diff > 43200){
-		 echo "\n<!--WARNING: Assuming CLOSED because the last status update is older than twelve hours! -->";
+		 echo '\n<!--WARNING: Assuming CLOSED because the last status update is older than twelve hours! -->';
 		 $status = 0;
 	}
 
 	if ($status == 1){
-		 $fcolor = "#000";
-		 $titlestatus = "Geöffnet";
-		 $desc = "Wir haben geöffnet!<br>Die Dachterrasse bleibt heute geschlossen.";
+		 $fcolor = '#000';
+		 $titlestatus = 'Geöffnet';
+		 $desc = 'Wir haben geöffnet!<br>Die Dachterrasse bleibt heute geschlossen.';
 		 if(empty($current_schedule))
-			 $desc .= "<br>Der aktuelle Plan kommt bald.<br><br><br><br>";
+			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
 	}
 	else if ($status == 2){
-		 $fcolor = "#000";
-		 $titlestatus = "Dachterrasse geöffnet";
-		 $desc = "Die Dachterrasse ist geöffnet!";
+		 $fcolor = '#000';
+		 $titlestatus = 'Dachterrasse geöffnet';
+		 $desc = 'Die Dachterrasse ist geöffnet!';
 		 if(empty($current_schedule))
-			 $desc .= "<br>Der aktuelle Plan kommt bald.<br><br><br><br>";
+			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
 	}
 	else{
-		 $fcolor = "gray";
-		 $titlestatus = "Geschlossen";
-		 $desc = "Aktuell geschlossen.";
+		 $fcolor = 'gray';
+		 $titlestatus = 'Geschlossen';
+		 $desc = 'Aktuell geschlossen.';
 		 if(empty($current_schedule))
-			 $desc .= "<br>Der Wochenplan kommt bald.<br><br><br><br>";
+			 $desc .= '<br>Der Wochenplan kommt bald.<br><br><br><br>';
 		 elseif($current_schedule[$weekdays[date('w')].'_open'])
-			 $desc .= "<br>Wir öffnen heute um 19 Uhr.";
+			 $desc .= '<br>Wir öffnen heute um 19 Uhr.';
 		 else
-			 $desc = "Heute bleiben wir geschlossen.";
+			 $desc = 'Heute bleiben wir geschlossen.';
 	}
 
 	// Ende der Datenbankabfrage
@@ -153,7 +150,6 @@
 	<title>Manhattan - <?php echo($titlestatus); ?></title>
 
 </head>
-
 <body>
 	<div class="content" >
 	<!-- style="background-image: linear-gradient(rgba(0, 0, 0, <?php echo(abs(date('G')-12)/12) ?>), rgba(0, 2, 41, <?php echo(abs(date('G')-12)/12) ?>), rgba(255, 0, 0, <?php echo(abs(date('G')-12)/12) ?>))"> -->
@@ -162,7 +158,7 @@
 		</div>
 
 		<div class="status textbox">
-			<h3 style='color: <?php echo($fcolor); ?>'><?php echo($desc); ?></h3>
+			<h3 style='color: <?php echo($fcolor) ?>'><?php echo($desc) ?></h3>
 		</div>
 
 		<?php if(!empty($current_schedule)){
@@ -171,31 +167,29 @@
 					<br><br>
 					<h4>Heute:</h4>
 					<?php
-					$acc1='';
-					if(!empty(get_event()))
-						$acc1.=get_event();
-					if(!empty(get_event()) && !empty(get_deal()))
-						$acc1.='<br>';
-					if(!empty(get_deal()))
-						$acc1.=get_deal();
-					echo('<h2 style="color: #03aa2a">'.$acc1.'</h2>');
-					?>
-					<?php
-					$acc2='';
-					if(!empty(get_theke()) || !empty(get_springer()) || !empty(get_kueche())){
-							$acc2.='mit ';
-						if(!empty(get_kueche()))
-							$acc2.=get_kueche();
-						if(!empty(get_kueche()) && !empty(get_theke()) && empty(get_springer()))
-							$acc2.=' & ';
-						if(!empty(get_kueche()) && !empty(get_theke()) && !empty(get_springer()))
-							$acc2.=', ';
-						if(!empty(get_theke()))
-							$acc2.=get_theke();
-						if(!empty(get_springer()))
-							$acc2.=' & '.get_springer();
-						echo('<h3>'.$acc2.'</h3>');
-					}
+						$acc1='';
+						if(!empty(get_event()))
+							$acc1.=get_event();
+						if(!empty(get_event()) && !empty(get_deal()))
+							$acc1.='<br>';
+						if(!empty(get_deal()))
+							$acc1.=get_deal();
+						echo('<h2 style="color: #03aa2a">'.$acc1.'</h2>');
+						$acc2='';
+						if(!empty(get_theke()) || !empty(get_springer()) || !empty(get_kueche())){
+								$acc2.='mit ';
+							if(!empty(get_kueche()))
+								$acc2.=get_kueche();
+							if(!empty(get_kueche()) && !empty(get_theke()) && empty(get_springer()))
+								$acc2.=' & ';
+							if(!empty(get_kueche()) && !empty(get_theke()) && !empty(get_springer()))
+								$acc2.=', ';
+							if(!empty(get_theke()))
+								$acc2.=get_theke();
+							if(!empty(get_springer()))
+								$acc2.=' & '.get_springer();
+							echo('<h3>'.$acc2.'</h3>');
+						}
 					?>
 				</div>
 			<?php } ?>
@@ -207,36 +201,36 @@
 							<td>
 								<?php echo ucfirst($weekdays[$i%7]) ?><br>
 								<a style="font-size: 8pt">
-									<?php echo date('j.n.', time()-($days_from_monday[date('w')]*24*60*60)+($i-1)*24*60*60); ?>
+									<?php echo date('j.n.', time()-($days_from_monday[date('w')]*24*60*60)+($i-1)*24*60*60) ?>
 								</a>
 							</td>
 							<td id="<?php echo($weekdays[$i%7].'_daily') ?>">
 								<?php
-								if(!$current_schedule[$weekdays[$i%7].'_open']){
-									echo('<span style="color: grey">geschlossen</span>');
-								}else{
-									if(empty($current_schedule[$weekdays[$i%7].'_deal']) && empty($current_schedule[$weekdays[$i%7].'_event']))
-										echo('geöffnet');
-									if(!empty($current_schedule[$weekdays[$i%7].'_event']))
-										echo('<span id="'.$weekdays[$i%7].'_event">'.$current_schedule[$weekdays[$i%7].'_event'].'</span>');
-									if(!empty($current_schedule[$weekdays[$i%7].'_event']) && !empty($current_schedule[$weekdays[$i%7].'_deal']))
-										echo('<br>');
-									if(!empty($current_schedule[$weekdays[$i%7].'_deal']))
-										echo('<span id="'.$weekdays[$i%7].'_deal">'.$current_schedule[$weekdays[$i%7].'_deal'].'</span>');
-							 	}?><br>
+									if(!$current_schedule[$weekdays[$i%7].'_open']){
+										echo('<span style="color: grey">geschlossen</span>');
+									}else{
+										if(empty($current_schedule[$weekdays[$i%7].'_deal']) && empty($current_schedule[$weekdays[$i%7].'_event']))
+											echo('geöffnet');
+										if(!empty($current_schedule[$weekdays[$i%7].'_event']))
+											echo('<span id="'.$weekdays[$i%7].'_event">'.$current_schedule[$weekdays[$i%7].'_event'].'</span>');
+										if(!empty($current_schedule[$weekdays[$i%7].'_event']) && !empty($current_schedule[$weekdays[$i%7].'_deal']))
+											echo('<br>');
+										if(!empty($current_schedule[$weekdays[$i%7].'_deal']))
+											echo('<span id="'.$weekdays[$i%7].'_deal">'.$current_schedule[$weekdays[$i%7].'_deal'].'</span>');
+								 	}
+								?><br>
 							</td>
 							<td id="<?php echo($weekdays[$i%7].'_team') ?>">
 								<?php
-								if(!empty($current_schedule[$weekdays[$i%7].'_kueche'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_kueche']]);
-								if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && !empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(', <br>');
-								if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & ');
-								if(!empty($current_schedule[$weekdays[$i%7].'_theke'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_theke']]);
-								if(!empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & '.$employee_names[$current_schedule[$weekdays[$i%7].'_springer']]);
+									if(!empty($current_schedule[$weekdays[$i%7].'_kueche'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_kueche']]);
+									if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && !empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(', <br>');
+									if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & ');
+									if(!empty($current_schedule[$weekdays[$i%7].'_theke'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_theke']]);
+									if(!empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & '.$employee_names[$current_schedule[$weekdays[$i%7].'_springer']]);
 								?>
 							</td>
 						</tr>
-					<?php }
-					?>
+					<?php } ?>
 				</table>
 			</div>
 		<?php } ?>
