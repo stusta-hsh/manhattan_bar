@@ -25,7 +25,7 @@ body{
 
 .content {
 	background-color: white;
-	background-image: linear-gradient(lightblue, white, white);
+	//background-image: linear-gradient(lightblue, white, white);
 	width: 100%;
 }
 
