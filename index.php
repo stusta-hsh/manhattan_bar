@@ -155,7 +155,8 @@
 </head>
 
 <body>
-	<div class="content" style="background-image: linear-gradient(rgba(0, 0, 0, <?php echo(abs(date('G')-12)/12) ?>), rgba(0, 2, 41, <?php echo(abs(date('G')-12)/12) ?>), rgba(255, 0, 0, <?php echo(abs(date('G')-12)/12) ?>))">
+	<div class="content" >
+	<!-- style="background-image: linear-gradient(rgba(0, 0, 0, <?php echo(abs(date('G')-12)/12) ?>), rgba(0, 2, 41, <?php echo(abs(date('G')-12)/12) ?>), rgba(255, 0, 0, <?php echo(abs(date('G')-12)/12) ?>))"> -->
 		<div class="logo">
 			<img src="images/logo.png" alt="Manhattan" width="100%">
 		</div>
