@@ -13,7 +13,7 @@ $max_calendar_week = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query))['cal
 mysqli_stmt_close($sql_query);
 
 // Datenbankabfrage Liste aller aktiven Mitarbeiter
-$sql = 'SELECT employees.id, employees.first_name, employees.last_name, employees.display_name, employees.room_number, houses.name AS "house.name" FROM employees LEFT JOIN houses ON employees.house = houses.id  WHERE employees.deleted=0 AND employees.active=1 ORDER BY employees.first_name ASC, employees.last_name ASC';
+$sql = 'SELECT employees.id, employees.first_name, employees.last_name, employees.display_name, employees.room_number, employees.training_0, employees.training_1, employees.training_2, houses.name AS "house.name" FROM employees LEFT JOIN houses ON employees.house = houses.id  WHERE employees.deleted=0 AND employees.active=1 ORDER BY employees.first_name ASC, employees.last_name ASC';
 $sql_query = mysqli_prepare($db, $sql);
 if (!$sql_query) die('ERROR: could not prepare sql: $sql');
 mysqli_stmt_execute($sql_query);
@@ -52,33 +52,40 @@ if($_POST){
 				<table>
 					<?php for($day=1; $day<8; $day++){ ?>
 						<tr>
-							<td><?php echo ucfirst($weekdays[$day%7]) ?>
-							<input name='<?php echo $weekdays[$day%7].'_open' ?>' type='hidden' value='0'><input name='<?php echo $weekdays[$day%7].'_open' ?>' type='checkbox' value='1' checked>
-							<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='time' value='19:00'></td>
+							<td>
+								<?php echo ucfirst($weekdays[$day%7]) ?>
+								<input name='<?php echo $weekdays[$day%7].'_open' ?>' type='hidden' value='0'><input name='<?php echo $weekdays[$day%7].'_open' ?>' type='checkbox' value='1' checked>
+								<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='time' value='19:00'>
+							</td>
 							<td>
 								<input type='text' name='<?php echo $weekdays[$day%7].'_event' ?>' placeholder='Event / Tagesessen'><br>
-								<input type='text' name='<?php echo $weekdays[$day%7].'_deal' ?>' placeholder='Angebot'></td>
+								<input type='text' name='<?php echo $weekdays[$day%7].'_deal' ?>' placeholder='Angebot'>
+							</td>
 							<td>
 								<select name='<?php echo $weekdays[$day%7].'_theke' ?>'>
-									<option value='' selected>Theke</option>
-									<?php foreach($employees as $employee){ ?>
-										<option value="<?php echo $employee['id'] ?>"><?php echo parse_employee_name($employee, 1); ?></option>
-									<?php } ?>
+									<option value=''>Theke</option>
+									<?php foreach($employees as $employee){
+										if($employee['training_0'] || $employee['training_1'])
+											echo ('<option value="'.$employee['id'].'">'.parse_employee_name($employee,1).'</option>');
+									} ?>
 								</select>
 								<br>
 								<select name='<?php echo $weekdays[$day%7].'_springer' ?>'>
-									<option value='' selected>Springer</option>
-									<?php foreach($employees as $employee){ ?>
-										<option value="<?php echo $employee['id'] ?>"><?php echo parse_employee_name($employee, 1); ?></option>
-									<?php } ?>
+									<option value=''>Springer</option>
+									<?php foreach($employees as $employee){
+										if($employee['training_0'] || $employee['training_1'])
+											echo ('<option value="'.$employee['id'].'">'.parse_employee_name($employee,1).'</option>');
+									} ?>
 								</select>
 								<br>
 								<select name='<?php echo $weekdays[$day%7].'_kueche' ?>'>
-									<option value='' selected>Küche</option>
-									<?php foreach($employees as $employee){ ?>
-										<option value="<?php echo $employee['id'] ?>"><?php echo parse_employee_name($employee, 1); ?></option>
-									<?php } ?>
+									<option value=''>Küche</option>
+									<?php foreach($employees as $employee){
+										if($employee['training_2'])
+											echo ('<option value="'.$employee['id'].'">'.parse_employee_name($employee,1).'</option>');
+									} ?>
 								</select>
+							</td>
 						</tr>
 					<?php } ?>
 				</table>
