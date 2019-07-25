@@ -2,12 +2,13 @@
 
 <?php
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
+	$months = ['Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sept.', 'Okt.', 'Nov.', 'Dez.'];
 	$days_from_monday = [6, 0, 1, 2, 3, 4, 5];
 	if(isset($_GET['id'])) $id = $_GET['id'];
 
 	// Datenbankabfrage aus der alten Seite um den Stand des Schalters zu prüfen.
 
-	$sql_config = parse_ini_file('sql_config.ini');
+	$sql_config = parse_ini_file('../sql_config.ini');
 	$db = mysqli_connect($sql_config['host'], $sql_config['username'], $sql_config['password'], $sql_config['dbname']);
 	if(!$db) exit("Database connection error: ".mysqli_connect_error());
 
@@ -15,14 +16,14 @@
 	$sql = 'SELECT * FROM schedules WHERE calendar_week = ?';
 	$sql_query = mysqli_prepare($db, $sql);
 	mysqli_stmt_bind_param($sql_query, 'i', date('W'));
-	if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+	if (!$sql_query) die('ERROR: could not prepare sql: '.$sql);
 	mysqli_stmt_execute($sql_query);
 	$current_schedule = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 	mysqli_stmt_close($sql_query);
 
 	$sql = 'SELECT date, status FROM openstatus ORDER BY date DESC LIMIT 1';
 	$sql_query = mysqli_prepare($db, $sql);
-	if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+	if (!$sql_query) die('ERROR: could not prepare sql: '.$sql);
 	mysqli_stmt_execute($sql_query);
 
 	$result = mysqli_stmt_get_result($sql_query);
