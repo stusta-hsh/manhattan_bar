@@ -27,7 +27,7 @@ mysqli_stmt_close($sql_query);
 		<table>
 			<tr>
 				<th></th>
-				<th>KW</th>
+				<th></th>
 				<th>Mo</th>
 				<th>Di</th>
 				<th>Mi</th>
@@ -36,19 +36,19 @@ mysqli_stmt_close($sql_query);
 				<th>Sa</th>
 				<th>So</th>
 				<!--<th></th>-->
-				<th>Tage offen</th>
+				<!--<th>Tage offen</th>-->
 			</tr>
 			<?php foreach($schedules as $schedule){ ?>
 				<tr>
-					<td><?php if(date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))<8)echo($months[date('n', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))-1]); ?></td>
-					<td><a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>"><?php echo $schedule['calendar_week'] ?></a></td>
+					<td><?php if(date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))<8)echo($months[date('n', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))-1].'<a style="font-size: 8pt">'.$schedule['year'].'</a>'); ?></td>
+					<td><a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>"><a style="font-size: 8pt">KW</a><?php echo $schedule['calendar_week'] ?></a></td>
 					<?php
 						for($i=1; $i<8; $i++){ ?>
 							<td><a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>" <?php if(!$schedule[$weekdays[$i%7].'_open']) echo('style="color:#bbb"'); ?>><?php echo date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(($i-2)*24*60*60)) ?></a></td>
 						<?php }
 					?>
 					<!--<td><a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>"><?php echo date('j.n.', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60-(24*60*60)) ?> - <?php echo date('j.n.', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60)) ?></a></td>-->
-					<td><a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>"><?php echo $schedule['days_open'] ?></a></td>
+					<!--<td><a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>"><?php echo $schedule['days_open'] ?></a></td>-->
 				</tr>
 			<?php } ?>
 		</table>
