@@ -197,7 +197,7 @@
 				<table class="wochenplan">
 					<?php for($i=1; $i<8; $i++){ ?>
 						<tr id="<?php echo($weekdays[$i%7]) ?>">
-							<td>
+							<td style="width: 45px">
 								<?php echo ucfirst($weekdays[$i%7]) ?><br>
 								<a style="font-size: 8pt">
 									<?php echo date('j.n.', time()-($days_from_monday[date('w')]*24*60*60)+($i-1)*24*60*60) ?>
