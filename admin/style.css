@@ -317,3 +317,13 @@ table tr:nth-child(odd){
 	margin: 2px;
 	resize: none;
 }
+
+.monthly-report{
+	display:flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+.monthly-report div{
+	padding: 3px 5px;
+}
