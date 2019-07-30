@@ -2,7 +2,7 @@
 
 <?php
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
-	$months = ['Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.'];
+	$months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 	$days_from_monday = [6, 0, 1, 2, 3, 4, 5];
 	if(isset($_GET['id'])) $id = $_GET['id'];
 

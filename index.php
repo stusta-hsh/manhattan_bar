@@ -3,7 +3,7 @@
 	/*
 	*	Erstellt im Juni 2019 von Tim Weber (HSH, 1007)
 	*	auf Grundlage der Statusseite von Daniel Frejek (HSH, 1525)
-	*	Letzte Änderung: 24.07.2019
+	*	Letzte Änderung: 30.07.2019
 	*/
 
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
