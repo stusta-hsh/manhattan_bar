@@ -40,8 +40,17 @@ mysqli_stmt_close($sql_query);
 			</tr>
 			<?php foreach($schedules as $schedule){ ?>
 				<tr>
-					<td><?php if(date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))<8)echo($months[date('n', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))-1].'<a style="font-size: 8pt">'.$schedule['year'].'</a>'); ?></td>
-					<td><a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>"><a style="font-size: 8pt">KW</a><?php echo $schedule['calendar_week'] ?></a></td>
+					<td>
+						<a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>">
+							<?php if(date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))<8)echo($months[date('n', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))-1].'<br><span style="font-size: 8pt">'.$schedule['year'].'</span>'); ?>
+						</a>
+					</td>
+					<td>
+						<a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>">
+							<span style="font-size: 8pt">KW</span><br>
+							<span><?php echo $schedule['calendar_week'] ?></span>
+						</a>
+					</td>
 					<?php
 						for($i=1; $i<8; $i++){ ?>
 							<td><a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>" <?php if(!$schedule[$weekdays[$i%7].'_open']) echo('style="color:#bbb"'); ?>><?php echo date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(($i-2)*24*60*60)) ?></a></td>

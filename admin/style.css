@@ -101,12 +101,9 @@ table th{
 	font-weight: normal;
 }
 
-table td{
-	padding: 10px 5px;
-}
-
 table td a{
 	display:block;
+	padding: 5px 5px;
 	text-decoration: none;
 	color: #333;
 }
