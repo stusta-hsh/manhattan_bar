@@ -34,14 +34,14 @@ include('employee_header.php');
 				<tr>
 					<td style="text-align: right">
 						<a href="employee_edit.php?id=<?php echo $employee['id'] ?>">
-							<?php if(!empty($employee['room_number']))echo($employee['room_number'].'<br>'); ?>
-							<a style="font-size: 8pt" href="employee_edit.php?id=<?php echo $employee['id'] ?>"><?php echo($employee['house.name']); ?></a>
+							<?php if(!empty($employee['room_number']))echo($employee['room_number']); ?>
+							<span style="font-size: 8pt" href="employee_edit.php?id=<?php echo $employee['id'] ?>"><br><?php echo($employee['house.name']); ?></span>
 						</a>
 					</td>
 					<td style="text-align: left">
 						<a href="employee_edit.php?id=<?php echo $employee['id'] ?>">
 							<?php echo($employee['display_name']); ?>
-							<br><a style="font-size: 8pt; color: #666" href="employee_edit.php?id=<?php echo $employee['id'] ?>"><?php echo($employee['first_name'].' '.$employee['last_name']); ?></a>
+							<span style="font-size: 8pt; color: #666" href="employee_edit.php?id=<?php echo $employee['id'] ?>"><br><?php echo($employee['first_name'].' '.$employee['last_name']); ?></span>
 						</a>
 					</td>
 					<td title="aktiv">
