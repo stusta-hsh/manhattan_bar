@@ -20,9 +20,9 @@ mysqli_stmt_close($sql_query);
 		<a class='tab <?php if($page_title=='admin') echo 'active-tab'; ?>' href='index.php' title='Startseite'><i class='fa fa-home'></i></a>
 		<a class='tab <?php if($page_title=='schedules') echo 'active-tab'; ?>' href='schedule_list.php?y=<?php echo date('Y') ?>&m=<?php echo date('n') ?>' title='Wochenpläne'><i class='fa fa-calendar'></i></a>
 		<a class='tab <?php if($page_title=='team') echo 'active-tab'; ?>' href='employee_list.php' title='Mitarbeiter'><i class='fa fa-users'></i></a>
-		<a class='tab <?php if($page_title=='events') echo 'active-tab'; ?>' title='Events'><i style='color: #888' class='fa fa-bullhorn'></i></a>
+		<!--<a class='tab <?php if($page_title=='events') echo 'active-tab'; ?>' title='Events'><i style='color: #888' class='fa fa-bullhorn'></i></a>
 		<a class='tab <?php if($page_title=='finances') echo 'active-tab'; ?>' title='Finanzen'><i style='color: #888' class='fa fa-euro'></i></a>
-		<a class='tab <?php if($page_title=='stats') echo 'active-tab'; ?>' title='Statistiken'><i style='color: #888' class='fa fa-bar-chart'></i></a>
+		<a class='tab <?php if($page_title=='stats') echo 'active-tab'; ?>' title='Statistiken'><i style='color: #888' class='fa fa-bar-chart'></i></a>-->
 		<a class='tab <?php if($page_title=='settings') echo 'active-tab'; ?>' href='settings.php' title='Einstellungen'><i class='fa fa-cog'></i></a>
 	</div>
 </div>
