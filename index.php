@@ -3,7 +3,7 @@
 	/*
 	*	Erstellt im Juni 2019 von Tim Weber (HSH, 1007)
 	*	auf Grundlage der Statusseite von Daniel Frejek (HSH, 1525)
-	*	Letzte Änderung: 30.07.2019
+	*	Letzte Änderung: 03.08.2019
 	*/
 
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
@@ -197,7 +197,7 @@
 				<table class="wochenplan">
 					<?php for($i=1; $i<8; $i++){ ?>
 						<tr id="<?php echo($weekdays[$i%7]) ?>">
-							<td style="width: 45px">
+							<td style="width: 40px">
 								<?php echo ucfirst($weekdays[$i%7]) ?><br>
 								<a style="font-size: 8pt">
 									<?php echo date('j.n.', time()-($days_from_monday[date('w')]*24*60*60)+($i-1)*24*60*60) ?>
