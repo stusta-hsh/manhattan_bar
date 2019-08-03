@@ -23,7 +23,7 @@ include('employee_header.php');
 		<input type="text" id="employee_searchbar" onkeyup="searchlist('employee_searchbar', 'employee_list')" placeholder="Suche nach Mitarbeitern..." autofocus>
 
 		<table class="employee_list" id="employee_list">
-			<tr>
+			<!--<tr>
 				<th style="width: 50px;"></th>
 				<th></th>
 				<th>aktiv</th>
@@ -33,10 +33,10 @@ include('employee_header.php');
 				<th style="width: 15px;"></th>
 				<th style="width: 15px;"></th>
 				<th style="width: 15px;"></th>
-			</tr>
+			</tr>-->
 			<?php foreach($employees as $employee){ ?>
 				<tr>
-					<td style="text-align: right">
+					<td style="width: 50px; text-align: right">
 						<a href="employee_edit.php?id=<?php echo $employee['id'] ?>">
 							<?php if(!empty($employee['room_number']))echo($employee['room_number']); ?>
 							<span style="font-size: 8pt" href="employee_edit.php?id=<?php echo $employee['id'] ?>"><br><?php echo($employee['house.name']); ?></span>
