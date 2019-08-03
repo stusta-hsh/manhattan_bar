@@ -9,9 +9,9 @@
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
 	$days_from_monday = [6, 0, 1, 2, 3, 4, 5];
 
-	// Datenbankverbindung initialisieren
-	$sql_config = parse_ini_file('sql_config.ini');
-	$db = mysqli_connect($sql_config['host'], $sql_config['username'], $sql_config['password'], $sql_config['dbname']);
+	include('sql_config.php');
+	$db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
+
 	if(!$db) exit('Database connection error: '.mysqli_connect_error());
 
 	// Datenbankabfrage aktueller Wochenplan

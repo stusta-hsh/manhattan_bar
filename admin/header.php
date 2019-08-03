@@ -7,9 +7,9 @@
 	if(isset($_GET['id'])) $id = $_GET['id'];
 
 	// Datenbankabfrage aus der alten Seite um den Stand des Schalters zu prüfen.
+	include('../sql_config.php');
+	$db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
 
-	$sql_config = parse_ini_file('../sql_config.ini');
-	$db = mysqli_connect($sql_config['host'], $sql_config['username'], $sql_config['password'], $sql_config['dbname']);
 	if(!$db) exit("Database connection error: ".mysqli_connect_error());
 
 	// Datenbankabfrage aktueller Wochenplan
