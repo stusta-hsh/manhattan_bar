@@ -144,6 +144,34 @@
 <html>
 <head>
 
+	<script>
+		function searchlist(input, table) {
+			var input, filter, table, rows, data, i, txtValue;
+			search = document.getElementById(input);
+			filter = search.value.toLowerCase();
+			filterarray = filter.split(/\s+/);
+			table = document.getElementById(table);
+			rows = table.getElementsByTagName('tr');
+
+			for (i = 1; i < rows.length; i++) {
+				data = rows[i].textContent.toLowerCase();
+				var notfound=0;
+				for (var j = 0; j < filterarray.length; j++) {
+					if (data.indexOf(filterarray[j]) === -1) {
+						notfound=1;
+						break;
+					}
+				}
+				if (notfound == 1) {
+					rows[i].style.display = "none";
+				}
+				else {
+					rows[i].style.display = "";
+				}
+			}
+		}
+	</script>
+
 	<link href="style.css" rel="stylesheet" type="text/css" media="all">
 	<link rel="stylesheet" href="../fonts/fork-awesome/css/fork-awesome.min.css">
 

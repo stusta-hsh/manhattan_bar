@@ -18,7 +18,11 @@ include('employee_header.php');
 ?>
 	<div class="content">
 		<h3>Alle Mitarbeiter (<?php echo(mysqli_num_rows($employees)); ?>)</h3>
-		<table class="employee_list">
+
+		<i class="fa fa-search" aria-hidden="true"></i>
+		<input type="text" id="employee_searchbar" onkeyup="searchlist('employee_searchbar', 'employee_list')" placeholder="Suche nach Mitarbeitern..." autofocus>
+
+		<table class="employee_list" id="employee_list">
 			<tr>
 				<th style="width: 50px;"></th>
 				<th></th>
