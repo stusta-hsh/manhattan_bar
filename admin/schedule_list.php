@@ -26,11 +26,11 @@ mysqli_stmt_close($sql_query);
 	</div>
 
 	<div class="content">
-		<h3>
-			<a href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>"><i class="fa fa-chevron-left"></i></a>
-			<?php echo(' '.$months[$month-1].' '.$year.' '); ?>
-			<a href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>"><i class="fa fa-chevron-right"></i></a>
-		</h3>
+		<div class="arrow-navigation">
+			<a class="arrow-button" href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>"><i class="fa fa-chevron-left"></i></a>
+			<h3><?php echo(' '.$months[$month-1].' '.$year.' '); ?></h3>
+			<a class="arrow-button" href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>"><i class="fa fa-chevron-right"></i></a>
+		</div>
 		<!--<div class="monthly-report">
 			<div>Öffnungstage:</div>
 			<div>Events:</div>

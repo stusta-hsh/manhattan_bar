@@ -71,15 +71,17 @@ if($_POST){
 	<div class='content'>
 		<div class='edit_schedule_form'>
 			<form method='post' action=''>
-				<?php if(!empty($schedule_previous)){ ?>
-					<a href='schedule_edit.php?id=<?php echo $schedule_previous['id'] ?>'><i class='fa fa-chevron-left' aria-hidden='true'></i></a>
-				<?php } ?>
-				<input name='year' type='number' value='<?php echo $schedule['year'] ?>' class='input_year'></input>
-				KW
-				<input name='calendar_week' type='number' value='<?php echo $schedule['calendar_week'] ?>' class='input_week'></input>
-				<?php if(!empty($schedule_next)){ ?>
-					<a href='schedule_edit.php?id=<?php echo $schedule_next['id'] ?>'><i class='fa fa-chevron-right' aria-hidden='true'></i></a>
-				<?php } ?>
+				<div class="arrow-navigation">
+					<?php if(!empty($schedule_previous)){ ?>
+						<a class="arrow-button" href='schedule_edit.php?id=<?php echo $schedule_previous['id'] ?>'><i class='fa fa-chevron-left'></i></a>
+					<?php } ?>
+					<div>
+						<input name='year' type='number' value='<?php echo $schedule['year'] ?>' class='input_year'></input>
+						KW
+						<input name='calendar_week' type='number' value='<?php echo $schedule['calendar_week'] ?>' class='input_week'></input>
+					</div>
+					<a class="arrow-button" <?php if(!empty($schedule_next)){echo('href="schedule_edit.php?id='.$schedule_next['id'].'"');} else {echo('style="color:#ddd; border-color:#ddd;"');} ?>><i class='fa fa-chevron-right'></i></a>
+				</div>
 				<table>
 					<?php for($day=1; $day<8; $day++){ ?>
 						<tr>
