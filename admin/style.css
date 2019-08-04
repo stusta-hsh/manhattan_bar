@@ -62,17 +62,6 @@ body{
 	background-color: #eee;
 }
 
-.status-bar{
-	display: flex;
-	flex-flow: row, nowrap;
-	justify-content: space-between;
-	width: 100%;
-	max-width: 800px;
-	background-color: #000;
-	color: #eee;
-	margin: auto;
-}
-
 .tab:not(.active-tab):hover{
 	background-color: #bee5c6;
 	color: #333;
@@ -94,7 +83,6 @@ table{
 	max-width: 550px;
 	margin: auto;
 	border-collapse: collapse;
-	margin-top: 20px;
 }
 
 table th{
@@ -108,7 +96,7 @@ table td a{
 	color: #333;
 }
 
-table td i{
+table td .fa{
 	color: #555;
 }
 
@@ -118,12 +106,6 @@ table tr:nth-child(odd){
 
 .employee_list tr:not:first-child{
 	height: 55px;
-}
-
-.wochenplan{
-	color: #222;
-	max-width: 550px;
-	margin: auto;
 }
 
 .wochenplan td, th{
@@ -163,7 +145,6 @@ table tr:nth-child(odd){
 .toolbar span{
 	font-size: 12px;
 	color: #555;
-	//width: 80px;
 	text-align: center;
 	padding: 10px 1px;
 	flex-basis: 1px;
@@ -176,19 +157,18 @@ table tr:nth-child(odd){
 	margin-bottom: 5px;
 }
 
-.edit_schedule_form input{
+form input{
 	font-family: 'Raleway', sans-serif;
-	text-align: center;
+	font-size: 16px;
 }
 
 .edit_schedule_form input[type="text"]{
+	text-align: center;
 	padding: 3px;
 	margin: 2px;
 	border-width: 0px;
-	//border-bottom: 1px solid grey;
 	background-color: rgba(0,0,0,0);
 	width: 100%;
-	font-size: 16px;
 }
 
 .edit_schedule_form input[type="number"]{
@@ -200,11 +180,11 @@ table tr:nth-child(odd){
 	font-size: 24px;
 }
 
-.input_week{
+.edit_schedule_form .input_week{
 	width: 50px;
 }
 
-.input_year{
+.edit_schedule_form .input_year{
 	width: 70px;
 }
 
@@ -213,21 +193,16 @@ table tr:nth-child(odd){
 	padding: 3px;
 	margin: 2px;
 	border-width: 0px;
-	//border-bottom: 1px solid grey;
 	background-color: rgba(0,0,0,0);
 }
 
-.edit_schedule_form input[type="submit"]{
+input[type="submit"]{
 	padding: 10px 20px;
 	margin: 20px;
 	border-width: 0px;
 	border-radius: 3px;
 	background-color: #03aa2a;
-	font-size: 16px;
 	color: white;
-}
-
-.edit_schedule_form input[type="submit"]:hover{
 	cursor: pointer;
 }
 
@@ -239,7 +214,6 @@ table tr:nth-child(odd){
 .edit_schedule_form select{
 	width: 130px;
 	border-width: 0px;
-	//border-bottom: 1px solid grey;
 	background-color: rgba(0,0,0,0);
 	padding: 3px;
 	margin: 2px;
@@ -252,21 +226,6 @@ table tr:nth-child(odd){
 	color: #333;
 }
 
-.edit_employee_form input[type="submit"]{
-	padding: 10px 20px;
-	margin: 20px;
-	border-width: 0px;
-	border-radius: 3px;
-	background-color: #03aa2a;
-	font-family: 'Raleway', sans-serif;
-	font-size: 16px;
-	color: white;
-}
-
-.edit_employee_form input[type="submit"]:hover{
-	cursor: pointer;
-}
-
 .edit_employee_form label{
 	display: block;
 	font-size: 12px;
@@ -277,8 +236,6 @@ table tr:nth-child(odd){
 }
 
 .edit_employee_form label input{
-	font-family: 'Raleway', sans-serif;
-	font-size: 16px;
 	padding: 3px;
 	margin: 2px;
 }
