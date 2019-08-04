@@ -3,7 +3,7 @@
 	/*
 	*	Erstellt im Juni 2019 von Tim Weber (HSH, 1007)
 	*	auf Grundlage der Statusseite von Daniel Frejek (HSH, 1525)
-	*	Letzte Änderung: 03.08.2019
+	*	Letzte Änderung: 05.08.2019
 	*/
 
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
@@ -56,7 +56,7 @@
 	$diff = time() - $lrd;
 
 	if ($status != 0 && $diff > 43200){
-		 echo '\n<!--WARNING: Assuming CLOSED because the last status update is older than twelve hours! -->';
+		 echo '<!--WARNING: Assuming CLOSED because the last status update is older than twelve hours! -->';
 		 $status = 0;
 	}
 
@@ -221,11 +221,13 @@
 							</td>
 							<td id="<?php echo($weekdays[$i%7].'_team') ?>">
 								<?php
-									if(!empty($current_schedule[$weekdays[$i%7].'_kueche'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_kueche']]);
-									if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && !empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(', <br>');
-									if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & ');
-									if(!empty($current_schedule[$weekdays[$i%7].'_theke'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_theke']]);
-									if(!empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & '.$employee_names[$current_schedule[$weekdays[$i%7].'_springer']]);
+									if($current_schedule[$weekdays[$i%7].'_open']){
+										if(!empty($current_schedule[$weekdays[$i%7].'_kueche'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_kueche']]);
+										if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && !empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(', <br>');
+										if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & ');
+										if(!empty($current_schedule[$weekdays[$i%7].'_theke'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_theke']]);
+										if(!empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & '.$employee_names[$current_schedule[$weekdays[$i%7].'_springer']]);
+									}
 								?>
 							</td>
 						</tr>
