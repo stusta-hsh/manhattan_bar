@@ -1,2 +1,3 @@
 sql_config.php
-/admin/.htpasswd
+admin/.htpasswd
+admin/.htaccess
