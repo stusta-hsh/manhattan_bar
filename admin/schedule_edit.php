@@ -126,7 +126,6 @@ if($_POST){
 				<input type='hidden' name='days_open' value='0'></input>
 				<input type='hidden' name='complete' value='0'></input>
 				<input type='hidden' name='id' value='<?php echo $schedule['id'] ?>'></input>
-				<input type='reset' value='Zurücksetzen'>
 				<input type='submit' value='Speichern'>
 			</form>
 		</div>
