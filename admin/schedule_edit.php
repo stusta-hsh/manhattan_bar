@@ -50,7 +50,7 @@ if($_POST){
 	$_POST['complete']=0; //TODO
 	$sql = 'UPDATE schedules SET '.implode(' = ?, ', array_slice(array_keys($_POST),0,sizeof($_POST)-1)).' = ? WHERE id = ?';
 	$sql_query = mysqli_prepare($db, $sql);
-	mysqli_stmt_bind_param($sql_query, 'ii'.str_repeat('isssiii', 7).'iii', ...array_values($_POST));
+	mysqli_stmt_bind_param($sql_query, str_repeat('isssiii', 7).'iii', ...array_values($_POST));
 	mysqli_stmt_execute($sql_query);
 	mysqli_stmt_close($sql_query);
 	header('Location: schedule_edit.php?id='.$id);
@@ -65,23 +65,21 @@ if($_POST){
 		<span><a href='schedule_edit.php?id=<?php echo $schedule['id'] ?>'><i class='fa fa-calendar-o'></i><br>Aktueller Plan</a></span>
 		<span><a href='schedule_new.php'><i class='fa fa-calendar-plus-o'></i><br>Neuer Plan</a></span>
 		<span><a href='schedule_print.php?id=<?php echo $schedule['id'] ?>' target='_blank'><i class='fa fa-print'></i><br>Drucken</a></span>
-		<span style='color: #ccc'><i style='color: #ccc' class='fa fa-trash'></i><br>Löschen</span>
+		<!--<span style='color: #ccc'><i style='color: #ccc' class='fa fa-trash'></i><br>Löschen</span>-->
+	</div>
+	<div class='toolbar'>
+		<span><a <?php if(!empty($schedule_previous))echo('href="schedule_edit.php?id='.$schedule_previous['id'].'"') ?>><i class='fa fa-chevron-left' <?php if(empty($schedule_previous))echo('style="color:#ccc"') ?>></i><br></a></span>
+		<h3>
+			<?php echo $schedule['year'] ?>
+			KW
+			<?php echo $schedule['calendar_week'] ?>
+		</h3>
+		<span><a <?php if(!empty($schedule_next))echo('href="schedule_edit.php?id='.$schedule_next['id'].'"') ?>><i class='fa fa-chevron-right' <?php if(empty($schedule_next))echo('style="color:#ccc"') ?>></i><br></a></span>
 	</div>
 </div>
 	<div class='content'>
 		<div class='edit_schedule_form'>
 			<form method='post' action=''>
-				<div class="arrow-navigation">
-					<?php if(!empty($schedule_previous)){ ?>
-						<a class="arrow-button" href='schedule_edit.php?id=<?php echo $schedule_previous['id'] ?>'><i class='fa fa-chevron-left'></i></a>
-					<?php } ?>
-					<div>
-						<input name='year' type='number' value='<?php echo $schedule['year'] ?>' class='input_year'></input>
-						KW
-						<input name='calendar_week' type='number' value='<?php echo $schedule['calendar_week'] ?>' class='input_week'></input>
-					</div>
-					<a class="arrow-button" <?php if(!empty($schedule_next)){echo('href="schedule_edit.php?id='.$schedule_next['id'].'"');} else {echo('style="color:#ddd; border-color:#ddd;"');} ?>><i class='fa fa-chevron-right'></i></a>
-				</div>
 				<table>
 					<?php for($day=1; $day<8; $day++){ ?>
 						<tr>

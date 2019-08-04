@@ -23,14 +23,14 @@ mysqli_stmt_close($sql_query);
 			<span style='color: #ccc'><i style='color: #ccc' class='fa fa-print'></i><br>Drucken</span>
 			<span style='color: #ccc'><i style='color: #ccc' class='fa fa-trash'></i><br>Löschen</span>
 		</div>
+		<div class='toolbar'>
+			<span><a href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>"><i class='fa fa-chevron-left'></i><br></a></span>
+			<h3><?php echo(' '.$months[$month-1].' '.$year.' '); ?></h3>
+			<span><a href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>"><i class='fa fa-chevron-right'></i><br></a></span>
+		</div>
 	</div>
 
 	<div class="content">
-		<div class="arrow-navigation">
-			<a class="arrow-button" href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>"><i class="fa fa-chevron-left"></i></a>
-			<h3><?php echo(' '.$months[$month-1].' '.$year.' '); ?></h3>
-			<a class="arrow-button" href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>"><i class="fa fa-chevron-right"></i></a>
-		</div>
 		<!--<div class="monthly-report">
 			<div>Öffnungstage:</div>
 			<div>Events:</div>
