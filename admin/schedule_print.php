@@ -2,6 +2,7 @@
 
 $rota = parse_ini_file('../wochenplan_'.date('W').'.ini');
 $weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
+$months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 $days_from_monday = [6, 0, 1, 2, 3, 4, 5];
 if(isset($_GET['id'])) $id = $_GET['id'];
 
@@ -58,8 +59,15 @@ $pdf->AddPage();
 $pdf->SetMargins(20, 10);
 $pdf->SetFont('Raleway', '', 15);
 $pdf->Image('../images/logo.png', 23, 10, -300, -300);
-$pdf->SetY(100);
-$pdf->Ln();
+$pdf->SetY(70);
+$pdf->SetFontSize(20);
+if(date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')) == date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))){
+	$pdf->Cell(0, $line_height, date('j.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1], 0, 0, 'C');
+}else{
+	$pdf->Cell(0, $line_height, date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1'))-1].' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1], 0, 0, 'C');
+}
+$pdf->SetFontSize(15);
+$pdf->SetY(90);
 for($i=1; $i<8; $i++){
 	$x=$pdf->GetX();
 	$y=$pdf->GetY();
@@ -74,7 +82,9 @@ for($i=1; $i<8; $i++){
 	$pdf->SetXY($x+15, $y+$line_margin);
 
 	if(!$schedule[$weekdays[$i%7].'_open']){
+		$pdf->SetTextColor(100, 100, 100);
 		$pdf->Cell(100, $line_height*2, 'geschlossen', $borders, 0, 'C', 'true');
+		$pdf->SetTextColor(0, 0, 0);
 	}elseif(!$schedule[$weekdays[$i%7].'_event']){
 		if(strpos($schedule[$weekdays[$i%7].'_deal'], '<br>')){
 			$pdf->MultiCell(100, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","\n",$schedule[$weekdays[$i%7].'_deal'])), $borders, 'C', 'true');
@@ -112,9 +122,10 @@ $pdf->SetY($y+30);
 $pdf->SetDrawColor(0, 0, 0);
 $pdf->SetFillColor(0, 0, 0);
 $pdf->Rect(0,280,250,100,'DF');
-$pdf->Image('../images/skyline_static.png', 5, 245, 200);
+$pdf->Image('../images/skyline_static.png', 10, 246, 190);
 $pdf->SetFontSize(13);
-$pdf->Cell(0, 10, 'Wochenplan und aktueller Status unter manhattan.stusta.de', 0, 0, 'C');
+$pdf->Cell(0, 8, iconv('UTF-8', 'windows-1252', 'HSH 21. Stock | Geöffnet ab 19 Uhr'), 0, 2, 'C');
+$pdf->Cell(0, 8, iconv('UTF-8', 'windows-1252', 'Wochenplan und aktueller Status unter manhattan.stusta.de'), 0, 0, 'C');
 
 $pdf->Output();
 
