@@ -13,41 +13,6 @@ $dbname = "e00038a";
 $db = mysqli_connect($servername, $username, $password, $dbname);
 if(!$db) exit("Database connection error: ".mysqli_connect_error());
 
-function get_special(){
-	global $rota, $weekdays;
-	if (isset($rota) && isset($rota[$weekdays[date('w', calc_time())].'_special']))
-		return $rota[$weekdays[date('w', calc_time())].'_special'];
-	else
-		return '';
-}
-
-function get_schicht(){
-	global $rota, $weekdays;
-	if (isset($rota) && isset($rota[$weekdays[date('w', calc_time())].'_schicht']))
-		return $rota[$weekdays[date('w', calc_time())].'_schicht'];
-	else
-		return '';
-}
-
-function parse_employee_name($employee, $short){
-	$name = '';
-	if($short && !empty($employee['display_name'])) $name.=$employee['display_name'];
-	else{
-		if(!empty($employee['first_name'])) $name.=$employee['first_name'];
-		if(!empty($employee['display_name'])) $name.=' „'.$employee['display_name'].'“';
-		if(!empty($employee['last_name']))
-			if($short) $name.=' '.substr($employee['last_name'],0,1).'.';
-			else $name.=' '.$employee['last_name'];
-	}
-	if(!empty($employee['room_number']) || (!empty($employee['house.name']) && $employee['house.name']!='HSH')) $name.=' (';
-	if(!empty($employee['house.name']) && $employee['house.name']!='HSH') $name.=$employee['house.name'];
-	if(!empty($employee['room_number']) && !empty($employee['house.name']) && $employee['house.name']!='HSH') $name.=', ';
-	if(!empty($employee['room_number'])) $name.=$employee['room_number'];
-	if(!empty($employee['room_number']) || (!empty($employee['house.name']) && $employee['house.name']!='HSH')) $name.=')';
-
-	return $name;
-}
-
 $page_title='schedules';
 
 require('fpdf181/fpdf.php');
@@ -84,38 +49,66 @@ foreach($employees as $employee){
 
 //PDF-variables
 $borders = 1; //draw cell-borders 0, 1, R, T, L, B
+$line_height = 6;
+$line_margin = 3;
 
 $pdf = new FPDF();
+$pdf->AddFont('raleway','','Raleway-Medium.php');
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 12);
+$pdf->SetFont('Raleway', '', 15);
 $pdf->Image('../images/logo.png', 23, 10, -300, -300);
-$pdf->SetY(80);
+$pdf->SetY(100);
 $pdf->Ln();
 for($i=1; $i<8; $i++){
+	$x=$pdf->GetX();
+	$y=$pdf->GetY();
 	if($i%2==0) $pdf->SetDrawColor(256, 256, 256); else $pdf->SetDrawColor(190, 229, 198);
 	if($i%2==0) $pdf->SetFillColor(256, 256, 256); else $pdf->SetFillColor(190, 229, 198);
-	$pdf->Cell(0, 2, '', $borders, 1, 'C', 'true');
-	$pdf->Cell(15, 10, ucfirst($weekdays[$i%7]), $borders, 0, 'C', 'true');
+	$pdf->Cell(0, $line_margin, '', $borders, 1, 'C', 'true');
+
+	$pdf->Cell(15, $line_height, ucfirst($weekdays[$i%7]), $borders, 2, 'C', 'true');
+	$pdf->SetFontSize(10);
+	$pdf->Cell(15, $line_height, date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$i)), $borders, 0, 'C', 'true');
+	$pdf->SetFontSize(15);
+	$pdf->SetXY($x+15, $y+$line_margin);
+
 	if(!$schedule[$weekdays[$i%7].'_open']){
-		$pdf->Cell(120, 10, iconv('UTF-8', 'windows-1252', 'geschlossen'), $borders, 0, 'C', 'true');
-		$pdf->Cell(55, 10, '', $borders, 0, 'C', 'true');
+		$pdf->Cell(120, $line_height*2, 'geschlossen', $borders, 0, 'C', 'true');
+	}elseif(!$schedule[$weekdays[$i%7].'_event']){
+		if(strpos($schedule[$weekdays[$i%7].'_deal'], '<br>')){
+			$pdf->MultiCell(120, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","\n",$schedule[$weekdays[$i%7].'_deal'])), $borders, 'C', 'true');
+		}else{
+			$pdf->Cell(120, $line_height*2, iconv('UTF-8', 'windows-1252', str_replace("<br>","",$schedule[$weekdays[$i%7].'_deal'])), $borders, 0, 'C', 'true');
+		}
 	}else{
-		$pdf->Cell(120, 10, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 0, 'C', 'true');
-		$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_kueche']]), $borders, 0, 'C', 'true');
+		$pdf->Cell(120, $line_height, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 2, 'C', 'true');
+		$pdf->Cell(120, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","",str_replace("<sup>","",str_replace("</sup>","",$schedule[$weekdays[$i%7].'_deal'])))), $borders, 0, 'C', 'true');
 	}
-	$pdf->Ln();
-	$pdf->Cell(15, 10, date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$i)), $borders, 0, 'C', 'true');
+
+	$pdf->SetXY($x+135, $y+$line_margin);
+
 	if(!$schedule[$weekdays[$i%7].'_open']){
-		$pdf->Cell(120, 10, '', $borders, 0, 'C', 'true');
-		$pdf->Cell(55, 10, '', $borders, 0, 'C', 'true');
+		$pdf->Cell(0, $line_height*2, '', $borders, 1, 'C', 'true');
+	}elseif(!$schedule[$weekdays[$i%7].'_kueche']){
+		if($schedule[$weekdays[$i%7].'_springer']){
+			$pdf->Cell(0, $line_height*2, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']].' & '.$employee_names[$schedule[$weekdays[$i%7].'_springer']]), $borders, 1, 'C', 'true');
+		}else{
+			$pdf->Cell(0, $line_height*2, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']]), $borders, 1, 'C', 'true');
+		}
 	}else{
-		$pdf->Cell(120, 10, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_deal']), $borders, 0, 'C', 'true');
-		$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']].' & '.$employee_names[$schedule[$weekdays[$i%7].'_springer']]), $borders, 0, 'C', 'true');
+		if(!$schedule[$weekdays[$i%7].'_springer']){
+			$pdf->Cell(0, $line_height*2, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_kueche']].' & '.$employee_names[$schedule[$weekdays[$i%7].'_theke']]), $borders, 2, 'C', 'true');
+		}else{
+			$pdf->Cell(0, $line_height, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_kueche']].','), $borders, 2, 'C', 'true');
+			$pdf->Cell(0, $line_height, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']].' & '.$employee_names[$schedule[$weekdays[$i%7].'_springer']]), $borders, 1, 'C', 'true');
+		}
 	}
-	$pdf->Ln();
-	$pdf->Cell(0, 2, '', $borders, 1, 'C', 'true');
+	//$pdf->MultiCell(0, $line_height*2, parse_shift($i%7), $borders, 'C', 'true');
+
+	$pdf->Cell(0, $line_margin, '', $borders, 1, 'C', 'true');
 }
-$pdf->Cell(0, 10, 'Wochenplan und aktueller Status auch unter www.manhattan.stusta.de', $borders, 0, 'C');
+$pdf->SetY($y+50);
+$pdf->Cell(0, 10, 'Wochenplan und aktueller Status unter manhattan.stusta.de', 0, 0, 'C');
 $pdf->Output();
 
 ?>
