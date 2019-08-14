@@ -82,6 +82,9 @@ foreach($employees as $employee){
 		$employee_names[$employee['id']]=$employee['first_name'];
 }
 
+//PDF-variables
+$borders = 1; //draw cell-borders 0, 1, R, T, L, B
+
 $pdf = new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 12);
@@ -89,16 +92,30 @@ $pdf->Image('../images/logo.png', 23, 10, -300, -300);
 $pdf->SetY(80);
 $pdf->Ln();
 for($i=1; $i<8; $i++){
-	$pdf->Cell(10, 10, ucfirst($weekdays[$i%7]));
-	$pdf->Cell(15, 10, date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$i)));
-	$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']));
-	$pdf->Cell(80, 10, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_deal']));
-	$pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_kueche']]));
-	$pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']]));
-	$pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_springer']]));
+	if($i%2==0) $pdf->SetDrawColor(256, 256, 256); else $pdf->SetDrawColor(190, 229, 198);
+	if($i%2==0) $pdf->SetFillColor(256, 256, 256); else $pdf->SetFillColor(190, 229, 198);
+	$pdf->Cell(0, 2, '', $borders, 1, 'C', 'true');
+	$pdf->Cell(15, 10, ucfirst($weekdays[$i%7]), $borders, 0, 'C', 'true');
+	if(!$schedule[$weekdays[$i%7].'_open']){
+		$pdf->Cell(120, 10, iconv('UTF-8', 'windows-1252', 'geschlossen'), $borders, 0, 'C', 'true');
+		$pdf->Cell(55, 10, '', $borders, 0, 'C', 'true');
+	}else{
+		$pdf->Cell(120, 10, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 0, 'C', 'true');
+		$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_kueche']]), $borders, 0, 'C', 'true');
+	}
 	$pdf->Ln();
+	$pdf->Cell(15, 10, date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$i)), $borders, 0, 'C', 'true');
+	if(!$schedule[$weekdays[$i%7].'_open']){
+		$pdf->Cell(120, 10, '', $borders, 0, 'C', 'true');
+		$pdf->Cell(55, 10, '', $borders, 0, 'C', 'true');
+	}else{
+		$pdf->Cell(120, 10, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_deal']), $borders, 0, 'C', 'true');
+		$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']].' & '.$employee_names[$schedule[$weekdays[$i%7].'_springer']]), $borders, 0, 'C', 'true');
+	}
+	$pdf->Ln();
+	$pdf->Cell(0, 2, '', $borders, 1, 'C', 'true');
 }
-$pdf->Cell(0, 10, 'Wochenplan und aktueller Status auch unter www.manhattan.stusta.de', 0, 0, 'C');
+$pdf->Cell(0, 10, 'Wochenplan und aktueller Status auch unter www.manhattan.stusta.de', $borders, 0, 'C');
 $pdf->Output();
 
 ?>
