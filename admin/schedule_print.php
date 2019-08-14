@@ -55,6 +55,7 @@ $line_margin = 3;
 $pdf = new FPDF();
 $pdf->AddFont('raleway','','Raleway-Medium.php');
 $pdf->AddPage();
+$pdf->SetMargins(20, 10);
 $pdf->SetFont('Raleway', '', 15);
 $pdf->Image('../images/logo.png', 23, 10, -300, -300);
 $pdf->SetY(100);
@@ -73,19 +74,19 @@ for($i=1; $i<8; $i++){
 	$pdf->SetXY($x+15, $y+$line_margin);
 
 	if(!$schedule[$weekdays[$i%7].'_open']){
-		$pdf->Cell(120, $line_height*2, 'geschlossen', $borders, 0, 'C', 'true');
+		$pdf->Cell(100, $line_height*2, 'geschlossen', $borders, 0, 'C', 'true');
 	}elseif(!$schedule[$weekdays[$i%7].'_event']){
 		if(strpos($schedule[$weekdays[$i%7].'_deal'], '<br>')){
-			$pdf->MultiCell(120, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","\n",$schedule[$weekdays[$i%7].'_deal'])), $borders, 'C', 'true');
+			$pdf->MultiCell(100, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","\n",$schedule[$weekdays[$i%7].'_deal'])), $borders, 'C', 'true');
 		}else{
-			$pdf->Cell(120, $line_height*2, iconv('UTF-8', 'windows-1252', str_replace("<br>","",$schedule[$weekdays[$i%7].'_deal'])), $borders, 0, 'C', 'true');
+			$pdf->Cell(100, $line_height*2, iconv('UTF-8', 'windows-1252', str_replace("<br>","",$schedule[$weekdays[$i%7].'_deal'])), $borders, 0, 'C', 'true');
 		}
 	}else{
-		$pdf->Cell(120, $line_height, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 2, 'C', 'true');
-		$pdf->Cell(120, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","",str_replace("<sup>","",str_replace("</sup>","",$schedule[$weekdays[$i%7].'_deal'])))), $borders, 0, 'C', 'true');
+		$pdf->Cell(100, $line_height, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 2, 'C', 'true');
+		$pdf->Cell(100, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","",str_replace("<sup>","",str_replace("</sup>","",$schedule[$weekdays[$i%7].'_deal'])))), $borders, 0, 'C', 'true');
 	}
 
-	$pdf->SetXY($x+135, $y+$line_margin);
+	$pdf->SetXY($x+115, $y+$line_margin);
 
 	if(!$schedule[$weekdays[$i%7].'_open']){
 		$pdf->Cell(0, $line_height*2, '', $borders, 1, 'C', 'true');
@@ -107,8 +108,14 @@ for($i=1; $i<8; $i++){
 
 	$pdf->Cell(0, $line_margin, '', $borders, 1, 'C', 'true');
 }
-$pdf->SetY($y+50);
+$pdf->SetY($y+30);
+$pdf->SetDrawColor(0, 0, 0);
+$pdf->SetFillColor(0, 0, 0);
+$pdf->Rect(0,280,250,100,'DF');
+$pdf->Image('../images/skyline_static.png', 5, 245, 200);
+$pdf->SetFontSize(13);
 $pdf->Cell(0, 10, 'Wochenplan und aktueller Status unter manhattan.stusta.de', 0, 0, 'C');
+
 $pdf->Output();
 
 ?>
