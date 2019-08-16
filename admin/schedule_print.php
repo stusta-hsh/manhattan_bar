@@ -55,6 +55,11 @@ $line_margin = 3;
 
 $pdf = new FPDF();
 $pdf->AddFont('raleway','','Raleway-Medium.php');
+
+$pdf->SetTitle('Wochenplan '.$schedule['year'].'-'.$schedule['calendar_week']);
+$pdf->SetAuthor(ucfirst($_SERVER['PHP_AUTH_USER']));
+$pdf->SetCreator('Manhattan WebApp');
+
 $pdf->AddPage();
 $pdf->SetMargins(20, 10);
 $pdf->SetFont('Raleway', '', 15);
@@ -114,8 +119,6 @@ for($i=1; $i<8; $i++){
 			$pdf->Cell(0, $line_height, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']].' & '.$employee_names[$schedule[$weekdays[$i%7].'_springer']]), $borders, 1, 'C', 'true');
 		}
 	}
-	//$pdf->MultiCell(0, $line_height*2, parse_shift($i%7), $borders, 'C', 'true');
-
 	$pdf->Cell(0, $line_margin, '', $borders, 1, 'C', 'true');
 }
 $pdf->SetY($y+30);
@@ -127,6 +130,6 @@ $pdf->SetFontSize(13);
 $pdf->Cell(0, 8, iconv('UTF-8', 'windows-1252', 'HSH 21. Stock | Geöffnet ab 19 Uhr'), 0, 2, 'C');
 $pdf->Cell(0, 8, iconv('UTF-8', 'windows-1252', 'Wochenplan und aktueller Status unter manhattan.stusta.de'), 0, 0, 'C');
 
-$pdf->Output();
+$pdf->Output('I', 'wochenplan_'.$schedule['year'].'-'.$schedule['calendar_week']);
 
 ?>
