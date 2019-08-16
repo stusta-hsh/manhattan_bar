@@ -86,7 +86,7 @@ if($_POST){
 							<td>
 								<?php echo ucfirst($weekdays[$day%7]) ?>
 								<input name='<?php echo $weekdays[$day%7].'_open' ?>' type='hidden' value='0'><input name='<?php echo $weekdays[$day%7].'_open' ?>' type='checkbox' value='1' <?php if($schedule[$weekdays[$day%7].'_open']==1) echo 'checked' ?>>
-								<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='time' value='<?php echo $schedule[$weekdays[$day%7].'_opening_time'] ?>'>
+								<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='hidden' value='<?php echo $schedule[$weekdays[$day%7].'_opening_time'] ?>'>
 							</td>
 							<td>
 								<input type='text' name='<?php echo $weekdays[$day%7].'_event' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_event'] ?>' placeholder='Event / Tagesessen'><br>

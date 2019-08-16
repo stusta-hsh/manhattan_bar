@@ -40,7 +40,6 @@ if($_POST){
 			<span><a href='schedule_edit.php?id=<?php echo $schedule['id'] ?>'><i class='fa fa-calendar-o'></i><br>Aktueller Plan</a></span>
 			<span><a href='schedule_new.php'><i class='fa fa-calendar-plus-o'></i><br>Neuer Plan</a></span>
 			<span style='color: #ccc'><i style='color: #ccc' class='fa fa-print'></i><br>Drucken</span>
-			<span style='color: #ccc'><i style='color: #ccc' class='fa fa-trash'></i><br>Löschen</span>
 		</div>
 	</div>
 	<div class='content'>
@@ -55,7 +54,7 @@ if($_POST){
 							<td>
 								<?php echo ucfirst($weekdays[$day%7]) ?>
 								<input name='<?php echo $weekdays[$day%7].'_open' ?>' type='hidden' value='0'><input name='<?php echo $weekdays[$day%7].'_open' ?>' type='checkbox' value='1' checked>
-								<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='time' value='19:00'>
+								<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='hidden' value='19:00'>
 							</td>
 							<td>
 								<input type='text' name='<?php echo $weekdays[$day%7].'_event' ?>' placeholder='Event / Tagesessen'><br>
