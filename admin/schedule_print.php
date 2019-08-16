@@ -90,12 +90,16 @@ for($i=1; $i<8; $i++){
 		$pdf->SetTextColor(100, 100, 100);
 		$pdf->Cell(100, $line_height*2, 'geschlossen', $borders, 0, 'C', 'true');
 		$pdf->SetTextColor(0, 0, 0);
+	}elseif(!$schedule[$weekdays[$i%7].'_deal'] && !$schedule[$weekdays[$i%7].'_event']){
+		$pdf->Cell(100, $line_height*2, iconv('UTF-8', 'windows-1252', 'Geöffnet'), $borders, 0, 'C', 'true');
 	}elseif(!$schedule[$weekdays[$i%7].'_event']){
 		if(strpos($schedule[$weekdays[$i%7].'_deal'], '<br>')){
 			$pdf->MultiCell(100, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","\n",$schedule[$weekdays[$i%7].'_deal'])), $borders, 'C', 'true');
 		}else{
 			$pdf->Cell(100, $line_height*2, iconv('UTF-8', 'windows-1252', str_replace("<br>","",$schedule[$weekdays[$i%7].'_deal'])), $borders, 0, 'C', 'true');
 		}
+	}elseif(!$schedule[$weekdays[$i%7].'_deal']){
+		$pdf->Cell(100, $line_height*2, iconv('UTF-8', 'windows-1252', str_replace("<br>","",$schedule[$weekdays[$i%7].'_event'])), $borders, 0, 'C', 'true');
 	}else{
 		$pdf->Cell(100, $line_height, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 2, 'C', 'true');
 		$pdf->Cell(100, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","",str_replace("<sup>","",str_replace("</sup>","",$schedule[$weekdays[$i%7].'_deal'])))), $borders, 0, 'C', 'true');
