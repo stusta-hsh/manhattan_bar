@@ -102,7 +102,9 @@ for($i=1; $i<8; $i++){
 		$pdf->Cell(100, $line_height*2, iconv('UTF-8', 'windows-1252', str_replace("<br>","",$schedule[$weekdays[$i%7].'_event'])), $borders, 0, 'C', 'true');
 	}else{
 		$pdf->Cell(100, $line_height, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 2, 'C', 'true');
+		$pdf->SetFontSize(12);
 		$pdf->Cell(100, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","",str_replace("<sup>","",str_replace("</sup>","",$schedule[$weekdays[$i%7].'_deal'])))), $borders, 0, 'C', 'true');
+		$pdf->SetFontSize(15);
 	}
 
 	$pdf->SetXY($x+115, $y+$line_margin);
