@@ -68,89 +68,101 @@ include('employee_header.php');
 				<?php if(!empty($employee_next)){ ?>
 					<a href='schedule_edit.php?id=<?php echo $employee_next['id'] ?>'><?php echo $employee_next['first_name'] ?><i class='fa fa-chevron-right' aria-hidden='true'></i></a>
 				<?php } ?>
-				<div class="employee-card">
-					<label>Vorname
-						<input name="first_name" type="text" value="<?php echo $employee['first_name'] ?>">
-					</label>
-					<label>Nachname
-						<input name="last_name" type="text" value="<?php echo $employee['last_name'] ?>">
-					</label>
-					<label title="Wenn leer, wird der Vorname angezeigt">Spitzname (Anzeigename)
-						<input name="display_name" type="text" value="<?php if($employee['display_name']!=$employee['first_name']) echo $employee['display_name'] ?>">
-					</label>
 
-					<br>
-					<label>Haus
-						<select name="house">
-							<?php foreach($houses as $house){ ?>
-								<option value='<?php echo $house['id'] ?>' <?php if($employee['house']==$house['id'])echo'selected' ?>><?php echo $house['name']; if(!empty($house['alias']))echo(' ('.$house['alias'].')'); ?></option>
-							<?php } ?>
-						</select>
-					</label>
-					<label>Zimmer
-						<input name="room_number" type="number" value="<?php echo $employee['room_number'] ?>">
-					</label>
-					<label>Geburtstag
-						<input name="birthday" type="date" value="<?php echo $employee['birthday'] ?>">
-					</label>
+				<div class="edit_employee_form-card">
+					<div class="edit_employee_form-card-row">
+						<label class="flex-100">Vorname
+							<input name="first_name" type="text" value="<?php echo $employee['first_name'] ?>">
+						</label>
+						<label class="flex-100">Nachname
+							<input name="last_name" type="text" value="<?php echo $employee['last_name'] ?>">
+						</label>
+						<label class="flex-100">Spitzname
+							<input name="display_name" type="text" value="<?php if($employee['display_name']!=$employee['first_name']) echo $employee['display_name'] ?>">
+						</label>
+					</div>
 
-					<br>
-					<label>E-Mail
-						<input name="email" type="email" value="<?php echo $employee['email'] ?>">
-					</label>
-					<label>Handy
-						<input name="phone" type="fon" value="<?php echo $employee['phone'] ?>">
-					</label>
+					<div class="edit_employee_form-card-row">
+						<label class="flex-200">Haus
+							<select name="house">
+								<?php foreach($houses as $house){ ?>
+									<option value='<?php echo $house['id'] ?>' <?php if($employee['house']==$house['id'])echo'selected' ?>><?php echo $house['name']; if(!empty($house['alias']))echo(' ('.$house['alias'].')'); ?></option>
+								<?php } ?>
+							</select>
+						</label>
+						<label class="flex-100">Zimmer
+							<input name="room_number" type="number" value="<?php echo $employee['room_number'] ?>">
+						</label>
+						<label class="flex-100">Geburtstag
+							<input name="birthday" type="date" value="<?php echo $employee['birthday'] ?>">
+						</label>
+					</div>
+
+					<div class="edit_employee_form-card-row">
+						<label class="flex-100">E-Mail
+							<input name="email" type="email" value="<?php echo $employee['email'] ?>">
+						</label>
+						<label class="flex-100">Handy
+							<input name="phone" type="fon" value="<?php echo $employee['phone'] ?>">
+						</label>
+					</div>
 
 				</div>
-				<div class="employee-card">
+				<div class="edit_employee_form-card">
 					<label>Aktiv
 						<input name="active" type="hidden" value="0">
 						<input name="active" type="checkbox" value="1" <?php if($employee['active']==1)echo('checked'); ?>>
 					</label>
-					<label>
-						<input type="radio" name="role"  value="0" <?php if($employee['role']==0)echo'checked' ?>>Mitarbeiter
-						<input type="radio" name="role"  value="1" <?php if($employee['role']==1)echo'checked' ?>>Betreiber
-						<input type="radio" name="role"  value="2" <?php if($employee['role']==2)echo'checked' ?>>Ausschuss
-					</label>
+					<div class="edit_employee_form-card-row">
+						<label>
+							<input type="radio" name="role"  value="0" <?php if($employee['role']==0)echo'checked' ?>>Mitarbeiter
+							<input type="radio" name="role"  value="1" <?php if($employee['role']==1)echo'checked' ?>>Betreiber
+							<input type="radio" name="role"  value="2" <?php if($employee['role']==2)echo'checked' ?>>Ausschuss
+						</label>
+					</div>
 
-					<br>
-					<label>Im Team seit
-						<input name="date_employed" type="date" value="<?php echo $employee['date_employed'] ?>">
-					</label>
-					<label>Schichten gesamt
-					</label><?php echo($total_shifts) ?>
+					<div class="edit_employee_form-card-row">
+						<label>Im Team seit
+							<input name="date_employed" type="date" value="<?php echo $employee['date_employed'] ?>">
+						</label>
+						<label>Schichten gesamt
+						</label><?php echo($total_shifts) ?>
+					</div>
 
-					<br>
-					<label>Einarbeitung Theke
-						<input name="training_0" type="hidden" value="0">
-						<input name="training_0" type="checkbox" value="1" <?php if($employee['training_0']==1)echo('checked'); ?>>
-					</label>
-					<label>Einarbeitung Dachterrasse
-						<input name="training_1" type="hidden" value="0">
-						<input name="training_1" type="checkbox" value="1" <?php if($employee['training_1']==1)echo('checked'); ?>>
-					</label>
-					<label>Einarbeitung Küche
-						<input name="training_2" type="hidden" value="0">
-						<input name="training_2" type="checkbox" value="1" <?php if($employee['training_2']==1)echo('checked'); ?>>
-					</label>
-					<label>Hygienebelehrung
-						<input name="health_certificate" type="hidden" value="0">
-						<input name="health_certificate" type="checkbox" value="1" <?php if($employee['health_certificate']==1)echo('checked'); ?>>
-					</label>
-					<label>Einkäufer
-						<input name="buyer" type="hidden" value="0">
-						<input name="buyer" type="checkbox" value="1" <?php if($employee['buyer']==1)echo('checked'); ?>>
-					</label>
-					<label>Putzkraft
-						<input name="cleaner" type="hidden" value="0">
-						<input name="cleaner" type="checkbox" value="1" <?php if($employee['cleaner']==1)echo('checked'); ?>>
-					</label>
+					<div class="edit_employee_form-card-row">
+						<label>Einarbeitung Theke
+							<input name="training_0" type="hidden" value="0">
+							<input name="training_0" type="checkbox" value="1" <?php if($employee['training_0']==1)echo('checked'); ?>>
+						</label>
+						<label>Einarbeitung Dachterrasse
+							<input name="training_1" type="hidden" value="0">
+							<input name="training_1" type="checkbox" value="1" <?php if($employee['training_1']==1)echo('checked'); ?>>
+						</label>
+						<label>Einarbeitung Küche
+							<input name="training_2" type="hidden" value="0">
+							<input name="training_2" type="checkbox" value="1" <?php if($employee['training_2']==1)echo('checked'); ?>>
+						</label>
+					</div>
+					<div class="edit_employee_form-card-row">
+						<label>Hygienebelehrung
+							<input name="health_certificate" type="hidden" value="0">
+							<input name="health_certificate" type="checkbox" value="1" <?php if($employee['health_certificate']==1)echo('checked'); ?>>
+						</label>
+						<label>Einkäufer
+							<input name="buyer" type="hidden" value="0">
+							<input name="buyer" type="checkbox" value="1" <?php if($employee['buyer']==1)echo('checked'); ?>>
+						</label>
+						<label>Putzkraft
+							<input name="cleaner" type="hidden" value="0">
+							<input name="cleaner" type="checkbox" value="1" <?php if($employee['cleaner']==1)echo('checked'); ?>>
+						</label>
+					</div>
 
-					<br>
-					<label>Kommentar
-						<textarea rows="4" name="comment"><?php echo $employee['comment'] ?></textarea>
-					</label>
+					<div class="edit_employee_form-card-row">
+						<label class="flex-100">Kommentar
+							<textarea rows="4" name="comment"><?php echo $employee['comment'] ?></textarea>
+						</label>
+					</div>
 				</div>
 				<input type='hidden' name='id' value='<?php echo $employee['id'] ?>'></input>
 				<input type='submit' value='Speichern'>
