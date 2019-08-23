@@ -167,22 +167,17 @@ if($_POST){
 						<?php } ?>
 					</td>
 					<td style="color:lightgrey;">
-						<?php //if($schedule[$weekdays[$day%7].'_open']){
-							//echo '<span style="font-size:12px">Theke</span><br>';
+						<?php
 							echo '<a class="fa fa-glass" style="font-size:12px"></a><br>';
-							//echo '<span style="font-size:12px">Springer</span><br>';
 							echo '<a class="fa fa-life-ring" style="font-size:12px"></a><br>';
-							//echo '<span style="font-size:12px">'.($schedule[$weekdays[$day%7].'_kueche'] ? 'Küche' : '').'</span>';
 							echo ($schedule[$weekdays[$day%7].'_kueche'] ? '<a class="fa fa-cutlery" style="font-size:12px"></a>' : '');
-						//} ?>
+						?>
 					<?php echo ($schedule[$weekdays[$day%7].'_open'] ? '<td>' : '<td style="color:grey;">'); ?>
-						<?php //if($schedule[$weekdays[$day%7].'_open']){
+						<?php
 							echo ($schedule[$weekdays[$day%7].'_theke'] ? $employee_names[$schedule[$weekdays[$day%7].'_theke']] : '-').'<br>';
 							echo ($schedule[$weekdays[$day%7].'_springer'] ? $employee_names[$schedule[$weekdays[$day%7].'_springer']] : '-').'<br>';
 							echo ($schedule[$weekdays[$day%7].'_kueche'] ? $employee_names[$schedule[$weekdays[$day%7].'_kueche']] : '');
-						/*} else {
-							echo '<span style="color: grey">geschlossen</span>';
-						}*/ ?>
+						?>
 					</td>
 					<td>
 						<span style="font-size:12px">Schlüssel zu<br></span>

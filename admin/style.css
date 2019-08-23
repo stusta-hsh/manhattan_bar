@@ -330,10 +330,6 @@ input[type="submit"]{
 	padding-left: 5px;
 }
 
-.team-schedule td:nth-child(2){
-	//text-align: right;
-}
-
 .team-schedule td:nth-child(4){
 	text-align: left;
 	min-width: 130px;
