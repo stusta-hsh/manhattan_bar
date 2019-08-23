@@ -105,6 +105,24 @@ table tr:nth-child(odd){
 	background-color: #bee5c6;
 }
 
+.employee-searchbar .fa{
+	font-size: 16px;
+	margin-right: -30px;
+	color: #bee5c6;
+}
+
+.employee-searchbar input{
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	padding: 5px 3px;
+	padding-left: 30px;
+	margin-bottom: 20px;
+	border: 2px solid #bee5c6;
+	border-radius: 3px;
+	background-color: transparent;
+	width: 300px;
+}
+
 .employee_list tr:not:first-child{
 	height: 55px;
 }
