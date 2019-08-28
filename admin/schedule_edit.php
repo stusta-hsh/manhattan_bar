@@ -136,28 +136,18 @@ if($_POST){
 		</form>
 	</div>
 	<div class="team-schedule">
-	<h4>Teamplan <?php
+		<h4>Teamplan <?php
+		if(date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')) == date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))){
+			echo date('j.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
+		}else{
+			echo date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1'))-1].' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
+		}
 
-	if(date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')) == date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))){
-		echo date('j.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
-	}else{
-		echo date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1'))-1].' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
-	}
-
-	?></h4>
+		?></h4>
 		<table>
-			<!--<tr>
-				<th></th>
-				<th></th>
-				<th>Theke</th>
-				<th>Springer</th>
-				<th>Küche</th>
-				<th>Schlüssel zu</th>
-			</tr>-->
 			<?php for($day=1; $day<8; $day++){ ?>
 				<tr>
 					<td><?php echo ucfirst($weekdays[$day%7]) ?><br><?php echo '<span style="font-size:12px">'.date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$day)).'</span>' ?></td>
-					<!--<td><?php echo date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$day)) ?></td>-->
 					<td style="font-size:12px">
 						<?php if($schedule[$weekdays[$day%7].'_open']){
 							echo ($schedule[$weekdays[$day%7].'_event'] ? $schedule[$weekdays[$day%7].'_event'].'<br>' : '');
@@ -169,7 +159,7 @@ if($_POST){
 					<td style="color:lightgrey;">
 						<?php
 							echo '<a class="fa fa-glass" style="font-size:12px"></a><br>';
-							echo '<a class="fa fa-life-ring" style="font-size:12px"></a><br>';
+							echo '<a class="fa fa-sun" style="font-size:12px"></a><br>';
 							echo ($schedule[$weekdays[$day%7].'_kueche'] ? '<a class="fa fa-cutlery" style="font-size:12px"></a>' : '');
 						?>
 					<?php echo ($schedule[$weekdays[$day%7].'_open'] ? '<td>' : '<td style="color:grey;">'); ?>

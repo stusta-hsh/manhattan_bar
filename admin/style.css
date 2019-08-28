@@ -391,6 +391,7 @@ input{
 }
 
 .team-schedule{
+	color: #222;
 	padding-top: 50px;
 }
 
@@ -413,5 +414,6 @@ input{
 	text-align: center;
 	border-width: 0px;
 	background-color: rgba(0,0,0,0);
+	color: #222;
 	width: 150px;
 }
