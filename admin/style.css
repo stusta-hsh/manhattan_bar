@@ -257,7 +257,7 @@ input[type="submit"]{
 .edit_employee_form-card-row{
 	display: flex;
 	flex-flow: row nowrap;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	//border: 1px dashed blue;
 	margin: 10px 0px;
 	width: 100%;

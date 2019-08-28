@@ -48,7 +48,7 @@ if($_POST){
 	if($_POST['display_name'] == '') $_POST['display_name'] = $_POST['first_name'];
 	$sql = 'UPDATE employees SET '.implode(' = ?, ', array_slice(array_keys($_POST),0,sizeof($_POST)-1)).' = ? WHERE id = ?';
 	$sql_query = mysqli_prepare($db, $sql);
-	mysqli_stmt_bind_param($sql_query, 'sssiisssiisiiiiiisi', ...array_values($_POST));
+	mysqli_stmt_bind_param($sql_query, 'sssiisssiiiiiiiisi', ...array_values($_POST));
 	mysqli_stmt_execute($sql_query);
 	mysqli_stmt_close($sql_query);
 	header('Location: employee_list.php');
@@ -109,52 +109,66 @@ include('employee_header.php');
 
 				</div>
 				<div class="edit_employee_form-card">
-					<label>Aktiv
+					<label>
 						<input name="active" type="hidden" value="0">
 						<input name="active" type="checkbox" value="1" <?php if($employee['active']==1)echo('checked'); ?>>
+						Aktiv
 					</label>
 					<div class="edit_employee_form-card-row">
 						<label>
-							<input type="radio" name="role"  value="0" <?php if($employee['role']==0)echo'checked' ?>>Mitarbeiter
-							<input type="radio" name="role"  value="1" <?php if($employee['role']==1)echo'checked' ?>>Betreiber
-							<input type="radio" name="role"  value="2" <?php if($employee['role']==2)echo'checked' ?>>Ausschuss
+							<input type="radio" name="role"  value="0" <?php if($employee['role']==0)echo'checked' ?>>
+							Mitarbeiter
+						</label>
+						<label>
+							<input type="radio" name="role"  value="1" <?php if($employee['role']==1)echo'checked' ?>>
+							Betreiber
+						</label>
+						<label>
+							<input type="radio" name="role"  value="2" <?php if($employee['role']==2)echo'checked' ?>>
+							Ausschuss
 						</label>
 					</div>
 
-					<div class="edit_employee_form-card-row">
+					<!--<div class="edit_employee_form-card-row">
 						<label>Im Team seit
 							<input name="date_employed" type="date" value="<?php echo $employee['date_employed'] ?>">
 						</label>
 						<label>Schichten gesamt
 						</label><?php echo($total_shifts) ?>
-					</div>
+					</div>-->
 
 					<div class="edit_employee_form-card-row">
-						<label>Einarbeitung Theke
+						<label>
 							<input name="training_0" type="hidden" value="0">
 							<input name="training_0" type="checkbox" value="1" <?php if($employee['training_0']==1)echo('checked'); ?>>
+							Theke
 						</label>
-						<label>Einarbeitung Dachterrasse
+						<label>
 							<input name="training_1" type="hidden" value="0">
 							<input name="training_1" type="checkbox" value="1" <?php if($employee['training_1']==1)echo('checked'); ?>>
+							Dachterrasse
 						</label>
-						<label>Einarbeitung Küche
+						<label>
 							<input name="training_2" type="hidden" value="0">
 							<input name="training_2" type="checkbox" value="1" <?php if($employee['training_2']==1)echo('checked'); ?>>
+							Küche
 						</label>
 					</div>
 					<div class="edit_employee_form-card-row">
-						<label>Hygienebelehrung
+						<label>
 							<input name="health_certificate" type="hidden" value="0">
 							<input name="health_certificate" type="checkbox" value="1" <?php if($employee['health_certificate']==1)echo('checked'); ?>>
+							Hygienebelehrung
 						</label>
-						<label>Einkäufer
+						<label>
 							<input name="buyer" type="hidden" value="0">
 							<input name="buyer" type="checkbox" value="1" <?php if($employee['buyer']==1)echo('checked'); ?>>
+							Einkäufer
 						</label>
-						<label>Putzkraft
+						<label>
 							<input name="cleaner" type="hidden" value="0">
 							<input name="cleaner" type="checkbox" value="1" <?php if($employee['cleaner']==1)echo('checked'); ?>>
+							Putzkraft
 						</label>
 					</div>
 
