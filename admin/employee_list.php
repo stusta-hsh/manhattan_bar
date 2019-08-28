@@ -62,7 +62,7 @@ include('employee_header.php');
 					</td>
 					<td title="Einarbeitung Dachterrasse">
 						<a href="employee_edit.php?id=<?php echo $employee['id'] ?>">
-							<?php if($employee['training_1'])echo('<i class="fa fa-sun-o"></i>'); ?>
+							<?php if($employee['training_1'])echo('<i class="fa fa-sun"></i>'); ?>
 						</a>
 					</td>
 					<td title="Einarbeitung Küche">
