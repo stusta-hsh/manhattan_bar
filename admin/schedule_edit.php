@@ -142,8 +142,40 @@ if($_POST){
 		}else{
 			echo date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1'))-1].' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
 		}
-
 		?></h4>
+
+		<?php for($day=1; $day<8; $day++){ ?>
+			<div class="team-schedule-day">
+				<div class="date">
+					<?php echo ucfirst($weekdays[$day%7]) ?> <?php echo date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$day)) ?>
+					 - 
+					<?php if($schedule[$weekdays[$day%7].'_open']){
+					echo ($schedule[$weekdays[$day%7].'_event'] ? $schedule[$weekdays[$day%7].'_event'].': ' : '');
+					echo ($schedule[$weekdays[$day%7].'_deal'] ? $schedule[$weekdays[$day%7].'_deal'] : '');
+				} else { ?>
+					geschlossen
+					<?php } ?>
+				</div>
+				<div class="shift">
+					<?php
+						echo '<a class="fa fa-glass" style="font-size:12px"></a>';
+						echo ($schedule[$weekdays[$day%7].'_theke'] ? $employee_names[$schedule[$weekdays[$day%7].'_theke']] : '-').'<br>';
+						echo '<a class="fa fa-sun" style="font-size:12px"></a>';
+						echo ($schedule[$weekdays[$day%7].'_springer'] ? $employee_names[$schedule[$weekdays[$day%7].'_springer']] : '-');
+						echo ($schedule[$weekdays[$day%7].'_kueche'] ? '<br><a class="fa fa-cutlery" style="font-size:12px"></a>' : '');
+						echo ($schedule[$weekdays[$day%7].'_kueche'] ? $employee_names[$schedule[$weekdays[$day%7].'_kueche']] : '');
+					?>
+					<div class="key">
+						<input type="text" value=<?php echo '"'.($schedule[$weekdays[$day+1%7].'_kueche'] ? $employee_names[$schedule[$weekdays[$day+1%7].'_kueche']] : $employee_names[$schedule[$weekdays[$day+1%7].'_theke']]).'"' ?>>
+						 <a class="fa fa-key-modern"></a>
+					</div>
+				</div>
+
+
+			</div>
+		<?php } ?>
+
+		<!--
 		<table>
 			<?php for($day=1; $day<8; $day++){ ?>
 				<tr>
@@ -176,6 +208,7 @@ if($_POST){
 				</tr>
 			<?php } ?>
 		</table>
+		-->
 	</div>
 </div>
 </body>
