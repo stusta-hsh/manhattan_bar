@@ -3,7 +3,7 @@
 	/*
 	*	Erstellt im Juni 2019 von Tim Weber (HSH, 1007)
 	*	auf Grundlage der Statusseite von Daniel Frejek (HSH, 1525)
-	*	Letzte Änderung: 05.08.2019
+	*	Letzte Änderung: 01.09.2019
 	*/
 
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
@@ -60,6 +60,13 @@
 		 $status = 0;
 	}
 
+	// Workaround for currently defunct switch
+	// Also works for cases in which employees forget to use switch
+	// Open between 19:00 and 00:00
+	if ($status == 0 && $current_schedule[$weekdays[date('w')].'_open'] && date('G')>=19){
+		 $status = 3;
+	}
+
 	if ($status == 1){
 		 $fcolor = '#000';
 		 $titlestatus = 'Geöffnet';
@@ -74,12 +81,19 @@
 		 if(empty($current_schedule))
 			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
 	}
+	else if ($status == 3){
+		 $fcolor = '#000';
+		 $titlestatus = 'Geöffnet';
+		 $desc = 'Wir haben geöffnet!';
+		 if(empty($current_schedule))
+			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
+	}
 	else{
 		 $fcolor = 'gray';
 		 $titlestatus = 'Geschlossen';
 		 $desc = 'Aktuell geschlossen.';
 		 if(empty($current_schedule))
-			 $desc .= '<br>Der Wochenplan kommt bald.<br><br><br><br>';
+			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
 		 elseif($current_schedule[$weekdays[date('w')].'_open'])
 			 $desc .= '<br>Wir öffnen heute um 19 Uhr.';
 		 else
