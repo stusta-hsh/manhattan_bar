@@ -416,3 +416,47 @@ input{
 	width: 135px;
 	margin-left: -20px;
 }
+
+.opening-status input{
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+.opening-status{
+	display: flex;
+	flex-flow: row, wrap;
+	justify-content: center;
+	border-radius: 3px;
+	background-color: #eee;
+	max-width: 380px;
+	margin: auto;
+	padding: 3px;
+	box-shadow: 2px 2px 4px lightgrey;
+}
+
+.opening-status .fa{
+	font-size: 24px;
+	margin: 5px;
+}
+
+.opening-status input + label{
+	display: block;
+	width: 120px;
+	border-radius: 5px;
+	font-size: 12px;
+	padding: 6px 6px 10px 6px;
+	background-color: #eee;
+	color: #555;
+	cursor: pointer;
+	margin: 3px;
+	box-sizing:border-box;
+}
+
+.opening-status input:checked + label{
+	background-color: #888;
+	color: #eee;
+	box-shadow: 2px 2px 5px #333 inset;
+}

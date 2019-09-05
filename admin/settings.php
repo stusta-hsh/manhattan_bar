@@ -18,18 +18,19 @@ if($_POST){
 
 	<div class="content">
 		<h3>Status</h3>
-		Letzte Aktualisierung:
-		<?php echo $lastrefreshed ?>
-		<br>
-
 		<form method='post' action=''>
-			<input type='radio' name='new_status' value='0' <?php if($status==0)echo'checked' ?>>geschlossen</input>
-			<input type='radio' name='new_status' value='1' <?php if($status==1)echo'checked' ?>>Manhattan offen</input>
-			<input type='radio' name='new_status' value='2' <?php if($status==2)echo'checked' ?>>Dachterrasse offen</input>
+			<div class="opening-status">
+				<input id="status_closed" type='radio' name='new_status' value='0' <?php if($status==0)echo'checked' ?>></input>
+				<label for="status_closed"><i class="fa fa-lock" aria-hidden="true"></i><br>geschlossen</label>
+				<input id="status_open" type='radio' name='new_status' value='1' <?php if($status==1)echo'checked' ?>></input>
+				<label for="status_open"><i class="fa fa-umbrella" aria-hidden="true"></i><br>Manhattan offen</label>
+				<input id="status_rooftop" type='radio' name='new_status' value='2' <?php if($status==2)echo'checked' ?>></input>
+				<label for="status_rooftop"><i class="fa fa-sun" aria-hidden="true"></i><br>Dachterrasse offen</label>
+			</div>
+			<span style="color:grey; font-size: 12px;">Letzte Aktualisierung: <?php echo $lastrefreshed ?></span>
 			<br>
 			<input type='submit' value='Speichern'></input>
 		</form>
-
 	</div>
 </body>
 </html>
