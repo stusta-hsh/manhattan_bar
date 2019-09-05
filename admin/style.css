@@ -102,7 +102,7 @@ table td .fa{
 }
 
 table tr:nth-child(odd){
-	background-color: #bee5c6;
+	background-color: #d0efd6;
 }
 
 table table tr:nth-child(odd){
