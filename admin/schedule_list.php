@@ -25,7 +25,7 @@ mysqli_stmt_close($sql_query);
 		</div>
 		<div class='toolbar'>
 			<span><a href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>"><i class='fa fa-chevron-left'></i><br></a></span>
-			<h3><?php echo(' '.$months[$month-1].' '.$year.' '); ?></h3>
+			<h3 style="width: 250px; text-align:center;"><?php echo(' '.$months[$month-1].' '.$year.' '); ?></h3>
 			<span><a href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>"><i class='fa fa-chevron-right'></i><br></a></span>
 		</div>
 	</div>
