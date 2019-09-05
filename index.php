@@ -3,7 +3,7 @@
 	/*
 	*	Erstellt im Juni 2019 von Tim Weber (HSH, 1007)
 	*	auf Grundlage der Statusseite von Daniel Frejek (HSH, 1525)
-	*	Letzte Änderung: 01.09.2019
+	*	Letzte Änderung: 05.09.2019
 	*/
 
 	$weekdays = ['so', 'mo', 'di', 'mi', 'do', 'fr', 'sa'];
@@ -262,10 +262,10 @@
 			Geöffnet ab 19:00 Uhr<br>
 			Nur für Bewohner der Studentenstadt Freimann
 			<div class="social-icons">
-				<a href="https://www.facebook.com/manhattanbarhsh/"><i class="fa fa-facebook-official"></i></a>
-				<a href="https://www.m.me/manhattanbarhsh"><i class="fa fa-facebook-messenger"></i></a>
-				<a href="mailto:manhattan@stusta.de"><i style="font-size:95%" class="fa fa-envelope"></i></a>
-				<a href="https://wiki.stusta.de/Manhattan"><i class="fa fa-book"></i></a>
+				<a title="Facebook" href="https://www.facebook.com/manhattanbarhsh/"><i class="fa fa-facebook-official"></i></a>
+				<a title="Facebook Messenger" href="https://www.m.me/manhattanbarhsh"><i class="fa fa-facebook-messenger"></i></a>
+				<a title="Mail" href="mailto:manhattan@stusta.de"><i style="font-size:95%" class="fa fa-envelope"></i></a>
+				<a title="StuStaNet-Wiki" href="https://wiki.stusta.de/Manhattan"><i class="fa fa-book"></i></a>
 			</div>
 		</div>
 	</div>
