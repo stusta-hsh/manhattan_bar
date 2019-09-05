@@ -98,11 +98,15 @@ table td a{
 }
 
 table td .fa{
-	color: #555;
+	color: #666;
 }
 
 table tr:nth-child(odd){
 	background-color: #bee5c6;
+}
+
+table table tr:nth-child(odd){
+	background-color: transparent;
 }
 
 .employee-searchbar .fa{
@@ -395,74 +399,20 @@ input{
 	padding-top: 50px;
 	max-width: 450px;
 	margin: auto;
-	font-size: 14px;
+	font-size: 16px;
 }
 
-.team-schedule td{
+.team-schedule-row > td{
 	padding: 5px 3px;
-}
-
-.team-schedule td:first-child{
-	padding-left: 5px;
-}
-
-.team-schedule td:nth-child(4){
-	text-align: left;
-	min-width: 130px;
 }
 
 .team-schedule input[type="text"]{
 	font-family: 'Raleway', sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 	text-align: right;
 	border-width: 0px;
 	background-color: rgba(0,0,0,0);
 	color: #222;
-	width: 170px;
-	margin-right: 5px;
-}
-
-.team-schedule-day{
-	padding: 5px 10px;
-	position: relative;
-}
-
-.team-schedule-day div{
-	//border: 1px solid black;
-	padding: 2px;
-}
-
-.team-schedule-day:nth-child(even){
-	background-color: #bee5c6;
-}
-
-.team-schedule-day .date{
-	font-size: 12px;
-	text-align: left;
-}
-
-.team-schedule-day .special{
-	text-align: right;
-}
-
-.team-schedule-day .shift{
-	position: relative;
-	text-align: left;
-	padding-left: 15px;
-}
-
-.team-schedule-day .key{
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	text-align: right;
-}
-
-.team-schedule-day .fa{
-	color:#555;
-	font-size: 12px;
-}
-
-.team-schedule-day .fa:not(.fa-key-modern){
-	margin-right: 10px;
+	width: 135px;
+	margin-left: -20px;
 }
