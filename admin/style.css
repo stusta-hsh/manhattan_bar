@@ -20,6 +20,10 @@ h4{font-size:14pt; font-weight: normal; margin:4px 0px;}
 body{
 	font-family: 'Raleway', sans-serif;
 	margin: 0px;
+
+	--primary-color: #03aa2a;
+	--secondary-color: #ace5b9;
+	--zebra-color: #d0efd6;;
 }
 
 .logo{
@@ -58,12 +62,12 @@ body{
 .active-tab{
 	background-color: white;
 	border-width: 0px;
-	color: #03aa2a;
+	color: var(--primary-color);
 	background-color: #eee;
 }
 
 .tab:not(.active-tab):hover{
-	background-color: #bee5c6;
+	background-color: var(--secondary-color);
 	color: #333;
 }
 
@@ -102,7 +106,7 @@ table td .fa{
 }
 
 table tr:nth-child(odd){
-	background-color: #d0efd6;
+	background-color: var(--zebra-color);
 }
 
 table table tr:nth-child(odd){
@@ -112,7 +116,7 @@ table table tr:nth-child(odd){
 .employee-searchbar .fa{
 	font-size: 16px;
 	margin-right: -30px;
-	color: #bee5c6;
+	color: var(--secondary-color);
 }
 
 .employee-searchbar input{
@@ -121,7 +125,7 @@ table table tr:nth-child(odd){
 	padding: 5px 3px;
 	padding-left: 30px;
 	margin-bottom: 20px;
-	border: 2px solid #bee5c6;
+	border: 2px solid var(--secondary-color);
 	border-radius: 30px;
 	background-color: transparent;
 	width: 300px;
@@ -129,6 +133,10 @@ table table tr:nth-child(odd){
 
 .employee_list tr:not:first-child{
 	height: 55px;
+}
+
+.wochenplan {
+	color: #222;
 }
 
 .wochenplan td, th{
@@ -224,7 +232,7 @@ input[type="submit"]{
 	margin: 20px;
 	border-width: 0px;
 	border-radius: 3px;
-	background-color: #03aa2a;
+	background-color: var(--primary-color);
 	color: white;
 	cursor: pointer;
 }
@@ -302,7 +310,7 @@ input{
 	width: 100%;
 	padding: 4px 3px;
 	border-width: 0px;
-	border-bottom: 2px solid #bee5c6;
+	border-bottom: 2px solid var(--secondary-color);
 	color: #333;
 	background-color: transparent;
 }
@@ -311,7 +319,7 @@ input{
 	width: 100%;
 	padding: 4px 5px;
 	border-width: 0px;
-	border-bottom: 2px solid #bee5c6;
+	border-bottom: 2px solid var(--secondary-color);
 	color: #333;
 	background-color: transparent;
 }
@@ -320,7 +328,7 @@ input{
 	width: 100%;
 	padding: 4px 5px;
 	border-width: 0px;
-	border-bottom: 2px solid #bee5c6;
+	border-bottom: 2px solid var(--secondary-color);
 	color: #333;
 	background-color: transparent;
 }
@@ -329,7 +337,7 @@ input{
 	width: 100%;
 	padding: 4px 5px;
 	border-width: 0px;
-	border-bottom: 2px solid #bee5c6;
+	border-bottom: 2px solid var(--secondary-color);
 	color: #333;
 	background-color: transparent;
 }
@@ -338,7 +346,7 @@ input{
 	width: 100%;
 	padding: 4px 5px;
 	border-width: 0px;
-	border-bottom: 2px solid #bee5c6;
+	border-bottom: 2px solid var(--secondary-color);
 	color: #333;
 	background-color: transparent;
 }
@@ -349,7 +357,7 @@ input{
 	font-size: 16px;
 	padding: 4px 5px;
 	border-width: 0px;
-	border-bottom: 2px solid #bee5c6;
+	border-bottom: 2px solid var(--secondary-color);
 	color: #333;
 	background-color: transparent;
 }
@@ -360,7 +368,7 @@ input{
 	margin: 2px;
 	resize: none;
 	padding: 4px 5px;
-	border: 2px solid #bee5c6;
+	border: 2px solid var(--secondary-color);
 	border-radius: 3px;
 	color: #333;
 }
@@ -417,46 +425,75 @@ input{
 	margin-left: -20px;
 }
 
-.opening-status input{
+.card {
+	//background-color: #fafafa;
+	border-radius: 2px;
+	box-shadow: 1px 2px 3px 2px lightgrey;
+	//border: 3px solid var(--secondary-color);
+	margin: auto;
+	margin: 20px 10px;
+}
+
+.card-title {
+	color: #222;
+	font-size: 16px;
+	font-weight: bold;
+
+	padding: 5px 10px;
+	background-color: var(--secondary-color);
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+}
+
+.card-content {
+	color: #222;
+}
+
+.card-content .radio-input-wrapper{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	margin: auto;
+}
+
+.card-content input[type=radio]{
 	position: absolute;
-	opacity: 0;
-	cursor: pointer;
 	height: 0;
 	width: 0;
+	opacity: 0;
 }
 
-.opening-status{
-	display: flex;
-	flex-flow: row, wrap;
-	justify-content: center;
-	border-radius: 3px;
-	background-color: #eee;
-	max-width: 380px;
-	margin: auto;
-	padding: 3px;
-	box-shadow: 2px 2px 4px lightgrey;
+.card-content input[type=radio] + label {
+	width: 125px;
+	font-size: 12px;
+	padding: 5px;
+	color: #ddd;
+	cursor: pointer;
+	transition: color .2s ease;
+	border-radius: 5px;
+	text-align: center;
 }
 
-.opening-status .fa{
-	font-size: 24px;
+.card-content input[type=radio] + label .fa {
+	font-size: 28px;
 	margin: 5px;
 }
 
-.opening-status input + label{
-	display: block;
-	width: 120px;
-	border-radius: 5px;
-	font-size: 12px;
-	padding: 6px 6px 10px 6px;
-	background-color: #eee;
-	color: #555;
-	cursor: pointer;
-	margin: 3px;
-	box-sizing:border-box;
+.card-content input[type=radio]:checked + label {
+	color: var(--primary-color);
 }
 
-.opening-status input:checked + label{
-	background-color: #888;
-	color: #eee;
-	box-shadow: 2px 2px 5px #333 inset;
+.card-content input[type="submit"]{
+	padding: 8px 16px;
+	margin: 5px;
+	border-width: 0px;
+	border-radius: 3px;
+	background-color: var(--secondary-color);
+	color: #222;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.card-content table {
+	max-width: 100%;
 }

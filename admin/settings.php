@@ -17,20 +17,24 @@ if($_POST){
 ?>
 
 	<div class="content">
-		<h3>Status</h3>
-		<form method='post' action=''>
-			<div class="opening-status">
-				<input id="status_closed" type='radio' name='new_status' value='0' <?php if($status==0)echo'checked' ?>></input>
-				<label for="status_closed"><i class="fa fa-lock" aria-hidden="true"></i><br>geschlossen</label>
-				<input id="status_open" type='radio' name='new_status' value='1' <?php if($status==1)echo'checked' ?>></input>
-				<label for="status_open"><i class="fa fa-umbrella" aria-hidden="true"></i><br>Manhattan offen</label>
-				<input id="status_rooftop" type='radio' name='new_status' value='2' <?php if($status==2)echo'checked' ?>></input>
-				<label for="status_rooftop"><i class="fa fa-sun" aria-hidden="true"></i><br>Dachterrasse offen</label>
+		<div class="card">
+			<div class="card-title">Status</div>
+			<div class="card-content">
+				<form method='post' action=''>
+					<div class="radio-input-wrapper">
+						<input id="status_closed" type='radio' name='new_status' value='0' <?php if($status==0)echo'checked' ?>></input>
+						<label for="status_closed"><i class="fa fa-refresh" aria-hidden="true"></i><br>automatisch</label>
+						<input id="status_open" type='radio' name='new_status' value='1' <?php if($status==1)echo'checked' ?>></input>
+						<label for="status_open"><i class="fa fa-umbrella" aria-hidden="true"></i><br>Manhattan offen</label>
+						<input id="status_rooftop" type='radio' name='new_status' value='2' <?php if($status==2)echo'checked' ?>></input>
+						<label for="status_rooftop"><i class="fa fa-sun" aria-hidden="true"></i><br>Dachterrasse offen</label>
+					</div>
+					<br>
+					<input type='submit' value='Speichern'></input>
+					<!-- Letzte Aktualisierung: <?php echo $lastrefreshed ?>-->
+				</form>
 			</div>
-			<span style="color:grey; font-size: 12px;">Letzte Aktualisierung: <?php echo $lastrefreshed ?></span>
-			<br>
-			<input type='submit' value='Speichern'></input>
-		</form>
+		</div>
 	</div>
 </body>
 </html>
