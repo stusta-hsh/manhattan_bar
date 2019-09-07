@@ -37,7 +37,7 @@ include('employee_header.php');
 				<th style="width: 15px;"></th>
 			</tr>-->
 			<?php foreach($employees as $employee){ ?>
-				<tr>
+				<tr <?php echo (!$employee['active'] ? 'style="background-color: #ddd"' : ''); ?>>
 					<td style="width: 50px; text-align: right">
 						<a href="employee_edit.php?id=<?php echo $employee['id'] ?>">
 							<?php if(!empty($employee['room_number']))echo($employee['room_number']); ?>
@@ -50,11 +50,11 @@ include('employee_header.php');
 							<span style="font-size: 8pt; color: #666" href="employee_edit.php?id=<?php echo $employee['id'] ?>"><br><?php echo($employee['first_name'].' '.$employee['last_name']); ?></span>
 						</a>
 					</td>
-					<td title="aktiv">
+					<!--<td title="aktiv">
 						<a href="employee_edit.php?id=<?php echo $employee['id'] ?>">
 							<?php if($employee['active'])echo('<i class="fa fa-check"></i>'); ?>
 						</a>
-					</td>
+					</td>-->
 					<td title="Einarbeitung Theke">
 						<a href="employee_edit.php?id=<?php echo $employee['id'] ?>">
 							<?php if($employee['training_0'])echo('<i class="fa fa-glass"></i>'); ?>
