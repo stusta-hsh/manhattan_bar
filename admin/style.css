@@ -470,7 +470,6 @@ input{
 	color: #ddd;
 	cursor: pointer;
 	transition: color .2s ease;
-	border-radius: 5px;
 	text-align: center;
 }
 
