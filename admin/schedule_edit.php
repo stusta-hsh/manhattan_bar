@@ -73,7 +73,7 @@ if($_POST){
 		<span><a href='schedule_print.php?id=<?php echo $schedule['id'] ?>' target='_blank'><i class='fa fa-print'></i><br>Drucken</a></span>
 		<!--<span style='color: #ccc'><i style='color: #ccc' class='fa fa-trash'></i><br>Löschen</span>-->
 	</div>
-	<div class='toolbar'>
+	<!--<div class='toolbar'>
 		<span><a <?php if(!empty($schedule_previous))echo('href="schedule_edit.php?id='.$schedule_previous['id'].'"') ?>><i class='fa fa-chevron-left' <?php if(empty($schedule_previous))echo('style="color:#ccc"') ?>></i><br></a></span>
 		<h3>
 			<?php echo $schedule['year'] ?>
@@ -81,105 +81,136 @@ if($_POST){
 			<?php echo $schedule['calendar_week'] ?>
 		</h3>
 		<span><a <?php if(!empty($schedule_next))echo('href="schedule_edit.php?id='.$schedule_next['id'].'"') ?>><i class='fa fa-chevron-right' <?php if(empty($schedule_next))echo('style="color:#ccc"') ?>></i><br></a></span>
-	</div>
+	</div>-->
 </div>
 <div class='content'>
-	<div class='edit_schedule_form'>
-		<form method='post' action=''>
-			<table>
-				<?php for($day=1; $day<8; $day++){ ?>
-					<tr>
-						<td>
-							<?php echo ucfirst($weekdays[$day%7]) ?>
-							<input name='<?php echo $weekdays[$day%7].'_open' ?>' type='hidden' value='0'><input name='<?php echo $weekdays[$day%7].'_open' ?>' type='checkbox' value='1' <?php if($schedule[$weekdays[$day%7].'_open']==1) echo 'checked' ?>>
-							<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='hidden' value='<?php echo $schedule[$weekdays[$day%7].'_opening_time'] ?>'>
-						</td>
-						<td>
-							<input type='text' name='<?php echo $weekdays[$day%7].'_event' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_event'] ?>' placeholder='Event / Tagesessen'><br>
-							<input type='text' name='<?php echo $weekdays[$day%7].'_deal' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_deal'] ?>' placeholder='Angebot'>
-						</td>
-						<td>
-							<select name='<?php echo $weekdays[$day%7].'_theke' ?>'>
-								<option value=''>Theke</option>
-								<?php foreach($employees as $employee){
-									if($employee['training_0'] || $employee['training_1']){ ?>
-										<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_theke']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
-									<?php }
-								} ?>
-							</select>
-							<br>
-							<select name='<?php echo $weekdays[$day%7].'_springer' ?>'>
-								<option value=''>Springer</option>
-								<?php	foreach($employees as $employee){
-									if($employee['training_0'] || $employee['training_1']){ ?>
-										<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_springer']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
-									<?php }
-								}?>
-							</select>
-							<br>
-							<select name='<?php echo $weekdays[$day%7].'_kueche' ?>'>
-								<option value=''>Küche</option>
-								<?php foreach($employees as $employee){
-									if($employee['training_2']){ ?>
-										<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_kueche']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
-									<?php }
-								} ?>
-							</select>
-						</td>
-					</tr>
-				<?php } ?>
-			</table>
-			<input type='hidden' name='days_open' value='0'></input>
-			<input type='hidden' name='complete' value='0'></input>
-			<input type='hidden' name='id' value='<?php echo $schedule['id'] ?>'></input>
-			<input type='submit' value='Speichern'>
-		</form>
-	</div>
-	<div class="team-schedule">
-		<h4>Teamplan <?php
-		if(date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')) == date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))){
-			echo date('j.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
-		}else{
-			echo date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1'))-1].' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
-		}
-		?></h4>
-
-		<table>
-			<?php for($day=1; $day<8; $day++){ ?>
-				<tr class="team-schedule-row">
-					<td>
-					<?php echo '<span style="font-size: 18px">'.ucfirst($weekdays[$day%7]).'</span>' ?><br>
-					<?php echo '<span style="font-size: 12px">'.date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$day)).'</span>' ?>
-					</td>
-					<td>
-						<span style="font-size: 14px">
-							<?php if($schedule[$weekdays[$day%7].'_open']){
-								echo ($schedule[$weekdays[$day%7].'_event'] ? $schedule[$weekdays[$day%7].'_event'].': ' : '');
-								echo ($schedule[$weekdays[$day%7].'_deal'] ? $schedule[$weekdays[$day%7].'_deal'] : '');
-							} else {
-								echo ('geschlossen');
-							} ?>
-						</span>
+	<div class="card">
+		<div class="card-title">
+			<span>
+				<a <?php if(!empty($schedule_previous))echo('href="schedule_edit.php?id='.$schedule_previous['id'].'"') ?>><i class='fa fa-chevron-left' <?php if(empty($schedule_previous))echo('style="color:#ccc"') ?>></i><br></a>
+			</span>
+			<?php echo $schedule['year'] ?>
+			KW
+			<?php echo $schedule['calendar_week'] ?>
+			<span>
+				<a <?php if(!empty($schedule_next))echo('href="schedule_edit.php?id='.$schedule_next['id'].'"') ?>><i class='fa fa-chevron-right' <?php if(empty($schedule_next))echo('style="color:#ccc"') ?>></i><br></a>
+			</span>
+		</div>
+		<div class="card-content">
+			<div class='edit_schedule_form'>
+				<form method='post' action=''>
 					<table>
-						<tr>
-							<td style="text-align: left">
-								<?php echo ($schedule[$weekdays[$day%7].'_theke'] ? '<a class="fa fa-glass"></a>'.$employee_names[$schedule[$weekdays[$day%7].'_theke']] : ''); ?>
-								<?php echo ($schedule[$weekdays[$day%7].'_springer'] ? '<br><a class="fa fa-sun"></a>'.$employee_names[$schedule[$weekdays[$day%7].'_springer']] : ''); ?>
-								<?php echo ($schedule[$weekdays[$day%7].'_kueche'] ? '<br><a class="fa fa-cutlery"></a>'.$employee_names[$schedule[$weekdays[$day%7].'_kueche']] : ''); ?>
+						<?php for($day=1; $day<8; $day++){ ?>
+							<tr>
+								<td>
+									<?php echo ucfirst($weekdays[$day%7]) ?>
+									<input name='<?php echo $weekdays[$day%7].'_open' ?>' type='hidden' value='0'><input name='<?php echo $weekdays[$day%7].'_open' ?>' type='checkbox' value='1' <?php if($schedule[$weekdays[$day%7].'_open']==1) echo 'checked' ?>>
+									<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='hidden' value='<?php echo $schedule[$weekdays[$day%7].'_opening_time'] ?>'>
+								</td>
+								<td>
+									<input type='text' name='<?php echo $weekdays[$day%7].'_event' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_event'] ?>' placeholder='Event / Tagesessen'><br>
+									<input type='text' name='<?php echo $weekdays[$day%7].'_deal' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_deal'] ?>' placeholder='Angebot'>
+								</td>
+								<td>
+									<select name='<?php echo $weekdays[$day%7].'_theke' ?>'>
+										<option value=''>Theke</option>
+										<?php foreach($employees as $employee){
+											if($employee['training_0'] || $employee['training_1']){ ?>
+												<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_theke']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
+											<?php }
+										} ?>
+									</select>
+									<br>
+									<select name='<?php echo $weekdays[$day%7].'_springer' ?>'>
+										<option value=''>Springer</option>
+										<?php	foreach($employees as $employee){
+											if($employee['training_0'] || $employee['training_1']){ ?>
+												<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_springer']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
+											<?php }
+										}?>
+									</select>
+									<br>
+									<select name='<?php echo $weekdays[$day%7].'_kueche' ?>'>
+										<option value=''>Küche</option>
+										<?php foreach($employees as $employee){
+											if($employee['training_2']){ ?>
+												<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_kueche']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
+											<?php }
+										} ?>
+									</select>
+								</td>
+							</tr>
+						<?php } ?>
+					</table>
+					<input type='hidden' name='days_open' value='0'></input>
+					<input type='hidden' name='complete' value='0'></input>
+					<input type='hidden' name='id' value='<?php echo $schedule['id'] ?>'></input>
+					<div class='button-wrapper'>
+						<input type='submit' value='Speichern'>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="card team-schedule">
+		<div class="card-title">
+			Teamplan
+			<?php
+			if(date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')) == date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))){
+				echo date('j.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
+			}else{
+				echo date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1'))-1].' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
+			}
+			?>
+		</div>
+		<div class="card-content">
+			<!--<div class="team-schedule">-->
+				<!--<h4>Teamplan <?php
+				if(date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')) == date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))){
+					echo date('j.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
+				}else{
+					echo date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1'))-1].' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1];
+				}
+				?></h4>-->
+
+				<table>
+					<?php for($day=1; $day<8; $day++){ ?>
+						<tr class="team-schedule-row">
+							<td>
+							<?php echo '<span style="font-size: 18px">'.ucfirst($weekdays[$day%7]).'</span>' ?><br>
+							<?php echo '<span style="font-size: 12px">'.date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$day)).'</span>' ?>
 							</td>
-							<td style="text-align: right; vertical-align: bottom; font-size: 12px; color: #555;">
-								Schlüssel zu<br>
-								<input type="text" value=<?php echo '"'.($schedule[$weekdays[$day+1%7].'_kueche'] ? $employee_names[$schedule[$weekdays[$day+1%7].'_kueche']] : $employee_names[$schedule[$weekdays[$day+1%7].'_theke']]).'"' ?> placeholder="Jonas (1622)">
+							<td>
+								<span style="font-size: 14px">
+									<?php if($schedule[$weekdays[$day%7].'_open']){
+										echo ($schedule[$weekdays[$day%7].'_event'] ? $schedule[$weekdays[$day%7].'_event'].': ' : '');
+										echo ($schedule[$weekdays[$day%7].'_deal'] ? $schedule[$weekdays[$day%7].'_deal'] : '');
+									} else {
+										echo ('geschlossen');
+									} ?>
+								</span>
+							<table>
+								<tr>
+									<td style="text-align: left">
+										<?php echo ($schedule[$weekdays[$day%7].'_theke'] ? '<a class="fa fa-glass"></a>'.$employee_names[$schedule[$weekdays[$day%7].'_theke']] : ''); ?>
+										<?php echo ($schedule[$weekdays[$day%7].'_springer'] ? '<br><a class="fa fa-sun"></a>'.$employee_names[$schedule[$weekdays[$day%7].'_springer']] : ''); ?>
+										<?php echo ($schedule[$weekdays[$day%7].'_kueche'] ? '<br><a class="fa fa-cutlery"></a>'.$employee_names[$schedule[$weekdays[$day%7].'_kueche']] : ''); ?>
+									</td>
+									<td style="text-align: right; vertical-align: bottom; font-size: 12px; color: #555;">
+										Schlüssel zu<br>
+										<input type="text" value=<?php echo '"'.($schedule[$weekdays[$day+1%7].'_kueche'] ? $employee_names[$schedule[$weekdays[$day+1%7].'_kueche']] : $employee_names[$schedule[$weekdays[$day+1%7].'_theke']]).'"' ?> placeholder="Jonas (1622)">
+									</td>
+								</tr>
+							</table>
 							</td>
 						</tr>
-					</table>
-					</td>
-				</tr>
 
-				</div>
-			<?php } ?>
-		</table>
-	</div>
+						</div>
+					<?php } ?>
+				</table>
+			<!--</div>-->
+		</div>
 </div>
 </body>
 </html>

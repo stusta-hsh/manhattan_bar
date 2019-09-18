@@ -23,11 +23,11 @@ mysqli_stmt_close($sql_query);
 			<span style='color: #ccc'><i style='color: #ccc' class='fa fa-print'></i><br>Drucken</span>
 			<!--<span style='color: #ccc'><i style='color: #ccc' class='fa fa-trash'></i><br>Löschen</span>-->
 		</div>
-		<div class='toolbar'>
+		<!--<div class='toolbar'>
 			<span><a href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>"><i class='fa fa-chevron-left'></i><br></a></span>
 			<h3 style="width: 250px; text-align:center;"><?php echo(' '.$months[$month-1].' '.$year.' '); ?></h3>
 			<span><a href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>"><i class='fa fa-chevron-right'></i><br></a></span>
-		</div>
+		</div>-->
 	</div>
 
 	<div class="content">
@@ -38,36 +38,53 @@ mysqli_stmt_close($sql_query);
 			<div>Schichten Ausschuss: <?php ?></div>
 			<div>Schichten Betreiber: <?php ?></div>
 		</div>-->
-		<table>
-			<tr>
-				<th></th>
-				<th>Mo</th>
-				<th>Di</th>
-				<th>Mi</th>
-				<th>Do</th>
-				<th>Fr</th>
-				<th>Sa</th>
-				<th>So</th>
-			</tr>
-			<?php foreach($schedules as $schedule){
-				if($schedule['year']==$year && (date('n',$schedule['year']+($schedule['calendar_week']-1)*7*24*60*60-(24*60*60))==$month || date('n',$schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))==$month)){
-				?>
+		<div class="card calendar">
+			<div class="card-title">
+				<span class="arrow">
+					<a href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>">
+						<i class='fa fa-chevron-left'></i>
+					</a>
+				</span>
+				<?php echo(' '.$months[$month-1].' '.$year.' '); ?>
+				<span>
+					<a href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>">
+						<i class='fa fa-chevron-right'></i>
+					</a>
+				</span>
+			</div>
+			<div class="card-content">
+				<table>
 					<tr>
-						<td>
-							<a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>">
-								<span style="font-size: 8pt">KW</span><br>
-								<span><?php echo $schedule['calendar_week'] ?></span>
-							</a>
-						</td>
-						<?php for($i=1; $i<8; $i++){ ?>
-							<td>
-								<a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>" <?php if(!$schedule[$weekdays[$i%7].'_open']) echo('style="color:#bbb"'); ?>><?php echo date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(($i-2)*24*60*60)) ?></a>
-							</td>
-						<?php } ?>
+						<th></th>
+						<th>Mo</th>
+						<th>Di</th>
+						<th>Mi</th>
+						<th>Do</th>
+						<th>Fr</th>
+						<th>Sa</th>
+						<th>So</th>
 					</tr>
-				<?php }
-			} ?>
-		</table>
+					<?php foreach($schedules as $schedule){
+						if($schedule['year']==$year && (date('n',$schedule['year']+($schedule['calendar_week']-1)*7*24*60*60-(24*60*60))==$month || date('n',$schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))==$month)){
+						?>
+							<tr>
+								<td>
+									<a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>">
+										<span style="font-size: 8pt">KW</span><br>
+										<span><?php echo $schedule['calendar_week'] ?></span>
+									</a>
+								</td>
+								<?php for($i=1; $i<8; $i++){ ?>
+									<td>
+										<a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>" <?php if(!$schedule[$weekdays[$i%7].'_open']) echo('style="color:#bbb"'); ?>><?php echo date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(($i-2)*24*60*60)) ?></a>
+									</td>
+								<?php } ?>
+							</tr>
+						<?php }
+					} ?>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

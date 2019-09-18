@@ -11,8 +11,10 @@ mysqli_stmt_close($sql_query);
 
 ?>
 
-<div class='logo'>
-	<a href='index.php'><img src='../images/logo.png' alt='Manhattan' width='100%'></a>
+<div class="logo-background">
+	<div class='logo'>
+		<a href='index.php'><img src='../images/logo.png' alt='Manhattan' width='100%'></a>
+	</div>
 </div>
 
 <div class='tab-navigation-background'>

@@ -20,6 +20,8 @@ h4{font-size:14pt; font-weight: normal; margin:4px 0px;}
 body{
 	font-family: 'Raleway', sans-serif;
 	margin: 0px;
+	//background-color: #EDF1EC;
+	//background-color: #eee;
 
 	--primary-color: #03aa2a;
 	--secondary-color: #ace5b9;
@@ -30,6 +32,10 @@ body{
 	max-width: 300px;
 	padding: 0px 30px;
 	margin: auto;
+}
+
+.logo-background {
+	background-color: white;
 }
 
 .tab-navigation-background{
@@ -60,9 +66,10 @@ body{
 }
 
 .active-tab{
-	background-color: white;
 	border-width: 0px;
 	color: var(--primary-color);
+	//background-color: #eee;
+	background-color: #EDF1EC;
 	background-color: #eee;
 }
 
@@ -79,13 +86,14 @@ body{
 	max-width: 600px;
 	margin: auto;
 	text-align: center;
-	padding-top: 20px;
-	padding-bottom: 100px;
+	padding: 20px 7px 100px 7px;
+	//padding-top: 20px;
+	//padding-bottom: 100px;
 }
 
 table{
 	width: 100%;
-	max-width: 550px;
+	//max-width: 550px;
 	margin: auto;
 	border-collapse: collapse;
 }
@@ -106,7 +114,8 @@ table td .fa{
 }
 
 table tr:nth-child(odd){
-	background-color: var(--zebra-color);
+	//background-color: var(--zebra-color);
+	background-color: #eee;
 }
 
 table table tr:nth-child(odd){
@@ -162,6 +171,8 @@ table table tr:nth-child(odd){
 	margin: 10px 0px;
 	max-width: 800px;
 	margin: auto;
+	//background-color: #eee;
+	background-color: #EDF1EC;
 	background-color: #eee;
 	position: sticky;
 	top: 50px;
@@ -404,10 +415,9 @@ input{
 
 .team-schedule{
 	color: #222;
-	padding-top: 50px;
 	max-width: 450px;
-	margin: auto;
-	font-size: 16px;
+	//margin: auto;
+	//font-size: 16px;
 }
 
 .team-schedule-row > td{
@@ -426,27 +436,52 @@ input{
 }
 
 .card {
-	//background-color: #fafafa;
-	border-radius: 2px;
+	background-color: #fff;
+	//background-image: linear-gradient(to bottom left, var(--secondary-color), white);
+	border-radius: 3px;
 	box-shadow: 1px 2px 3px 2px lightgrey;
 	//border: 3px solid var(--secondary-color);
 	margin: auto;
-	margin: 20px 10px;
+	margin-top: 25px;
+}
+
+.calendar {
+	margin: auto;
+	max-width: 500px;
 }
 
 .card-title {
-	color: #222;
-	font-size: 16px;
-	font-weight: bold;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
 
-	padding: 5px 10px;
+	color: #222;
+	font-size: 20px;
+	//font-weight: bold;
+	//text-decoration: underline;
+	//text-align: center;
+
+	padding: 10px 20px;
 	background-color: var(--secondary-color);
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
+	//background-color: #eee;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.card-title .arrow {
+	text-decoration: none;
+	color: #555;
+	display: block;
+}
+
+.card-title .fa {
+	text-decoration: none;
+	color: #555;
 }
 
 .card-content {
 	color: #222;
+	//background-image: linear-gradient(to bottom left, var(--secondary-color), #99cca4);
 }
 
 .card-content .radio-input-wrapper{
@@ -495,4 +530,9 @@ input{
 
 .card-content table {
 	max-width: 100%;
+}
+
+.card-content .button-wrapper {
+	padding: 5px;
+	text-align: right;
 }

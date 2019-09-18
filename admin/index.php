@@ -49,8 +49,9 @@ if($_POST){
 						<input id="status_rooftop" type='radio' name='new_status' value='2' <?php if($status==2)echo'checked' ?>></input>
 						<label for="status_rooftop"><i class="fa fa-sun" aria-hidden="true"></i><br>Dachterrasse offen</label>
 					</div>
-					<br>
-					<input type='submit' value='Übernehmen'></input>
+					<div class='button-wrapper'>
+						<input type='submit' value='Anwenden'></input>
+					</div>
 					<!-- Letzte Aktualisierung: <?php echo $lastrefreshed ?>-->
 				</form>
 			</div>
