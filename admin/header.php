@@ -40,34 +40,48 @@
 	$diff = time() - $lrd;
 
 	if ($status != 0 && $diff > 43200){
-		 echo "\n<!--WARNING: Assuming CLOSED because the last status update is older than twelve hours! -->";
+		 echo '<!--WARNING: Assuming CLOSED because the last status update is older than twelve hours! -->';
 		 $status = 0;
 	}
 
+	// Workaround for currently defunct switch
+	// Also works for cases in which employees forget to use switch
+	// Open between 19:00 and 00:00
+	if ($status == 0 && $current_schedule[$weekdays[date('w')].'_open'] && date('G')>=19 && $diff > 21600){
+		 $status = 3;
+	}
+
 	if ($status == 1){
-		 $fcolor = "#000";
-		 $titlestatus = "Geöffnet";
-		 $desc = "Wir haben geöffnet!<br>Die Dachterrasse bleibt heute geschlossen.";
+		 $fcolor = '#000';
+		 $titlestatus = 'Geöffnet';
+		 $desc = 'Wir haben geöffnet!<br>Die Dachterrasse bleibt heute geschlossen.';
 		 if(empty($current_schedule))
-			 $desc .= "<br>Der aktuelle Plan kommt bald.<br><br><br><br>";
+			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
 	}
 	else if ($status == 2){
-		 $fcolor = "#000";
-		 $titlestatus = "Dachterrasse geöffnet";
-		 $desc = "Die Dachterrasse ist geöffnet!";
+		 $fcolor = '#000';
+		 $titlestatus = 'Dachterrasse geöffnet';
+		 $desc = 'Die Dachterrasse ist geöffnet!';
 		 if(empty($current_schedule))
-			 $desc .= "<br>Der aktuelle Plan kommt bald.<br><br><br><br>";
+			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
+	}
+	else if ($status == 3){
+		 $fcolor = '#000';
+		 $titlestatus = 'Geöffnet';
+		 $desc = 'Wir haben geöffnet!';
+		 if(empty($current_schedule))
+			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
 	}
 	else{
-		 $fcolor = "gray";
-		 $titlestatus = "Geschlossen";
-		 $desc = "Aktuell geschlossen.";
+		 $fcolor = 'gray';
+		 $titlestatus = 'Geschlossen';
+		 $desc = 'Aktuell geschlossen.';
 		 if(empty($current_schedule))
-			 $desc .= "<br>Der Wochenplan kommt bald.<br><br><br><br>";
+			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
 		 elseif($current_schedule[$weekdays[date('w')].'_open'])
-			 $desc .= "<br>Wir öffnen heute um 19 Uhr.";
+			 $desc .= '<br>Wir öffnen heute um 19 Uhr.';
 		 else
-			 $desc = "Heute bleiben wir geschlossen.";
+			 $desc = 'Heute bleiben wir geschlossen.';
 	}
 
 	// Ende der Datenbankabfrage
@@ -170,6 +184,43 @@
 				}
 			}
 		}
+
+		function sortTable(n) {
+		  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+		  table = document.getElementById("employee_list");
+		  switching = true;
+		  dir = "desc";
+		  while (switching) {
+		    switching = false;
+		    rows = table.rows;
+		    for (i = 1; i < (rows.length - 1); i++) {
+		      shouldSwitch = false;
+		      x = rows[i].getElementsByTagName("TD")[n];
+		      y = rows[i + 1].getElementsByTagName("TD")[n];
+		      if (dir == "asc") {
+		        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+		          shouldSwitch = true;
+		          break;
+		        }
+		      } else if (dir == "desc") {
+		        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+		          shouldSwitch = true;
+		          break;
+		        }
+		      }
+		    }
+		    if (shouldSwitch) {
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		      switchcount ++;
+		    } else {
+		      if (switchcount == 0 && dir == "desc") {
+		        dir = "asc";
+		        switching = true;
+		      }
+		    }
+		  }
+	}
 	</script>
 
 	<link href="style.css" rel="stylesheet" type="text/css" media="all">

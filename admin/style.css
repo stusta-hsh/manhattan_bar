@@ -86,9 +86,7 @@ body{
 	max-width: 600px;
 	margin: auto;
 	text-align: center;
-	padding: 20px 7px 100px 7px;
-	//padding-top: 20px;
-	//padding-bottom: 100px;
+	padding: 15px 0px 15px 0px;
 }
 
 table{
@@ -100,6 +98,8 @@ table{
 
 table th{
 	font-weight: normal;
+	background-color: var(--secondary-color);
+	color: rgba(0, 0, 0, 0.4);
 }
 
 table td a{
@@ -122,22 +122,32 @@ table table tr:nth-child(odd){
 	background-color: transparent;
 }
 
+.employee-searchbar {
+	border-radius: 30px;
+	background-color: #fff;
+}
+
 .employee-searchbar .fa{
 	font-size: 16px;
-	margin-right: -30px;
 	color: var(--secondary-color);
+	padding-left: 10px;
 }
 
 .employee-searchbar input{
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
-	padding: 5px 3px;
-	padding-left: 30px;
-	margin-bottom: 20px;
-	border: 2px solid var(--secondary-color);
-	border-radius: 30px;
+	padding: 3px 1px;
+	border: 0px;
 	background-color: transparent;
-	width: 300px;
+	width: 150px;
+}
+
+.employee_list tr {
+	cursor: pointer;
+}
+
+.employee_list td {
+	padding: 3px 5px;
 }
 
 .employee_list tr:not:first-child{
@@ -176,7 +186,6 @@ table table tr:nth-child(odd){
 	background-color: #eee;
 	position: sticky;
 	top: 50px;
-	//z-index: 5;
 }
 
 .toolbar a{
@@ -416,8 +425,6 @@ input{
 .team-schedule{
 	color: #222;
 	max-width: 450px;
-	//margin: auto;
-	//font-size: 16px;
 }
 
 .team-schedule-row > td{
@@ -437,12 +444,10 @@ input{
 
 .card {
 	background-color: #fff;
-	//background-image: linear-gradient(to bottom left, var(--secondary-color), white);
 	border-radius: 3px;
 	box-shadow: 1px 2px 3px 2px lightgrey;
-	//border: 3px solid var(--secondary-color);
 	margin: auto;
-	margin-top: 25px;
+	margin-bottom: 25px;
 }
 
 .calendar {
@@ -454,16 +459,10 @@ input{
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
-
 	color: #222;
 	font-size: 20px;
-	//font-weight: bold;
-	//text-decoration: underline;
-	//text-align: center;
-
-	padding: 10px 20px;
+	padding: 8px 15px;
 	background-color: var(--secondary-color);
-	//background-color: #eee;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
 }
@@ -474,14 +473,13 @@ input{
 	display: block;
 }
 
-.card-title .fa {
+.card-title .fa:not(.fa-search) {
 	text-decoration: none;
 	color: #555;
 }
 
 .card-content {
 	color: #222;
-	//background-image: linear-gradient(to bottom left, var(--secondary-color), #99cca4);
 }
 
 .card-content .radio-input-wrapper{

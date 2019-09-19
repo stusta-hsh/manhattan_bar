@@ -42,7 +42,7 @@ if($_POST){
 				<br><br>
 				<form method='post' action=''>
 					<div class="radio-input-wrapper">
-						<input id="status_closed" type='radio' name='new_status' value='0' <?php if($status==0)echo'checked' ?>></input>
+						<input id="status_closed" type='radio' name='new_status' value='0' <?php if($status==3)echo'checked' ?>></input>
 						<label for="status_closed"><i class="fa fa-refresh" aria-hidden="true"></i><br>automatisch</label>
 						<input id="status_open" type='radio' name='new_status' value='1' <?php if($status==1)echo'checked' ?>></input>
 						<label for="status_open"><i class="fa fa-umbrella" aria-hidden="true"></i><br>Manhattan offen</label>
