@@ -73,34 +73,45 @@ if(date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')) 
 }
 $pdf->SetFontSize(15);
 $pdf->SetY(90);
+// Für jeden Wochentag
 for($i=1; $i<8; $i++){
 	$x=$pdf->GetX();
 	$y=$pdf->GetY();
+	// Farbe abwechselnd grün und weiß
 	if($i%2==0) $pdf->SetDrawColor(256, 256, 256); else $pdf->SetDrawColor(190, 229, 198);
 	if($i%2==0) $pdf->SetFillColor(256, 256, 256); else $pdf->SetFillColor(190, 229, 198);
+	// Padding oben in der Zeile
 	$pdf->Cell(0, $line_margin, '', $borders, 1, 'C', 'true');
 
+	// Wochentagkürzel
 	$pdf->Cell(15, $line_height, ucfirst($weekdays[$i%7]), $borders, 2, 'C', 'true');
+	// Datum TT.MM.
 	$pdf->SetFontSize(10);
 	$pdf->Cell(15, $line_height, date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$i)), $borders, 0, 'C', 'true');
 	$pdf->SetFontSize(15);
 	$pdf->SetXY($x+15, $y+$line_margin);
 
+	// Tagestext
 	if(!$schedule[$weekdays[$i%7].'_open']){
+		// geschlossen
 		$pdf->SetTextColor(100, 100, 100);
 		$pdf->Cell(100, $line_height*2, 'geschlossen', $borders, 0, 'C', 'true');
 		$pdf->SetTextColor(0, 0, 0);
 	}elseif(!$schedule[$weekdays[$i%7].'_deal'] && !$schedule[$weekdays[$i%7].'_event']){
+		// Geöffnet, aber weder Deal noch Event eingetragen
 		$pdf->Cell(100, $line_height*2, iconv('UTF-8', 'windows-1252', 'Geöffnet'), $borders, 0, 'C', 'true');
 	}elseif(!$schedule[$weekdays[$i%7].'_event']){
+		// Geöffnet, kein Event eingetragen
 		if(strpos($schedule[$weekdays[$i%7].'_deal'], '<br>')){
 			$pdf->MultiCell(100, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","\n",$schedule[$weekdays[$i%7].'_deal'])), $borders, 'C', 'true');
 		}else{
 			$pdf->Cell(100, $line_height*2, iconv('UTF-8', 'windows-1252', str_replace("<br>","",$schedule[$weekdays[$i%7].'_deal'])), $borders, 0, 'C', 'true');
 		}
 	}elseif(!$schedule[$weekdays[$i%7].'_deal']){
+		// Geöffnet, kein Deal eingetragen
 		$pdf->Cell(100, $line_height*2, iconv('UTF-8', 'windows-1252', str_replace("<br>","",$schedule[$weekdays[$i%7].'_event'])), $borders, 0, 'C', 'true');
 	}else{
+		// Geöffnet, Deal und Event eingetragen
 		$pdf->Cell(100, $line_height, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 2, 'C', 'true');
 		$pdf->SetFontSize(12);
 		$pdf->Cell(100, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","",str_replace("<sup>","",str_replace("</sup>","",$schedule[$weekdays[$i%7].'_deal'])))), $borders, 0, 'C', 'true');
@@ -109,15 +120,19 @@ for($i=1; $i<8; $i++){
 
 	$pdf->SetXY($x+115, $y+$line_margin);
 
+	// Team
 	if(!$schedule[$weekdays[$i%7].'_open']){
+		// geschlossen
 		$pdf->Cell(0, $line_height*2, '', $borders, 1, 'C', 'true');
 	}elseif(!$schedule[$weekdays[$i%7].'_kueche']){
+		// Geöffnet, keine Küchenschicht eingetragen
 		if($schedule[$weekdays[$i%7].'_springer']){
 			$pdf->Cell(0, $line_height*2, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']].' & '.$employee_names[$schedule[$weekdays[$i%7].'_springer']]), $borders, 1, 'C', 'true');
 		}else{
 			$pdf->Cell(0, $line_height*2, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_theke']]), $borders, 1, 'C', 'true');
 		}
 	}else{
+		// Geöffnet, Küchenschicht eingetragen
 		if(!$schedule[$weekdays[$i%7].'_springer']){
 			$pdf->Cell(0, $line_height*2, iconv('UTF-8', 'windows-1252', $employee_names[$schedule[$weekdays[$i%7].'_kueche']].' & '.$employee_names[$schedule[$weekdays[$i%7].'_theke']]), $borders, 2, 'C', 'true');
 		}else{
