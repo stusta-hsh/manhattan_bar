@@ -86,7 +86,7 @@ body{
 	max-width: 600px;
 	margin: auto;
 	text-align: center;
-	padding: 15px 0px 15px 0px;
+	padding: 0px 0px 15px 0px;
 }
 
 table{
@@ -444,7 +444,7 @@ input{
 .card {
 	background-color: #fff;
 	border-radius: 3px;
-	box-shadow: 1px 2px 3px 2px lightgrey;
+	box-shadow: 1px 2px 3px 1px lightgrey;
 	margin: auto;
 	margin-bottom: 25px;
 }
