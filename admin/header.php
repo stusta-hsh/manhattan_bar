@@ -47,7 +47,7 @@
 	// Workaround for currently defunct switch
 	// Also works for cases in which employees forget to use switch
 	// Open between 19:00 and 00:00
-	if ($status == 0 && $current_schedule[$weekdays[date('w')].'_open'] && date('G')>=19 && $diff > 21600){
+	if ($status == 0 && $current_schedule[$weekdays[date('w')].'_open'] && date('G')>=19){
 		 $status = 3;
 	}
 
