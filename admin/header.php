@@ -167,7 +167,7 @@
 			table = document.getElementById(table);
 			rows = table.getElementsByTagName('tr');
 
-			for (i = 0; i < rows.length; i++) {
+			for (i = 1; i < rows.length; i++) {
 				data = rows[i].textContent.toLowerCase();
 				var notfound=0;
 				for (var j = 0; j < filterarray.length; j++) {
