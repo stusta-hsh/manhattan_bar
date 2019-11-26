@@ -44,6 +44,7 @@ if(empty($employee)){
 	exit();
 }
 
+// Änderungen in die Datenbank schreiben
 if($_POST){
 	if($_POST['display_name'] == '') $_POST['display_name'] = $_POST['first_name'];
 	$sql = 'UPDATE employees SET '.implode(' = ?, ', array_slice(array_keys($_POST),0,sizeof($_POST)-1)).' = ? WHERE id = ?';
