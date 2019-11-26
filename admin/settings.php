@@ -3,38 +3,45 @@ $page_title='settings';
 
 include('header.php');
 
-// Neuen Status übernehmen
+// Datenbankabfrage Settings
+$sql = 'SELECT * FROM settings';
+$sql_query = mysqli_prepare($db, $sql);
+if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+mysqli_stmt_execute($sql_query);
+$results = mysqli_stmt_get_result($sql_query);
+mysqli_stmt_close($sql_query);
+
+$settings = [];
+foreach($results as $result){
+	$settings[$result['title']] = $result['value'];
+}
+
+// Änderungen in die Datenbank schreiben
 if($_POST){
-	$sql = 'INSERT INTO openstatus (STATUS) VALUES (?)';
-	$sql_query = mysqli_prepare($db, $sql);
-	mysqli_stmt_bind_param($sql_query, 'i', $_POST['new_status']);
-	mysqli_stmt_execute($sql_query);
-	mysqli_stmt_close($sql_query);
+	foreach($_POST as $title => $value){
+		$sql = 'UPDATE settings SET value = ? WHERE title = ?';
+		$sql_query = mysqli_prepare($db, $sql);
+		mysqli_stmt_bind_param($sql_query, 'ss', $value, $title);
+		mysqli_stmt_execute($sql_query);
+		mysqli_stmt_close($sql_query);
+	}
 	header('Location: settings.php');
 	exit();
 }
 
 ?>
-
 	<div class="content">
 		<div class="card">
-			<div class="card-title">Status</div>
+			<div class="card-title">Webseite</div>
 			<div class="card-content">
 				<form method='post' action=''>
-					<div class="radio-input-wrapper">
-						<input id="status_closed" type='radio' name='new_status' value='0' <?php if($status==0)echo'checked' ?>></input>
-						<label for="status_closed"><i class="fa fa-refresh" aria-hidden="true"></i><br>automatisch</label>
-						<input id="status_open" type='radio' name='new_status' value='1' <?php if($status==1)echo'checked' ?>></input>
-						<label for="status_open"><i class="fa fa-umbrella" aria-hidden="true"></i><br>Manhattan offen</label>
-						<input id="status_rooftop" type='radio' name='new_status' value='2' <?php if($status==2)echo'checked' ?>></input>
-						<label for="status_rooftop"><i class="fa fa-sun" aria-hidden="true"></i><br>Dachterrasse offen</label>
-					</div>
+					<textarea rows="4" name="footer_text"><?php echo $settings['footer_text'] ?></textarea>
 					<br>
-					<input type='submit' value='Speichern'></input>
-					<!-- Letzte Aktualisierung: <?php echo $lastrefreshed ?>-->
+					<input type='submit' value='Anwenden'></input>
 				</form>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>

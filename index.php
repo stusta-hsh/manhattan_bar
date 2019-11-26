@@ -39,6 +39,19 @@
 			$employee_names[$employee['id']] = $employee['first_name'];
 	}
 
+	// Datenbankabfrage Settings
+	$sql = 'SELECT title, value FROM settings';
+	$sql_query = mysqli_prepare($db, $sql);
+	if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+	mysqli_stmt_execute($sql_query);
+	$results = mysqli_stmt_get_result($sql_query);
+	mysqli_stmt_close($sql_query);
+
+	$settings = [];
+	foreach($results as $result){
+		$settings[$result['title']] = $result['value'];
+	}
+
 	// Datenbankabfrage Status Manhattan
 	$sql = 'SELECT date, status FROM openstatus ORDER BY date DESC LIMIT 1';
 	$sql_query = mysqli_prepare($db, $sql);
@@ -259,8 +272,7 @@
 		</div>
 
 		<div class="footer">
-			Geöffnet ab 19:00 Uhr<br>
-			Nur für Bewohner der Studentenstadt Freimann
+			<?php echo $settings['footer_text'] ?>
 			<div class="social-icons">
 				<a title="Facebook" href="https://www.facebook.com/manhattanbarhsh/"><i class="fa fa-facebook-official"></i></a>
 				<a title="Facebook Messenger" href="https://www.m.me/manhattanbarhsh"><i class="fa fa-facebook-messenger"></i></a>
