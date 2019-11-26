@@ -61,11 +61,11 @@ $pdf->SetAuthor(ucfirst($_SERVER['PHP_AUTH_USER']));
 $pdf->SetCreator('Manhattan WebApp');
 
 $pdf->AddPage();
-$pdf->SetMargins(13, 10, 9);
+$pdf->SetMargins(19, 10, 5);
 $pdf->SetFont('Raleway', '', 15);
 
 $pdf->SetFontSize(16);
-$pdf->SetY(99);
+$pdf->SetY(104);
 // Für jeden Wochentag
 for($i=4; $i<7; $i++){
 	$x=$pdf->GetX();
