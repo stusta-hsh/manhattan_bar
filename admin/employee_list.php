@@ -34,7 +34,7 @@ include('employee_header.php');
 					<th onclick="sortTable(3)"><i title="Einarbeitung Dachterrasse" class="fa fa-sun"></i></th>
 					<th onclick="sortTable(4)"><i title="Einarbeitung Küche" class="fa fa-cutlery"></i></th>
 					<th onclick="sortTable(5)"><i title="Hygienebelehrung" class="fa fa-id-card"></i></th>
-					<th onclick="sortTable(6)"><i title="Einläufer" class="fa fa-truck"></i></th>
+					<th onclick="sortTable(6)"><i title="Einkäufer" class="fa fa-truck"></i></th>
 					<th onclick="sortTable(7)"><i title="Putzkraft" class="fa fa-tint"></i></th>
 				</tr>
 				<?php foreach($employees as $employee){ ?>
