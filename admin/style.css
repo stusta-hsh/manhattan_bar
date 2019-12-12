@@ -533,3 +533,38 @@ input{
 	padding: 5px;
 	text-align: right;
 }
+
+.card-content form textarea{
+	box-sizing:border-box;
+	width: 100%;
+	margin: 2px;
+	resize: none;
+	padding: 4px 5px;
+	border: 2px solid var(--secondary-color);
+	border-radius: 3px;
+	color: #333;
+}
+
+.stocktake-ingredient {
+	background-color: #eee;
+	text-align: left;
+	font-size: 18px;
+}
+
+.stocktake-ingredient-alt {
+	background-color: #fff;
+	text-align: left;
+	font-size: 18px;
+}
+
+.stocktake-stock {
+	background-color: #eee; 
+	text-align: right;
+	font-size: 14px;
+}
+
+.stocktake-stock-alt {
+	background-color: #fff;
+	text-align: right;
+	font-size: 14px;
+}
