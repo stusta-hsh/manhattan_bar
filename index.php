@@ -102,7 +102,7 @@
 			 $desc .= '<br>Der aktuelle Plan kommt bald.<br><br><br><br>';
 	}
 	else{
-		 $fcolor = 'gray';
+		 $fcolor = '#B62B4C';
 		 $titlestatus = 'Geschlossen';
 		 $desc = 'Aktuell geschlossen.';
 		 if(empty($current_schedule))
@@ -168,7 +168,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="style.css" rel="stylesheet" type="text/css" media="all">
+	<link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="all">
+	<link rel="stylesheet" href="stylesheets/winter.css" type="text/css" media="all">
 	<link rel="stylesheet" href="fonts/fork-awesome/css/fork-awesome.min.css">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -177,21 +178,23 @@
 
 </head>
 <body>
-	<div class="content" >
-	<!-- style="background-image: linear-gradient(rgba(0, 0, 0, <?php echo(abs(date('G')-12)/12) ?>), rgba(0, 2, 41, <?php echo(abs(date('G')-12)/12) ?>), rgba(255, 0, 0, <?php echo(abs(date('G')-12)/12) ?>))"> -->
-		<div class="logo">
-			<img src="images/logo.png" alt="Manhattan" width="100%">
-		</div>
-
+	<div class="content">
+		<div class="snow" id="snow-down"></div>
+		<div class="snow" id="snow-left"></div>
+		<div class="snow" id="snow-right"></div>
+		<div class="logo"></div>
+		<!--
 		<div class="status textbox">
 			<h3 style='color: <?php echo($fcolor) ?>'><?php echo($desc) ?></h3>
 		</div>
-
+		-->
 		<?php if(!empty($current_schedule)){
 			if(!empty(get_event()) || !empty(get_deal())){ ?>
-				<div class="special textbox">
+				<div class="textbox subtitle">
 					<br><br>
-					<h4>Heute:</h4>
+					<h4>Heute, ab 19 Uhr:</h4>
+				</div>
+				<div class="textbox title">
 					<?php
 						$acc1='';
 						if(!empty(get_event()))
@@ -200,7 +203,11 @@
 							$acc1.='<br>';
 						if(!empty(get_deal()))
 							$acc1.=get_deal();
-						echo('<h2 style="color: #03aa2a">'.$acc1.'</h2>');
+						echo('<h2>'.$acc1.'</h2>');
+					?>
+				</div>
+				<div class="textbox subtitle">
+					<?php
 						$acc2='';
 						if(!empty(get_theke()) || !empty(get_springer()) || !empty(get_kueche())){
 								$acc2.='mit ';
@@ -219,9 +226,8 @@
 					?>
 				</div>
 			<?php } ?>
-
-			<div class="textbox">
-				<table class="wochenplan">
+			<div class="textbox wochenplan">
+				<table>
 					<?php for($i=1; $i<8; $i++){ ?>
 						<tr id="<?php echo($weekdays[$i%7]) ?>">
 							<td style="width: 40px">
@@ -233,7 +239,7 @@
 							<td id="<?php echo($weekdays[$i%7].'_daily') ?>">
 								<?php
 									if(!$current_schedule[$weekdays[$i%7].'_open']){
-										echo('<span style="color: grey">geschlossen</span>');
+										echo('<span class="closed">geschlossen</span>');
 									}else{
 										if(empty($current_schedule[$weekdays[$i%7].'_deal']) && empty($current_schedule[$weekdays[$i%7].'_event']))
 											echo('geöffnet');
@@ -262,25 +268,22 @@
 				</table>
 			</div>
 		<?php } ?>
-
 		<div class="skyline">
 			<div class="skyline-image-div">
 				<img class="wheel" src="images/wheel2.svg">
-				<img class="skyline-image" src="images/skyline.png">
+				<img class="skyline-image" src="images/skyline_night.png">
 			</div>
 			<div class="skyline-spacer"></div>
 		</div>
-
-		<div class="footer">
-			<?php echo $settings['footer_text'] ?>
-			<div class="social-icons">
-				<a title="Facebook" href="https://www.facebook.com/manhattanbarhsh/"><i class="fa fa-facebook-official"></i></a>
-				<a title="Facebook Messenger" href="https://www.m.me/manhattanbarhsh"><i class="fa fa-facebook-messenger"></i></a>
-				<a title="Mail" href="mailto:manhattan@stusta.de"><i style="font-size:95%" class="fa fa-envelope"></i></a>
-				<a title="StuStaNet-Wiki" href="https://wiki.stusta.de/Manhattan"><i class="fa fa-book"></i></a>
-			</div>
+	</div>
+	<div class="footer">
+		<?php echo $settings['footer_text'] ?>
+		<div class="social-icons">
+			<a title="Facebook" href="https://www.facebook.com/manhattanbarhsh/"><i class="fa fa-facebook-official"></i></a>
+			<a title="Facebook Messenger" href="https://www.m.me/manhattanbarhsh"><i class="fa fa-facebook-messenger"></i></a>
+			<a title="Mail" href="mailto:manhattan@stusta.de"><i style="font-size:95%" class="fa fa-envelope"></i></a>
+			<a title="StuStaNet-Wiki" href="https://wiki.stusta.de/Manhattan"><i class="fa fa-book"></i></a>
 		</div>
 	</div>
-
 </body>
 </html>
