@@ -227,49 +227,53 @@
 						}
 					?>
 				</div>
-			<?php } ?>
-			<div class="textbox wochenplan">
-				<table>
-					<?php for($i=1; $i<8; $i++){ ?>
-						<tr id="<?php echo($weekdays[$i%7]) ?>">
-							<td style="width: 40px">
-								<?php echo ucfirst($weekdays[$i%7]) ?><br>
-								<a style="font-size: 8pt">
-									<?php echo date('j.n.', time()-($days_from_monday[date('w')]*24*60*60)+($i-1)*24*60*60) ?>
-								</a>
-							</td>
-							<td id="<?php echo($weekdays[$i%7].'_daily') ?>">
-								<?php
-									if(!$current_schedule[$weekdays[$i%7].'_open']){
-										echo('<span class="closed">geschlossen</span>');
-									}else{
-										if(empty($current_schedule[$weekdays[$i%7].'_deal']) && empty($current_schedule[$weekdays[$i%7].'_event']))
-											echo('geöffnet');
-										if(!empty($current_schedule[$weekdays[$i%7].'_event']))
-											echo('<span id="'.$weekdays[$i%7].'_event">'.$current_schedule[$weekdays[$i%7].'_event'].'</span>');
-										if(!empty($current_schedule[$weekdays[$i%7].'_event']) && !empty($current_schedule[$weekdays[$i%7].'_deal']))
-											echo('<br>');
-										if(!empty($current_schedule[$weekdays[$i%7].'_deal']))
-											echo('<span id="'.$weekdays[$i%7].'_deal">'.$current_schedule[$weekdays[$i%7].'_deal'].'</span>');
-								 	}
-								?><br>
-							</td>
-							<td id="<?php echo($weekdays[$i%7].'_team') ?>">
-								<?php
-									if($current_schedule[$weekdays[$i%7].'_open']){
-										if(!empty($current_schedule[$weekdays[$i%7].'_kueche'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_kueche']]);
-										if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && !empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(', <br>');
-										if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & ');
-										if(!empty($current_schedule[$weekdays[$i%7].'_theke'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_theke']]);
-										if(!empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & '.$employee_names[$current_schedule[$weekdays[$i%7].'_springer']]);
-									}
-								?>
-							</td>
-						</tr>
-					<?php } ?>
-				</table>
-			</div>
-		<?php } ?>
+			<?php }
+			if(!$current_schedule['mo_open'] && !$current_schedule['di_open'] && !$current_schedule['mi_open'] && !$current_schedule['do_open'] && !$current_schedule['fr_open'] && !$current_schedule['sa_open'] && !$current_schedule['so_open']){ ?>
+				<div class="textbox subtitle" style="margin-top: 100px; margin-bottom: 200px;"><h2><?php echo $settings['away_text'] ?></h2></div>
+			<?php } else { ?>
+				<div class="textbox wochenplan">
+					<table>
+						<?php for($i=1; $i<8; $i++){ ?>
+							<tr id="<?php echo($weekdays[$i%7]) ?>">
+								<td style="width: 40px">
+									<?php echo ucfirst($weekdays[$i%7]) ?><br>
+									<a style="font-size: 8pt">
+										<?php echo date('j.n.', time()-($days_from_monday[date('w')]*24*60*60)+($i-1)*24*60*60) ?>
+									</a>
+								</td>
+								<td id="<?php echo($weekdays[$i%7].'_daily') ?>">
+									<?php
+										if(!$current_schedule[$weekdays[$i%7].'_open']){
+											echo('<span class="closed">geschlossen</span>');
+										}else{
+											if(empty($current_schedule[$weekdays[$i%7].'_deal']) && empty($current_schedule[$weekdays[$i%7].'_event']))
+												echo('geöffnet');
+											if(!empty($current_schedule[$weekdays[$i%7].'_event']))
+												echo('<span id="'.$weekdays[$i%7].'_event">'.$current_schedule[$weekdays[$i%7].'_event'].'</span>');
+											if(!empty($current_schedule[$weekdays[$i%7].'_event']) && !empty($current_schedule[$weekdays[$i%7].'_deal']))
+												echo('<br>');
+											if(!empty($current_schedule[$weekdays[$i%7].'_deal']))
+												echo('<span id="'.$weekdays[$i%7].'_deal">'.$current_schedule[$weekdays[$i%7].'_deal'].'</span>');
+									 	}
+									?><br>
+								</td>
+								<td id="<?php echo($weekdays[$i%7].'_team') ?>">
+									<?php
+										if($current_schedule[$weekdays[$i%7].'_open']){
+											if(!empty($current_schedule[$weekdays[$i%7].'_kueche'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_kueche']]);
+											if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && !empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(', <br>');
+											if(!empty($current_schedule[$weekdays[$i%7].'_kueche']) && !empty($current_schedule[$weekdays[$i%7].'_theke']) && empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & ');
+											if(!empty($current_schedule[$weekdays[$i%7].'_theke'])) echo($employee_names[$current_schedule[$weekdays[$i%7].'_theke']]);
+											if(!empty($current_schedule[$weekdays[$i%7].'_springer'])) echo(' & '.$employee_names[$current_schedule[$weekdays[$i%7].'_springer']]);
+										}
+									?>
+								</td>
+							</tr>
+						<?php } ?>
+					</table>
+				</div>
+			<?php }
+		} ?>
 		<div class="skyline">
 			<div class="skyline-image-div">
 				<img class="wheel" src="images/wheel2.svg">
