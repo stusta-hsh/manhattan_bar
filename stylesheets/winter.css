@@ -43,7 +43,7 @@
 	background-size: 600px 600px;
 	opacity: 0.8;
 	width: 250%;
-	height: 250%;
+	height: 300%;
 	top: -1200px;
 	right: -600px;
 	-webkit-animation: snow-left 30s linear infinite;
@@ -57,7 +57,7 @@
 	background-size: 400px 400px;
 	opacity: 0.7;
 	width: 200%;
-	height: 200%;
+	height: 300%;
 	top: -800px;
 	left: -400px;
 	-webkit-animation: snow-right 30s linear infinite;

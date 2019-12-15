@@ -182,7 +182,9 @@
 		<div class="snow" id="snow-down"></div>
 		<div class="snow" id="snow-left"></div>
 		<div class="snow" id="snow-right"></div>
-		<div class="logo"></div>
+		<div class="logo">
+			<img src="images/logo.png">
+		</div>
 		<!--
 		<div class="status textbox">
 			<h3 style='color: <?php echo($fcolor) ?>'><?php echo($desc) ?></h3>

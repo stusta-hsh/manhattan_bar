@@ -43,28 +43,34 @@ body{
 }
 
 .logo{
-	width: 460px;
-	height: 150px;
-	padding: 10px 30px;
+	width: 90%;
+	max-width: 460px;
 	margin: auto;
-	margin-bottom: -15px;
 	background-image: var(--logo-path);
 	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.logo img{
+	width: 100%;
+	opacity: 0;
 }
 
 .textbox{
 	max-width: 550px;
 	text-align: center;
 	margin: auto;
-	padding: 0px 20px;
 }
 
 .title{
 	color: var(--title-color);
+	padding: 0px 20px;
 }
 
 .subtitle{
 	color: var(--subtitle-color);
+	padding: 0px 20px;
 }
 
 .status{
