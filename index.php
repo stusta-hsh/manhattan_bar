@@ -169,7 +169,9 @@
 <html>
 <head>
 	<link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="all">
-	<link rel="stylesheet" href="stylesheets/winter.css" type="text/css" media="all">
+	<?php if($settings['stylesheet_id']==1){ ?>
+		<link rel="stylesheet" href="stylesheets/winter.css" type="text/css" media="all">
+	<?php } ?>
 	<link rel="stylesheet" href="fonts/fork-awesome/css/fork-awesome.min.css">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -285,10 +287,21 @@
 	<div class="footer">
 		<?php echo $settings['footer_text'] ?>
 		<div class="social-icons">
-			<a title="Facebook" href="https://www.facebook.com/manhattanbarhsh/"><i class="fa fa-facebook-official"></i></a>
-			<a title="Facebook Messenger" href="https://www.m.me/manhattanbarhsh"><i class="fa fa-facebook-messenger"></i></a>
-			<a title="Mail" href="mailto:manhattan@stusta.de"><i style="font-size:95%" class="fa fa-envelope"></i></a>
-			<a title="StuStaNet-Wiki" href="https://wiki.stusta.de/Manhattan"><i class="fa fa-book"></i></a>
+		<?php if($settings['facebook_icon'] && !empty($settings['facebook_url'])){ ?>
+			<a title="Facebook" href="<?php echo $settings['facebook_url'] ?>"><i class="fa fa-facebook-official"></i></a>
+		<?php } ?>
+		<?php if($settings['messenger_icon'] && !empty($settings['messenger_url'])){ ?>
+			<a title="Facebook Messenger" href="<?php echo $settings['messenger_url'] ?>"><i class="fa fa-facebook-messenger"></i></a>
+		<?php } ?>
+		<?php if($settings['instagram_icon'] && !empty($settings['instagram_url'])){ ?>
+			<a title="Instagram" href="<?php echo $settings['instagram_url'] ?>"><i class="fa fa-instagram"></i></a>
+		<?php } ?>
+		<?php if($settings['email_icon'] && !empty($settings['email_url'])){ ?>
+			<a title="Mail" href="mailto:<?php echo $settings['email_url'] ?>"><i style="font-size:95%" class="fa fa-envelope"></i></a>
+		<?php } ?>
+		<?php if($settings['wiki_icon'] && !empty($settings['wiki_url'])){ ?>
+			<a title="StuStaNet-Wiki" href="<?php echo $settings['wiki_url'] ?>"><i class="fa fa-book"></i></a>
+		<?php } ?>
 		</div>
 	</div>
 </body>
