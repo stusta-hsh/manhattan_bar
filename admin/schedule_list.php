@@ -67,7 +67,7 @@ mysqli_stmt_close($sql_query);
 					<?php foreach($schedules as $schedule){
 						// Ermittle timestamp von Montag und Sonntag anhand Jahreszahl und Kalenderwoche
 						$monday = (strtotime("first thursday of January ".$schedule['year']." +".$schedule['calendar_week']." week -1 week last Monday"));
-						$sunday = (strtotime("first thursday of January ".$schedule['year']." +".$schedule['calendar_week']." week -1 week next Sunday"));
+						$sunday = $monday+(60*60*24*6);
 						// Falls Montag oder Sonntag ein Tag des Monats ist, zeige die Woche als Zeile an
 						if((date('Y',$sunday)==$year && date('n',$sunday)==$month) ||(date('Y',$monday)==$year && date('n',$monday)==$month)){
 						?>
