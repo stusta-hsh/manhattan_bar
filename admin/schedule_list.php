@@ -7,7 +7,7 @@ $month=$_GET['m'];
 include('header.php');
 
 // Datenbankabfrage Liste der Wochenpläne
-$sql = 'SELECT id, year, calendar_week, days_open, mo_open, di_open, mi_open, do_open, fr_open, sa_open, so_open, mo_event, di_event, mi_event, do_event, fr_event, sa_event, so_event FROM schedules WHERE deleted=0 AND year IN ('.($year-1).', '.$year.', '.($year+1).') ORDER BY year DESC, calendar_week ASC';
+$sql = 'SELECT id, year, calendar_week, days_open, mo_open, di_open, mi_open, do_open, fr_open, sa_open, so_open, mo_event, di_event, mi_event, do_event, fr_event, sa_event, so_event FROM schedules WHERE deleted=0 AND year IN ('.($year-1).', '.$year.', '.($year+1).') ORDER BY year ASC, calendar_week ASC';
 $sql_query = mysqli_prepare($db, $sql);
 if (!$sql_query) die('ERROR: could not prepare sql: $sql');
 mysqli_stmt_execute($sql_query);
@@ -65,7 +65,11 @@ mysqli_stmt_close($sql_query);
 						<th>So</th>
 					</tr>
 					<?php foreach($schedules as $schedule){
-						if($schedule['year']==$year && (date('n',$schedule['year']+($schedule['calendar_week']-1)*7*24*60*60-(24*60*60))==$month || date('n',$schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(5*24*60*60))==$month)){
+						// Ermittle timestamp von Montag und Sonntag anhand Jahreszahl und Kalenderwoche
+						$monday = (strtotime("first thursday of January ".$schedule['year']." +".$schedule['calendar_week']." week -1 week last Monday"));
+						$sunday = (strtotime("first thursday of January ".$schedule['year']." +".$schedule['calendar_week']." week -1 week next Sunday"));
+						// Falls Montag oder Sonntag ein Tag des Monats ist, zeige die Woche als Zeile an
+						if((date('Y',$sunday)==$year && date('n',$sunday)==$month) ||(date('Y',$monday)==$year && date('n',$monday)==$month)){
 						?>
 							<tr>
 								<td>
@@ -76,7 +80,8 @@ mysqli_stmt_close($sql_query);
 								</td>
 								<?php for($i=1; $i<8; $i++){ ?>
 									<td>
-										<a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>" <?php if(!$schedule[$weekdays[$i%7].'_open']) echo('style="color:#bbb"'); ?>><?php echo date('j', $schedule['year']+($schedule['calendar_week']-1)*7*24*60*60+(($i-2)*24*60*60)) ?></a>
+										<a href="schedule_edit.php?id=<?php echo $schedule['id'] ?>" <?php if(!$schedule[$weekdays[$i%7].'_open']) echo('style="color:#bbb"'); ?>>
+											<?php echo date('j', $monday+($i-1)*24*60*60) ?></a>
 									</td>
 								<?php } ?>
 							</tr>
