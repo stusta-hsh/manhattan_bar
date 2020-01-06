@@ -18,7 +18,7 @@ mysqli_stmt_close($sql_query);
 	<div class='toolbar-background'>
 		<div class='toolbar'>
 			<span><a href='schedule_list.php?y=<?php echo date('Y') ?>&m=<?php echo date('n') ?>'><i class='fa fa-list'></i><br>Alle Pläne</a></span>
-			<span><a href='schedule_edit.php?id=<?php echo $schedule['id'] ?>'><i class='fa fa-calendar-o'></i><br>Aktueller Plan</a></span>
+			<span><a href='schedule_edit.php?id=<?php echo $current_schedule['id'] ?>'><i class='fa fa-calendar-o'></i><br>Aktueller Plan</a></span>
 			<span><a href='schedule_new.php'><i class='fa fa-calendar-plus-o'></i><br>Neuer Plan</a></span>
 			<span style='color: #ccc'><i style='color: #ccc' class='fa fa-print'></i><br>Drucken</span>
 			<!--<span style='color: #ccc'><i style='color: #ccc' class='fa fa-trash'></i><br>Löschen</span>-->
