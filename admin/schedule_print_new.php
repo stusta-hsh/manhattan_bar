@@ -79,8 +79,9 @@ for($i=4; $i<7; $i++){
 	// Wochentagkürzel
 	$pdf->Cell(28, $line_height, ucfirst($weekdays[$i%7]), $borders, 2, 'C', 'true');
 	// Datum TT.MM.
+	$monday = (strtotime("first thursday of January ".$schedule['year']." +".$schedule['calendar_week']." week -1 week last Monday"));
 	$pdf->SetFontSize(12);
-	$pdf->Cell(28, $line_height, date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$i)), $borders, 0, 'C', 'true');
+	$pdf->Cell(28, $line_height, date('j.n.', $monday+($i-1)*60*60*24), $borders, 0, 'C', 'true');
 	$pdf->SetFontSize(16);
 	$pdf->SetXY($x+28, $y+$line_margin);
 
