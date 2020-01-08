@@ -32,6 +32,9 @@ if(empty($schedule)){
 	exit();
 }
 
+$monday = (strtotime("first thursday of January ".$schedule['year']." +".$schedule['calendar_week']." week -1 week last Monday"));
+$sunday = $monday+(60*60*24*6);
+
 // Datenbankabfrage Liste aller aktiven Mitarbeiter
 $sql = 'SELECT employees.id, employees.first_name, employees.last_name, employees.display_name, employees.room_number, houses.name AS "house.name" FROM employees LEFT JOIN houses ON employees.house = houses.id  WHERE employees.deleted=0 AND employees.active=1 ORDER BY employees.first_name ASC, employees.last_name ASC';
 $sql_query = mysqli_prepare($db, $sql);
@@ -66,10 +69,17 @@ $pdf->SetFont('Raleway', '', 15);
 $pdf->Image('../images/logo.png', 23, 10, -300, -300);
 $pdf->SetY(70);
 $pdf->SetFontSize(20);
-if(date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')) == date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))){
-	$pdf->Cell(0, $line_height, date('j.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1], 0, 0, 'C');
+/*
+if(date('n', $monday) == date('n', $sunday)){
+	echo date('j.', $monday).' - '.date('j. ', $sunday).$months[date('n', $monday)-1];
 }else{
-	$pdf->Cell(0, $line_height, date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-1'))-1].' - '.date('j. ', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7')).$months[date('n', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-7'))-1], 0, 0, 'C');
+	echo date('j. ', $monday).$months[date('n', $monday)-1].' - '.date('j. ', $sunday).$months[date('n', $sunday)-1];
+}*/
+
+if(date('n', $monday) == date('n', $sunday)){
+	$pdf->Cell(0, $line_height, date('j.', $monday).' - '.date('j. ', $sunday).$months[date('n', $monday)-1], 0, 0, 'C');
+}else{
+	$pdf->Cell(0, $line_height, date('j. ', $monday).$months[date('n', $monday)-1].' - '.date('j. ', $sunday).$months[date('n', $sunday)-1], 0, 0, 'C');
 }
 $pdf->SetFontSize(15);
 $pdf->SetY(90);
@@ -87,7 +97,7 @@ for($i=1; $i<8; $i++){
 	$pdf->Cell(15, $line_height, ucfirst($weekdays[$i%7]), $borders, 2, 'C', 'true');
 	// Datum TT.MM.
 	$pdf->SetFontSize(10);
-	$pdf->Cell(15, $line_height, date('j.n.', strtotime($schedule['year'].'-W'.$schedule['calendar_week'].'-'.$i)), $borders, 0, 'C', 'true');
+	$pdf->Cell(15, $line_height, date('j.n.', $monday+($i-1)*60*60*24), $borders, 0, 'C', 'true');
 	$pdf->SetFontSize(15);
 	$pdf->SetXY($x+15, $y+$line_margin);
 
