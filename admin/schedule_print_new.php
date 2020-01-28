@@ -52,6 +52,8 @@ foreach($employees as $employee){
 $borders = 1; //draw cell-borders 0, 1, R, T, L, B
 $line_height = 6;
 $line_margin = 9.5;
+$font_size = 18;
+$font_size_small = 14;
 
 $pdf = new FPDF();
 $pdf->AddFont('raleway','','Raleway-Medium.php');
@@ -64,7 +66,7 @@ $pdf->AddPage();
 $pdf->SetMargins(19, 10, 5);
 $pdf->SetFont('Raleway', '', 15);
 
-$pdf->SetFontSize(16);
+$pdf->SetFontSize($font_size);
 $pdf->SetY(104);
 // Für jeden Wochentag
 for($i=4; $i<7; $i++){
@@ -80,9 +82,9 @@ for($i=4; $i<7; $i++){
 	$pdf->Cell(28, $line_height, ucfirst($weekdays[$i%7]), $borders, 2, 'C', 'true');
 	// Datum TT.MM.
 	$monday = (strtotime("first thursday of January ".$schedule['year']." +".$schedule['calendar_week']." week -1 week last Monday"));
-	$pdf->SetFontSize(12);
+	$pdf->SetFontSize($font_size_small);
 	$pdf->Cell(28, $line_height, date('j.n.', $monday+($i-1)*60*60*24), $borders, 0, 'C', 'true');
-	$pdf->SetFontSize(16);
+	$pdf->SetFontSize($font_size);
 	$pdf->SetXY($x+28, $y+$line_margin);
 
 	// Tagestext
@@ -107,9 +109,9 @@ for($i=4; $i<7; $i++){
 	}else{
 		// Geöffnet, Deal und Event eingetragen
 		$pdf->Cell(92, $line_height, iconv('UTF-8', 'windows-1252', $schedule[$weekdays[$i%7].'_event']), $borders, 2, 'C', 'true');
-		$pdf->SetFontSize(12);
+		$pdf->SetFontSize($font_size_small);
 		$pdf->Cell(92, $line_height, iconv('UTF-8', 'windows-1252', str_replace("<br>","",str_replace("<sup>","",str_replace("</sup>","",$schedule[$weekdays[$i%7].'_deal'])))), $borders, 0, 'C', 'true');
-		$pdf->SetFontSize(16);
+		$pdf->SetFontSize($font_size);
 	}
 
 	$pdf->SetXY($x+120, $y+$line_margin);
