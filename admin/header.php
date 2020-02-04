@@ -28,8 +28,7 @@
 
 	$result = mysqli_stmt_get_result($sql_query);
 
-	if (mysqli_num_rows($result) == 0)
-		die("db result empty!");
+	if (mysqli_num_rows($result) == 0) die("db result empty!");
 	$row = mysqli_fetch_assoc($result);
 	mysqli_stmt_close($sql_query);
 	$status = $row['status'];

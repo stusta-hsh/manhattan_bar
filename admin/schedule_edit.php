@@ -12,7 +12,7 @@ mysqli_stmt_execute($sql_query);
 $schedule = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);
 
-if(empty($schedule)){
+if (empty($schedule)) {
 	header('Location: schedule_list.php');
 	exit();
 }
