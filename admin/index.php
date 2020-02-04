@@ -6,7 +6,7 @@ include('header.php');
 // Datenbankabfrage Mitarbeiter
 $sql = 'SELECT id, first_name, display_name FROM employees WHERE deleted = 0';
 $sql_query = mysqli_prepare($db, $sql);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $employees = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);

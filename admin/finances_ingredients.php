@@ -6,7 +6,7 @@ include('header.php');
 // Datenbankabfrage Liste aller Mitarbeiter
 $sql = 'SELECT ingredients.id, ingredients.name FROM ingredients';
 $sql_query = mysqli_prepare($db, $sql);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $ingredients = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);

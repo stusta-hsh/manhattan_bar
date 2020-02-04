@@ -18,7 +18,7 @@
 	$sql = 'SELECT * FROM schedules WHERE calendar_week = ?';
 	$sql_query = mysqli_prepare($db, $sql);
 	mysqli_stmt_bind_param($sql_query, 'i', date('W'));
-	if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+	if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 	mysqli_stmt_execute($sql_query);
 	$current_schedule = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 	mysqli_stmt_close($sql_query);
@@ -26,7 +26,7 @@
 	// Datenbankabfrage Mitarbeiter
 	$sql = 'SELECT id, first_name, display_name FROM employees WHERE deleted = 0';
 	$sql_query = mysqli_prepare($db, $sql);
-	if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+	if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 	mysqli_stmt_execute($sql_query);
 	$employees = mysqli_stmt_get_result($sql_query);
 	mysqli_stmt_close($sql_query);
@@ -42,7 +42,7 @@
 	// Datenbankabfrage Settings
 	$sql = 'SELECT title, value FROM settings';
 	$sql_query = mysqli_prepare($db, $sql);
-	if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+	if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 	mysqli_stmt_execute($sql_query);
 	$results = mysqli_stmt_get_result($sql_query);
 	mysqli_stmt_close($sql_query);
@@ -55,7 +55,7 @@
 	// Datenbankabfrage Status Manhattan
 	$sql = 'SELECT date, status FROM openstatus ORDER BY date DESC LIMIT 1';
 	$sql_query = mysqli_prepare($db, $sql);
-	if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+	if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 	mysqli_stmt_execute($sql_query);
 	$result = mysqli_stmt_get_result($sql_query);
 	if (mysqli_num_rows($result) == 0) die('db result empty!');

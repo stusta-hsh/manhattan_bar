@@ -7,7 +7,7 @@ include('header.php');
 // Datenbankabfrage Häuser
 $sql = 'SELECT id, name, alias FROM houses ORDER BY no ASC';
 $sql_query = mysqli_prepare($db, $sql);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $houses = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);

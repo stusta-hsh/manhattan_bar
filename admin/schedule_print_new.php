@@ -22,7 +22,7 @@ require('fpdf181/fpdf.php');
 $sql = 'SELECT * FROM schedules WHERE id= ?';
 $sql_query = mysqli_prepare($db, $sql);
 mysqli_stmt_bind_param($sql_query, 'i', $id);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $schedule = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);
@@ -35,7 +35,7 @@ if(empty($schedule)){
 // Datenbankabfrage Liste aller aktiven Mitarbeiter
 $sql = 'SELECT employees.id, employees.first_name, employees.last_name, employees.display_name, employees.room_number, houses.name AS "house.name" FROM employees LEFT JOIN houses ON employees.house = houses.id  WHERE employees.deleted=0 AND employees.active=1 ORDER BY employees.first_name ASC, employees.last_name ASC';
 $sql_query = mysqli_prepare($db, $sql);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $employees = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);

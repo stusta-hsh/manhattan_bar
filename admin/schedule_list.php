@@ -9,7 +9,7 @@ include('header.php');
 // Datenbankabfrage Liste der Wochenpläne
 $sql = 'SELECT id, year, calendar_week, days_open, mo_open, di_open, mi_open, do_open, fr_open, sa_open, so_open, mo_event, di_event, mi_event, do_event, fr_event, sa_event, so_event FROM schedules WHERE deleted=0 AND year IN ('.($year-1).', '.$year.', '.($year+1).') ORDER BY year ASC, calendar_week ASC';
 $sql_query = mysqli_prepare($db, $sql);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $schedules = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);

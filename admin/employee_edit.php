@@ -8,7 +8,7 @@ include('header.php');
 $sql = 'SELECT employees.*, houses.name AS "house.name" FROM employees LEFT JOIN houses ON employees.house = houses.id WHERE employees.id=? AND employees.deleted=0';
 $sql_query = mysqli_prepare($db, $sql);
 mysqli_stmt_bind_param($sql_query, 'i', $id);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $employee = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);
@@ -26,7 +26,7 @@ $sql = 'SELECT COUNT(mo_theke) AS total_shifts FROM schedules WHERE ? in
 )';
 $sql_query = mysqli_prepare($db, $sql);
 mysqli_stmt_bind_param($sql_query, 'i', $employee['id']);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $total_shifts = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query))['total_shifts'];
 mysqli_stmt_close($sql_query);
@@ -34,7 +34,7 @@ mysqli_stmt_close($sql_query);
 // Datenbankabfrage Häuser
 $sql = 'SELECT id, name, alias FROM houses ORDER BY no ASC';
 $sql_query = mysqli_prepare($db, $sql);
-if (!$sql_query) die('ERROR: could not prepare sql: $sql');
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $houses = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);
