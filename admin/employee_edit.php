@@ -25,8 +25,8 @@ $sql = 'SELECT COUNT(mo_theke) AS total_shifts FROM schedules WHERE ? in
 	so_theke, so_springer, so_kueche
 )';
 $sql_query = mysqli_prepare($db, $sql);
-mysqli_stmt_bind_param($sql_query, 'i', $employee['id']);
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
+mysqli_stmt_bind_param($sql_query, 'i', $employee['id']);
 mysqli_stmt_execute($sql_query);
 $total_shifts = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query))['total_shifts'];
 mysqli_stmt_close($sql_query);
@@ -49,6 +49,7 @@ if($_POST){
 	if($_POST['display_name'] == '') $_POST['display_name'] = $_POST['first_name'];
 	$sql = 'UPDATE employees SET '.implode(' = ?, ', array_slice(array_keys($_POST),0,sizeof($_POST)-1)).' = ? WHERE id = ?';
 	$sql_query = mysqli_prepare($db, $sql);
+	if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 	mysqli_stmt_bind_param($sql_query, 'sssiisssiiiiiiiisi', ...array_values($_POST));
 	mysqli_stmt_execute($sql_query);
 	mysqli_stmt_close($sql_query);

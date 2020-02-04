@@ -6,8 +6,8 @@ include('header.php');
 // Datenbankabfrage Wochenplan
 $sql = 'SELECT * FROM schedules WHERE id = ? AND deleted = 0';
 $sql_query = mysqli_prepare($db, $sql);
-mysqli_stmt_bind_param($sql_query, 'i', $id);
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
+mysqli_stmt_bind_param($sql_query, 'i', $id);
 mysqli_stmt_execute($sql_query);
 $schedule = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);
@@ -20,9 +20,9 @@ if(empty($schedule)){
 // Datenbankabfrage id des vorherigen Wochenplans
 $sql = 'SELECT id FROM schedules WHERE year = ? AND calendar_week = ? AND deleted = 0';
 $sql_query = mysqli_prepare($db, $sql);
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 $previous_week = $schedule['calendar_week']-1;
 mysqli_stmt_bind_param($sql_query, 'ii', $schedule['year'], $previous_week);
-if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $schedule_previous = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);
@@ -30,9 +30,9 @@ mysqli_stmt_close($sql_query);
 // Datenbankabfrage id des folgenden Wochenplans
 $sql = 'SELECT id FROM schedules WHERE year = ? AND calendar_week = ? AND deleted = 0';
 $sql_query = mysqli_prepare($db, $sql);
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 $next_week = $schedule['calendar_week']+1;
 mysqli_stmt_bind_param($sql_query, 'ii', $schedule['year'], $next_week);
-if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
 $schedule_next = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);

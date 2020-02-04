@@ -3,8 +3,8 @@
 // Datenbankabfrage id des aktuellen Wochenplans
 $sql = 'SELECT id FROM schedules WHERE year=? AND calendar_week=?';
 $sql_query = mysqli_prepare($db, $sql);
-mysqli_stmt_bind_param($sql_query, 'ii', date('o'), date('W'));
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
+mysqli_stmt_bind_param($sql_query, 'ii', date('o'), date('W'));
 mysqli_stmt_execute($sql_query);
 $schedule = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);

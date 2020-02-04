@@ -23,6 +23,7 @@ if($_POST){
 	foreach($_POST as $title => $value){
 		$sql = 'UPDATE settings SET value = ? WHERE title = ?';
 		$sql_query = mysqli_prepare($db, $sql);
+		if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 		mysqli_stmt_bind_param($sql_query, 'ss', $value, $title);
 		mysqli_stmt_execute($sql_query);
 		mysqli_stmt_close($sql_query);
