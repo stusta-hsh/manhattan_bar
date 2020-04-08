@@ -2,6 +2,7 @@
 $page_title='admin';
 
 include('header.php');
+include('db_functions.php');
 
 // Datenbankabfrage Mitarbeiter
 $sql = 'SELECT id, first_name, display_name FROM employees WHERE deleted = 0';
@@ -29,10 +30,20 @@ if($_POST){
 	header('Location: index.php');
 	exit();
 }
+
+$schedule = get_schedule();
 ?>
 
 	<div class="content">
 		<h3>Hallo <?php echo(ucfirst($_SERVER['PHP_AUTH_USER'])); ?>!</h3>
+
+		<div class="card">
+			<div class="card-content">
+				<?php
+					print_r($schedule);
+				?>
+			</div>
+		</div>
 
 		<div class="card">
 			<div class="card-title">Status</div>
