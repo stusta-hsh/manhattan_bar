@@ -44,65 +44,70 @@ if ($_POST) {
 	</div>
 	<div class="content">
 		<div class="card">
-			<form method="post" action="" class="edit_schedule_form">
-				<div class="card-title">
-					<div></div>
-					<div>
-						<input name="year" type="number" value="<?php echo date('o') ?>" class="input_year"></input>
-						KW
-						<input name="calendar_week" type="number" value="<?php echo $max_calendar_week+1 ?>" class="input_week"></input>
+			<div class="card-title">
+				Neuer Wochenplan
+			</div>
+			<div class="card-content">
+				<form method="post" action="" class="edit_schedule_form">
+					<div class="card-form-box">
+						<div class="card-form-row">
+							<label class="flex-100">Jahr
+								<input name="year" type="number" value="<?php echo date('o') ?>" class="input_year"></input>
+							</label>
+							<label class="flex-100">Kalenderwoche
+								<input name="calendar_week" type="number" value="<?php echo $max_calendar_week+1 ?>" class="input_week"></input>
+							</label>
+						</div>
 					</div>
-					<div></div>
-				</div>
-		<div class="card-content">
-			<div class="edit_schedule_form">
-					<table>
-						<?php for($day=1; $day<8; $day++){ ?>
-							<tr>
-								<td>
-									<?php echo ucfirst($weekdays[$day%7]) ?>
-									<input name="<?php echo $weekdays[$day%7].'_open' ?>" type="hidden" value="0"><input name="<?php echo $weekdays[$day%7].'_open' ?>" type="checkbox" value="1" checked>
-									<br><input name="<?php echo $weekdays[$day%7].'_opening_time' ?>" type="hidden" value="19:00">
-								</td>
-								<td>
-									<input type="text" name="<?php echo $weekdays[$day%7].'_event' ?>" placeholder="Event / Tagesessen"><br>
-									<input type="text" name="<?php echo $weekdays[$day%7].'_deal' ?>" placeholder="Angebot">
-								</td>
-								<td>
+					<?php for($day=1; $day<8; $day++){ ?>
+						<div class="card-form-box">
+							<div class="card-form-row">
+								<?php echo ucfirst($weekdays[$day%7]) ?>
+								<input name="<?php echo $weekdays[$day%7].'_open' ?>" type="hidden" value="0"><input name="<?php echo $weekdays[$day%7].'_open' ?>" type="checkbox" value="1" checked>
+								<br><input name="<?php echo $weekdays[$day%7].'_opening_time' ?>" type="hidden" value="19:00">
+								<label class="flex-100">Event / Tagesessen
+									<input type="text" name="<?php echo $weekdays[$day%7].'_event' ?>">
+								</label>
+								<label class="flex-100">Angebot
+									<input type="text" name="<?php echo $weekdays[$day%7].'_deal' ?>">
+								</label>
+							</div>
+							<div class="card-form-row">
+								<label class="flex-100">Theke
 									<select name="<?php echo $weekdays[$day%7].'_theke' ?>">
-										<option value="">Theke</option>
+										<option value=""> - </option>
 										<?php foreach($employees as $employee){
 											if($employee['training_0'] || $employee['training_1'])
 												echo ('<option value="'.$employee['id'].'">'.parse_employee_name($employee,1).'</option>');
 										} ?>
 									</select>
-									<br>
+								</label>
+								<label class="flex-100">Springer
 									<select name="<?php echo $weekdays[$day%7].'_springer' ?>">
-										<option value="">Springer</option>
+										<option value=""> - </option>
 										<?php foreach($employees as $employee){
 											if($employee['training_0'] || $employee['training_1'])
 												echo ('<option value="'.$employee['id'].'">'.parse_employee_name($employee,1).'</option>');
 										} ?>
 									</select>
-									<br>
+								</label>
+								<label class="flex-100">Küche
 									<select name="<?php echo $weekdays[$day%7].'_kueche' ?>">
-										<option value="">Küche</option>
+										<option value=""> - </option>
 										<?php foreach($employees as $employee){
 											if($employee['training_2'])
 												echo ('<option value="'.$employee['id'].'">'.parse_employee_name($employee,1).'</option>');
 										} ?>
 									</select>
-								</td>
-							</tr>
-						<?php } ?>
-					</table>
+								</label>
+							</div>
+						</div>
+					<?php } ?>
 					<input type="hidden" name="days_open" value="0"></input>
 					<input type="hidden" name="complete" value="0"></input>
-					<div class="button-wrapper">
-						<input type="submit" value="Speichern">
-					</div>
-				</div>
-			</form>
+					<input type="submit" value="Speichern">
+				</form>
+			</div>
 		</div>
 	</div>
 </body>
