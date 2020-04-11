@@ -37,9 +37,9 @@ if($_POST){
 		<div class="card">
 			<div class="card-title">Webseite</div>
 			<div class="card-content">
-				<div class="edit_employee_form">
-					<form method='post' action=''>
-						<div class="form-card-row">
+				<form method='post' action=''>
+					<div class="card-form-box">
+						<div class="card-form-row">
 							<label class="flex-100">Design
 								<select name="stylesheet_id">
 									<option value='0' <?php if($settings['stylesheet_id']==0)echo'selected' ?>>Standard</option>
@@ -47,82 +47,76 @@ if($_POST){
 								</select>
 							</label>
 						</div>
-
-						<div class="form-card-row">
+						<div class="card-form-row">
 							<label class="flex-300">Urlaubstext
 								<textarea rows="4" name="away_text"><?php echo $settings['away_text'] ?></textarea>
 							</label>
 						</div>
-
-						<div class="form-card-row">
+						<div class="card-form-row">
 							<label class="flex-300">Text im Footer
 								<textarea rows="4" name="footer_text"><?php echo $settings['footer_text'] ?></textarea>
 							</label>
 						</div>
-
-						<div class="form-card-row">
+					</div>
+					<div class="card-form-box">
+						<div class="card-form-row">
 							<label class="flex-100">
 								<input name="facebook_icon" type="hidden" value="0">
 								<input name="facebook_icon" type="checkbox" value="1" <?php if($settings['facebook_icon']==1)echo'checked' ?>>
-								Facebook-Icon
+								Facebook-Icon anzeigen
 							</label>
 							<label class="flex-300">
 								Facebook-URL
 								<input type="url" name="facebook_url" value="<?php echo $settings['facebook_url'] ?>">
 							</label>
 						</div>
-
-						<div class="form-card-row">
+						<div class="card-form-row">
 							<label class="flex-100">
 								<input name="messenger_icon" type="hidden" value="0">
 								<input name="messenger_icon" type="checkbox" value="1" <?php if($settings['messenger_icon']==1)echo'checked' ?>>
-								Messenger-Icon
+								Messenger-Icon anzeigen
 							</label>
 							<label class="flex-300">
 								Messenger-URL
 								<input type="url" name="messenger_url" value="<?php echo $settings['messenger_url'] ?>">
 							</label>
 						</div>
-
-						<div class="form-card-row">
+						<div class="card-form-row">
 							<label class="flex-100">
 								<input name="instagram_icon" type="hidden" value="0">
 								<input name="instagram_icon" type="checkbox" value="1" <?php if($settings['instagram_icon']==1)echo'checked' ?>>
-								Instagram-Icon
+								Instagram-Icon anzeigen
 							</label>
 							<label class="flex-300">
 								Instagram-URL
 								<input type="url" name="instagram_url" value="<?php echo $settings['instagram_url'] ?>">
 							</label>
 						</div>
-
-						<div class="form-card-row">
+						<div class="card-form-row">
 							<label class="flex-100">
 								<input name="email_icon" type="hidden" value="0">
 								<input name="email_icon" type="checkbox" value="1" <?php if($settings['email_icon']==1)echo'checked' ?>>
-								E-Mail-Icon
+								E-Mail-Icon anzeigen
 							</label>
 							<label class="flex-300">
 								E-Mail-Adresse
 								<input type="email" name="email_url" value="<?php echo $settings['email_url'] ?>">
 							</label>
 						</div>
-
-						<div class="form-card-row">
+						<div class="card-form-row">
 							<label class="flex-100">
 								<input name="wiki_icon" type="hidden" value="0">
 								<input name="wiki_icon" type="checkbox" value="1" <?php if($settings['wiki_icon']==1)echo'checked' ?>>
-								Wiki-Icon
+								Wiki-Icon anzeigen
 							</label>
 							<label class="flex-300">
 								Wiki-URL
 								<input type="url" name="wiki_url" value="<?php echo $settings['wiki_url'] ?>">
 							</label>
 						</div>
-						<br>
-						<input type='submit' value='Anwenden'></input>
-					</form>
-				</div>
+					</div>
+					<input type='submit' value='Anwenden'></input>
+				</form>
 			</div>
 		</div>
 	</div>
