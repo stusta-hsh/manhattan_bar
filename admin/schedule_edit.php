@@ -144,8 +144,6 @@ if($_POST){
 								</select>
 							</label>
 						</div>
-						<div class="card-form-row">
-						</div>
 					</div>
 				<?php } ?>
 				<input type='hidden' name='days_open' value='0'></input>
