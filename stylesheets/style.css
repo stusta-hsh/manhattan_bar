@@ -166,3 +166,10 @@ body{
 	color: var(--icon-color-footer);
 	margin: 0px 15px;
 }
+
+.go-to-order-button {
+	border-radius: 5px;
+	cursor: pointer;
+	border: 3px solid black;
+	margin: 20px 0px;
+}
