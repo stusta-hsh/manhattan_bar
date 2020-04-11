@@ -20,11 +20,12 @@ h4{font-size:14pt; font-weight: normal; margin:4px 0px;}
 body{
 	font-family: 'Raleway', sans-serif;
 	margin: 0px;
-	//background-color: #EDF1EC;
-	//background-color: #eee;
 
 	--primary-color: #03aa2a;
 	--secondary-color: #ace5b9;
+	--primary-font-color: #222;
+	--secondary-font-color: rgba(0,0,0,0.6);
+	--tertiary-font-color: rgba(0,0,0,0.4);
 	--zebra-color: #d0efd6;;
 }
 
@@ -441,14 +442,6 @@ input{
 	margin-left: -20px;
 }
 
-.card {
-	background-color: #fff;
-	border-radius: 3px;
-	box-shadow: 1px 2px 3px 1px lightgrey;
-	margin: auto;
-	margin-bottom: 25px;
-}
-
 .form-card-row{
 	display: flex;
 	flex-flow: row nowrap;
@@ -462,11 +455,19 @@ input{
 	max-width: 500px;
 }
 
+.card {
+	background-color: #fff;
+	border-radius: 3px;
+	box-shadow: 1px 2px 3px 1px lightgrey;
+	margin: auto;
+	margin-bottom: 25px;
+}
+
 .card-title {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
-	color: #222;
+	color: var(--primary-font-color);
 	font-size: 20px;
 	padding: 8px 15px;
 	background-color: var(--secondary-color);
@@ -474,15 +475,19 @@ input{
 	border-top-right-radius: 3px;
 }
 
-.card-title .arrow {
-	text-decoration: none;
-	color: #555;
-	display: block;
+.card-title-arrow-left {
+	flex-grow: 1;
+	text-align: left;
+}
+
+.card-title-arrow-right {
+	flex-grow: 1;
+	text-align: right;
 }
 
 .card-title .fa:not(.fa-search) {
 	text-decoration: none;
-	color: #555;
+	color: var(--secondary-font-color);
 }
 
 .card-content {

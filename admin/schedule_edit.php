@@ -87,15 +87,15 @@ if($_POST){
 <div class='content'>
 	<div class="card">
 		<div class="card-title">
-			<span>
-				<a <?php if(!empty($schedule_previous))echo('href="schedule_edit.php?id='.$schedule_previous['id'].'"') ?>><i class='fa fa-chevron-left' <?php if(empty($schedule_previous))echo('style="color:#ccc"') ?>></i><br></a>
-			</span>
+			<a class="card-title-arrow-left" <?php if(!empty($schedule_previous))echo('href="schedule_edit.php?id='.$schedule_previous['id'].'"'); ?>>
+				<i class='fa fa-chevron-left'></i>
+			</a>
 			<?php echo $schedule['year'] ?>
 			KW
 			<?php echo $schedule['calendar_week'] ?>
-			<span>
-				<a <?php if(!empty($schedule_next))echo('href="schedule_edit.php?id='.$schedule_next['id'].'"') ?>><i class='fa fa-chevron-right' <?php if(empty($schedule_next))echo('style="color:#ccc"') ?>></i><br></a>
-			</span>
+			<a class="card-title-arrow-right" <?php if(!empty($schedule_next))echo('href="schedule_edit.php?id='.$schedule_next['id'].'"'); ?>>
+				<i class='fa fa-chevron-right'></i>
+			</a>
 		</div>
 		<div class="card-content">
 			<div class='edit_schedule_form'>

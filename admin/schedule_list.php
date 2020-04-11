@@ -40,17 +40,13 @@ mysqli_stmt_close($sql_query);
 		</div>-->
 		<div class="card calendar">
 			<div class="card-title">
-				<span class="arrow">
-					<a href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>">
-						<i class='fa fa-chevron-left'></i>
-					</a>
-				</span>
+				<a class="card-title-arrow-left" href="schedule_list.php?y=<?php echo($month==1?$year-1:$year) ?>&m=<?php echo($month==1?'12':$month-1) ?>">
+					<i class='fa fa-chevron-left'></i>
+				</a>
 				<?php echo(' '.$months[$month-1].' '.$year.' '); ?>
-				<span>
-					<a href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>">
-						<i class='fa fa-chevron-right'></i>
-					</a>
-				</span>
+				<a class="card-title-arrow-right" href="schedule_list.php?y=<?php echo($month==12?$year+1:$year) ?>&m=<?php echo($month==12?'1':$month+1) ?>">
+					<i class='fa fa-chevron-right'></i>
+				</a>
 			</div>
 			<div class="card-content">
 				<table>
