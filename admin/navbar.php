@@ -3,8 +3,8 @@
 // Datenbankabfrage id des aktuellen Wochenplans
 $sql = 'SELECT id FROM schedules WHERE year=? AND calendar_week=?';
 $sql_query = mysqli_prepare($db, $sql);
-if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_bind_param($sql_query, 'ii', date('o'), date('W'));
+if (!$sql_query) die('ERROR: could not prepare sql: $sql');
 mysqli_stmt_execute($sql_query);
 $schedule = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);
@@ -22,6 +22,7 @@ mysqli_stmt_close($sql_query);
 		<a class='tab <?php if($page_title=='admin') echo 'active-tab'; ?>' href='index.php' title='Startseite'><i class='fa fa-home'></i></a>
 		<a class='tab <?php if($page_title=='schedules') echo 'active-tab'; ?>' href='schedule_list.php?y=<?php echo date('Y') ?>&m=<?php echo date('n') ?>' title='Wochenpläne'><i class='fa fa-calendar'></i></a>
 		<a class='tab <?php if($page_title=='team') echo 'active-tab'; ?>' href='employee_list.php' title='Mitarbeiter'><i class='fa fa-users'></i></a>
+		<a class='tab <?php if($page_title=='order') echo 'active-tab'; ?>' href='order_list.php' title='Bestellungen'><i class='fa fa-comment'></i></a>
 		<!--<a class='tab <?php if($page_title=='events') echo 'active-tab'; ?>' title='Events'><i style='color: #888' class='fa fa-bullhorn'></i></a> -->
 		<a class='tab <?php if($page_title=='finances') echo 'active-tab'; ?>' title='Finanzen' href='finances_product_list.php'><i class='fa fa-euro'></i></a>
 		<!-- <a class='tab <?php if($page_title=='stats') echo 'active-tab'; ?>' title='Statistiken'><i style='color: #888' class='fa fa-bar-chart'></i></a>-->
