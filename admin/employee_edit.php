@@ -99,7 +99,7 @@ include('employee_header.php');
 								<input name="email" type="email" value="<?php echo $employee['email'] ?>">
 							</label>
 							<label class="flex-100">Handy
-								<input name="phone" type="fon" value="<?php echo $employee['phone'] ?>">
+								<input name="phone" type="tel" value="<?php echo $employee['phone'] ?>">
 							</label>
 						</div>
 					</div>
