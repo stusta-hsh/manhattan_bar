@@ -98,59 +98,61 @@ if($_POST){
 			</a>
 		</div>
 		<div class="card-content">
-			<div class='edit_schedule_form'>
-				<form method='post' action=''>
-					<table>
-						<?php for($day=1; $day<8; $day++){ ?>
-							<tr>
-								<td>
-									<?php echo ucfirst($weekdays[$day%7]) ?>
-									<input name='<?php echo $weekdays[$day%7].'_open' ?>' type='hidden' value='0'><input name='<?php echo $weekdays[$day%7].'_open' ?>' type='checkbox' value='1' <?php if($schedule[$weekdays[$day%7].'_open']==1) echo 'checked' ?>>
-									<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='hidden' value='<?php echo $schedule[$weekdays[$day%7].'_opening_time'] ?>'>
-								</td>
-								<td>
-									<input type='text' name='<?php echo $weekdays[$day%7].'_event' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_event'] ?>' placeholder='Event / Tagesessen'><br>
-									<input type='text' name='<?php echo $weekdays[$day%7].'_deal' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_deal'] ?>' placeholder='Angebot'>
-								</td>
-								<td>
-									<select name='<?php echo $weekdays[$day%7].'_theke' ?>'>
-										<option value=''>Theke</option>
-										<?php foreach($employees as $employee){
-											if($employee['training_0'] || $employee['training_1']){ ?>
-												<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_theke']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
-											<?php }
-										} ?>
-									</select>
-									<br>
-									<select name='<?php echo $weekdays[$day%7].'_springer' ?>'>
-										<option value=''>Springer</option>
-										<?php	foreach($employees as $employee){
-											if($employee['training_0'] || $employee['training_1']){ ?>
-												<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_springer']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
-											<?php }
-										}?>
-									</select>
-									<br>
-									<select name='<?php echo $weekdays[$day%7].'_kueche' ?>'>
-										<option value=''>Küche</option>
-										<?php foreach($employees as $employee){
-											if($employee['training_2']){ ?>
-												<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_kueche']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
-											<?php }
-										} ?>
-									</select>
-								</td>
-							</tr>
-						<?php } ?>
-					</table>
-					<input type='hidden' name='days_open' value='0'></input>
-					<input type='hidden' name='complete' value='0'></input>
-					<input type='hidden' name='id' value='<?php echo $schedule['id'] ?>'></input>
-					<div class='button-wrapper'>
-						<input type='submit' value='Speichern'>
+			<form method='post' action=''>
+				<?php for($day=1; $day<8; $day++){ ?>
+					<div class="card-form-box">
+						<div class="card-form-row">
+							<?php echo ucfirst($weekdays[$day%7]) ?>
+							<input name='<?php echo $weekdays[$day%7].'_open' ?>' type='hidden' value='0'><input name='<?php echo $weekdays[$day%7].'_open' ?>' type='checkbox' value='1' <?php if($schedule[$weekdays[$day%7].'_open']==1) echo 'checked' ?>>
+							<br><input name='<?php echo $weekdays[$day%7].'_opening_time' ?>' type='hidden' value='<?php echo $schedule[$weekdays[$day%7].'_opening_time'] ?>'>
+							<label class="flex-200">Event / Tagesessen
+								<input type='text' name='<?php echo $weekdays[$day%7].'_event' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_event'] ?>'>
+							</label>
+							<label class="flex-200">Angebot
+								<input type='text' name='<?php echo $weekdays[$day%7].'_deal' ?>' value='<?php echo $schedule[$weekdays[$day%7].'_deal'] ?>'>
+							</label>
+						</div>
+						<div class="card-form-row">
+							<label class="flex-100">Theke
+								<select name='<?php echo $weekdays[$day%7].'_theke' ?>'>
+									<option value=''> - </option>
+									<?php foreach($employees as $employee){
+										if($employee['training_0'] || $employee['training_1']){ ?>
+											<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_theke']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
+										<?php }
+									} ?>
+								</select>
+							</label>
+							<label class="flex-100">Springer
+								<select name='<?php echo $weekdays[$day%7].'_springer' ?>'>
+									<option value=''> - </option>
+									<?php	foreach($employees as $employee){
+										if($employee['training_0'] || $employee['training_1']){ ?>
+											<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_springer']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
+										<?php }
+									}?>
+								</select>
+							</label>
+							<label class="flex-100">Küche
+								<select name='<?php echo $weekdays[$day%7].'_kueche' ?>'>
+									<option value=''> - </option>
+									<?php foreach($employees as $employee){
+										if($employee['training_2']){ ?>
+											<option value="<?php echo $employee['id'] ?>" <?php if($schedule[$weekdays[$day%7].'_kueche']==$employee['id'])echo('selected'); ?>><?php echo parse_employee_name($employee, 1); ?></option>
+										<?php }
+									} ?>
+								</select>
+							</label>
+						</div>
+						<div class="card-form-row">
+						</div>
 					</div>
-				</form>
-			</div>
+				<?php } ?>
+				<input type='hidden' name='days_open' value='0'></input>
+				<input type='hidden' name='complete' value='0'></input>
+				<input type='hidden' name='id' value='<?php echo $schedule['id'] ?>'></input>
+				<input type='submit' value='Speichern'>
+			</form>
 		</div>
 	</div>
 
