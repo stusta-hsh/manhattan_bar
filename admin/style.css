@@ -295,24 +295,6 @@ input[type="submit"]{
 	width: 100%;
 }
 
-.flex-100{
-	flex-basis: 100px;
-	flex-grow: 1;
-	flex-shrink: 1;
-}
-
-.flex-200{
-	flex-basis: 200px;
-	flex-grow: 2;
-	flex-shrink: 2;
-}
-
-.flex-300{
-	flex-basis: 300px;
-	flex-grow: 3;
-	flex-shrink: 3;
-}
-
 .edit_employee_form label{
 	display: block;
 	font-size: 12px;
@@ -491,7 +473,7 @@ input{
 }
 
 .card-content {
-	color: #222;
+	color: var(--primary-font-color);
 }
 
 .card-content .radio-input-wrapper{
@@ -501,7 +483,7 @@ input{
 	margin: auto;
 }
 
-.card-content input[type=radio]{
+.card-content .radio-input-wrapper input[type=radio]{
 	position: absolute;
 	height: 0;
 	width: 0;
@@ -540,6 +522,89 @@ input{
 
 .card-content table {
 	max-width: 100%;
+}
+
+.card-content form {
+	background-color: #f5f5f5;
+	padding: 8px;
+}
+
+.card-form-box {
+	background-color: #fff;
+	padding: 2px 4px;
+	margin-bottom: 10px;
+	box-shadow: 1px 1px 2px 1px lightgrey;
+	border-left: 5px solid var(--secondary-color);
+	background-color: white;
+}
+
+.card-form-row{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-evenly;
+	margin: 10px 0px;
+	width: 100%;
+}
+
+.card-form-row label {
+	display: block;
+	font-size: 12px;
+	text-align: left;
+	color: #7e9984;
+	margin: 0px 5px;
+}
+
+.flex-100{
+	flex-basis: 100px;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.flex-200{
+	flex-basis: 200px;
+	flex-grow: 2;
+	flex-shrink: 2;
+}
+
+.flex-300{
+	flex-basis: 300px;
+	flex-grow: 3;
+	flex-shrink: 3;
+}
+
+.card-form-row label input[type="text"], input[type="email"], input[type="fon"], input[type="number"], input[type="url"], input[type="date"]{
+	width: 100%;
+	padding: 3px 2px 1px 6px;
+	border-width: 0px;
+	border-bottom: 2px solid var(--secondary-color);
+	color: var(--primary-font-color);
+	background-color: transparent;
+}
+
+.card-form-row label select{
+	width: 100%;
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	padding: 4px 5px;
+	border-width: 0px;
+	border-bottom: 2px solid var(--secondary-color);
+	color: var(--primary-font-color);
+	background-color: transparent;
+}
+
+.card-form-row label textarea{
+	box-sizing:border-box;
+	width: 100%;
+	margin: 2px;
+	resize: none;
+	padding: 4px 5px;
+	border: 2px solid var(--secondary-color);
+	border-radius: 3px;
+	color: var(--primary-font-color);
+}
+
+.card-form-row input[type=radio], input[type=checkbox]{
+
 }
 
 .card-content .button-wrapper {
