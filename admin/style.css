@@ -213,40 +213,6 @@ form input{
 	font-size: 16px;
 }
 
-.edit_schedule_form input[type="text"]{
-	text-align: center;
-	padding: 3px;
-	margin: 2px;
-	border-width: 0px;
-	background-color: rgba(0,0,0,0);
-	width: 100%;
-}
-
-.edit_schedule_form input[type="number"]{
-	padding: 3px;
-	margin: 2px;
-	border-width: 0px;
-	border-bottom: 1px solid grey;
-	background-color: rgba(0,0,0,0);
-	font-size: 24px;
-}
-
-.edit_schedule_form .input_week{
-	width: 50px;
-}
-
-.edit_schedule_form .input_year{
-	width: 70px;
-}
-
-.edit_schedule_form input[type="time"]{
-	width: 75px;
-	padding: 3px;
-	margin: 2px;
-	border-width: 0px;
-	background-color: rgba(0,0,0,0);
-}
-
 input[type="submit"]{
 	padding: 10px 20px;
 	margin: 20px;
@@ -255,21 +221,6 @@ input[type="submit"]{
 	background-color: var(--primary-color);
 	color: white;
 	cursor: pointer;
-}
-
-.edit_schedule_form input[type="checkbox"]{
-	width: 15px;
-	height: 15px;
-}
-
-.edit_schedule_form select{
-	width: 130px;
-	border-width: 0px;
-	background-color: rgba(0,0,0,0);
-	padding: 3px;
-	margin: 2px;
-	font-family: 'Raleway', sans-serif;
-	font-size: 14px;
 }
 
 .arrow-navigation{
