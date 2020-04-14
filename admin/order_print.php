@@ -23,12 +23,17 @@
 		<ul>
 			<?php $positions = mysqli_query($db, "SELECT * FROM menu_positions WHERE order_id = $order[id]");
 			foreach ($positions as $position) { ?>
-				<li>
-					1 Burger
+					<li>
+					 Bestellung:
 					<ul>
-						<?php if($position['patty'] == 1) { ?> <li> MIT Beyond-Meat </li> <?php } ?>
-						<?php if($position['patty'] == 2) { ?> <li> MIT Extra Fleisch </li> <?php } ?>
-						<?php if($position['cheese']) { ?> <li> MIT Käse </li> <?php } ?>
+						<?php if($position['patty'] != 0) {
+							$patty = '';
+							switch ($position['patty']) {
+								case 1: if($position['cheese']) $patty = 'Beyond-Meat'; break;
+								case 2: if($position['cheese']) $patty = 'Double-Burger'; break;
+								default:'Burger'; break;
+							}
+						<?php if($position['cheese']) { ?> <li> Cheese $patty </li> <?php } ?>
 						<?php if(!$position['salad']) { ?> <li> OHNE Salat </li> <?php } ?>
 						<?php if(!$position['tomato']) { ?> <li> OHNE Tomate </li> <?php } ?>
 						<?php if(!$position['onion']) { ?> <li> OHNE Zwiebel </li> <?php } ?>
