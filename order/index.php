@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-if (date('H') >= 18 && date('i') > 35) { exit("Leider zu spät."); } // Ab 18:35 nicht mehr anzeigen
+// if (date('w') != 4 || (date('H') >= 18 && date('i') > 35)) { exit("Leider zu spät."); } // Ab 18:35 nicht mehr anzeigen
 
 include('../sql_config.php');
 $db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
@@ -125,23 +125,29 @@ if ($_POST) {
 						<!--<div id="order_position_title" class="order-position-title">#</div>-->
 						<div class="order-form-card-row">
 							<label class="flex-300">Burger
-								<select name="1-patty" id="burger_1" onchange="precheck(this.id); adjust_price(this.id);">
+								<select name="1-patty" id="burger_1" onchange="precheck(this.id); adjust_price(this.id); update_ingredients(this.id);">
 									<option value='0'>Hamburger (4,00€)</option>
-									<option value='0'>Cheeseburger (4,00€)</option>
+									<!--<option value='0'>Cheeseburger (4,00€)</option>-->
 									<option value='1'>Beyond Meat&#8482;-Burger (5,50€)</option>
 									<option value='2'>Double-Burger (5,50€)</option>
 								</select><br>
 							</label>
 							<!-- <p class='fa fa-trash' onclick="delete_click(this)"/> -->
 						</div>
-						<div class="order-form-card-row">
+						<p class="hint" id="ingredients_burger_1" style="text-align: right; margin-top: -5px;">mit Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce</p>
+						<!--<div class="order-form-card-row">
                             <label><input type='checkbox' value="1" name="1-c" id=checkCheese_1>Käse</label>
                             <label><input type='checkbox' value="1" checked name="1-s" id=checkSalad_1>Salat</label>
                             <label><input type='checkbox' value="1" checked name="1-t" id=checkTomato_1>Tomate</label>
                             <label><input type='checkbox' value="1" checked name="1-o" id=checkOnions_1>Zwiebeln</label>
                             <label><input type='checkbox' value="1" checked name="1-x" id=checkSauce_1>Sauce</label>
-    					</div>
+    					</div>-->
 						<div class="order-form-card-row">
+							<label><input type='checkbox' value="1" name="1-c" id=checkCheese_1>Käse</label>
+							<input type='hidden' value="1" checked name="1-s" id=checkSalad_1>
+							<input type='hidden' value="1" checked name="1-t" id=checkTomato_1>
+							<input type='hidden' value="1" checked name="1-o" id=checkOnions_1>
+							<input type='hidden' value="1" checked name="1-x" id=checkSauce_1>
 							<label><input type='checkbox' value="1" name="1-f" id=checkRoastedOnions_1>Röstzwiebeln</label>
 							<label><input type='checkbox' value="1" name="1-p" id=checkPickle_1>Essiggurke</label>
 							<label><input type='checkbox' value="1" name="1-b" id=checkBacon_1>Bacon (+0,50€)</label>
@@ -201,7 +207,7 @@ if ($_POST) {
 					<br>
 				</div>
 				<div class="order-form-card-row">
-					<label class="flex-200">Haus
+					<label class="flex-200">Haus *
 						<select id='fhouse' name="house" onchange='adjust_price(this.id)'>
 							<?php foreach($houses as $house){ if($house['id'] != 2){?>
 								<option value='<?php echo $house['id'] ?>' <?php if($house['name']=='HSH') echo 'selected' ?>><?php echo $house['name']; if(!empty($house['alias']))echo(' ('.$house['alias'].')'); ?></option>
@@ -214,7 +220,7 @@ if ($_POST) {
 					</label>
 				</div>
 
-				<label>Handynummer (optional, für Rückfragen oder Lieferung)
+				<label>Handynummer (optional, bei Rückfragen oder Lieferung)
 					<input id='fphone' type='tel' name='phone'/>
 				</label>
 
@@ -232,8 +238,6 @@ if ($_POST) {
 		<label for='paypal_check'> Ich habe ein PayPal-Konto * </label>
 		<br>
 		<input id='submit_button' type='submit' value='Bestellung absenden' disabled="disabled" onmousedown='submit_click()'>
-
-		<p class='hint' id='hint'/>
 
 		<p class='hint'>
 			Mit Abgabe deiner Bestellung gibst du dein Einverständnis, dass wir im Manhattan deine Bestellung unter bestmöglicher Berücksichtigung der Hygienemaßnahmen zubereiten und dir an die Tür bringen. Weder wir noch das Studentenwerk können haftbar gemacht werden.<br>
@@ -265,14 +269,14 @@ if ($_POST) {
 
 	function delete_click(element) { }
 
-function precheck(id) {
-var idNumber = id.substring(id.length-1);
-var burger = document.getElementById(id);
-var text = burger.options[burger.selectedIndex].innerHTML;
+	function precheck(id) {
+		var idNumber = id.substring(id.length-1);
+		var burger = document.getElementById(id);
+		var text = burger.options[burger.selectedIndex].innerHTML;
 		if(String(text).includes("Hamburger") || String(text).includes("Beyond Meat") || String(text).includes("Double-Burger")) {
 
 			document.getElementById("checkSalad_"+idNumber).checked = true;
-    		document.getElementById("checkTomato_"+idNumber).checked = true;
+			document.getElementById("checkTomato_"+idNumber).checked = true;
 			document.getElementById("checkOnions_"+idNumber).checked = true;
 			document.getElementById("checkSauce_"+idNumber).checked = true;
 
@@ -281,9 +285,7 @@ var text = burger.options[burger.selectedIndex].innerHTML;
 			document.getElementById("checkPickle_"+idNumber).checked = false;
 			document.getElementById("checkBacon_"+idNumber).checked = false;
 			document.getElementById("checkCamembert_"+idNumber).checked = false;
-		}
-
-		else if (String(text).includes("Cheeseburger")) {
+		} else if (String(text).includes("Cheeseburger")) {
 			document.getElementById("checkSalad_"+idNumber).checked = true;
 			document.getElementById("checkTomato_"+idNumber).checked = true;
 			document.getElementById("checkOnions_"+idNumber).checked = true;
@@ -297,9 +299,21 @@ var text = burger.options[burger.selectedIndex].innerHTML;
 		}
 	}
 
+	function update_ingredients(id){
+		var ingredients = document.getElementById("ingredients_"+id);
+		var burger = document.getElementById(id).value;
+		if (burger == 0) {
+			ingredients.innerHTML = "mit Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce";
+		} else if (burger == 1) {
+			ingredients.innerHTML = "mit veganem Patty, Salat, Tomaten, Zwiebeln und Burgersauce";
+		} else {
+			ingredients.innerHTML = "mit doppeltem Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce";
+		}
+	}
+
 	function add(e) {
 		e.preventDefault();
-		if (product_count < 9) {
+		if (product_count < 5) {
 			//var order_table = document.getElementById('order_table');
 			//var product_select = document.getElementById('product_select');
 
@@ -307,13 +321,12 @@ var text = burger.options[burger.selectedIndex].innerHTML;
 			var first_position = document.getElementById('position_1');
 			var new_position = first_position.cloneNode(true);
 			new_position.id = "position_" + ++product_count;
-			//new_position.className = 'order-position';
-			//new_position.innerHTML = "und noch ein Bier "+product_count;
 			order_list.appendChild(new_position);
 
             //var childArr = Array.prototype.slice.call(new_position.childNodes);
 
 			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + product_count);
+			new_position.innerHTML = first_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + product_count);
 
             var selectElements = new_position.getElementsByTagName('select');
     		for (i = 0; i < selectElements.length; i++) {
@@ -332,6 +345,8 @@ var text = burger.options[burger.selectedIndex].innerHTML;
 				}
 			}
 
+			update_ingredients("burger_" + product_count);
+
 			//var newrow = order_table.insertRow(++product_count);
 			//var c0 = newrow.insertCell(0);
 			//var c1 = newrow.insertCell(1);
@@ -339,7 +354,7 @@ var text = burger.options[burger.selectedIndex].innerHTML;
 			//c0.innerHTML = "<input name=\'" + product_count + "-" + product_select.value +"\' type=\'number\' min=\'0\' step=\'1\' value=\'1\'/>"
 			//c1.innerHTML = product_select.selectedOptions[0].text;
 		} else {
-            window.alert("Es können maximal 9 Produkte auf einmal bestellt werden.");
+            window.alert("Es können maximal 5 Menüs auf einmal bestellt werden.");
         }
 	}
 
