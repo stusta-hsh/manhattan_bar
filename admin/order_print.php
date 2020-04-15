@@ -6,7 +6,7 @@
 
 <body>
 	<?php
-	
+
 	include('../sql_config.php');
 	$db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
 	if(!$db) exit("Database connection error: ".mysqli_connect_error());
@@ -29,16 +29,22 @@
 						<?php if($position['patty'] != 0) {
 							$patty = '';
 							switch ($position['patty']) {
-								case 1: $patty = 'Beyond-Meat'; break;
-								case 2: $patty = 'Double-Burger'; break;
-								default:'Burger'; break;
+								case 1:
+									$patty = 'Beyond-Meat';
+									break;
+								case 2:
+									$patty = 'Double-Burger';
+									break;
+								default:
+									'Burger';
 							}
-							<?php if($position['cheese'] != 0) {
+							if($position['cheese'] != 0) {
 								$cheese = 'Cheese-';
-							} {  else $cheese = ' ';
+							} else {
+								$cheese = ' ';
 							}
 								echo "<li> <strong> $cheese $patty </strong></li>";
-							} ?>
+						} ?>
 						<?php if(!$position['salad']) { ?> <li> OHNE Salat </li> <?php } ?>
 						<?php if(!$position['tomato']) { ?> <li> OHNE Tomate </li> <?php } ?>
 						<?php if(!$position['onion']) { ?> <li> OHNE Zwiebel </li> <?php } ?>
