@@ -17,8 +17,11 @@
 
 		<p> --------------------------------------------------------------------------- </p>
 		<p> ## Bestellung <?php echo $order['id']; ?> (<?php echo $order['date']; ?>) ## </p>
-		<p> <?php echo $order['name']; ?> (<?php echo $order['house']; ?>, <?php echo $order['room']; ?>) </br> Telefon: <?php echo $order['phone']; ?> </p>
-		<?php if(!$order['paid']) echo '<p> NICHT BEZAHLT </p>'; ?>
+		<p>
+			<?php echo $order['house']; ?>, <?php echo $order['room']; ?>,
+			<?php echo $order['name']; ?>, Tel: <?php echo $order['phone']; ?>
+		</p>
+			<?php if(!$order['paid']) echo '<p> NICHT BEZAHLT </p>'; ?>
 
 		<ul>
 			<?php $positions = mysqli_query($db, "SELECT * FROM menu_positions WHERE order_id = $order[id]");
