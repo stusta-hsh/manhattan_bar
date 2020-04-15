@@ -286,10 +286,15 @@ input{
 	color: #333;
 }
 
-.hint{
+.hint {
 	font-size: 11px;
 	color: #888;
 	margin: 5px;
+}
+
+.ingredient {
+	text-align: right;
+	margin-top: -5px;
 }
 
 input[type="submit"]{
