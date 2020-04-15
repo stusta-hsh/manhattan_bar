@@ -23,7 +23,7 @@
 		</p>
 			<?php if(!$order['paid']) echo '<p> NICHT BEZAHLT </p>'; ?>
 
-		<ul>
+			<ul>
 			<?php $positions = mysqli_query($db, "SELECT * FROM menu_positions WHERE order_id = $order[id]");
 			foreach ($positions as $position) { ?>
 
@@ -43,19 +43,44 @@
 					}
 				?>
 
-				<li>
-				 <strong><?php echo $burger ?></strong>
+				 <strong><?php echo "$burger \r\n"; ?></strong>
 					<ul>
-						<?php if(!$position['salad']) { ?> <li> OHNE Salat </li> <?php } ?>
+						/*
+					 	<?php if(!$position['salad']) { ?> <li> OHNE Salat </li> <?php } ?>
 						<?php if(!$position['tomato']) { ?> <li> OHNE Tomate </li> <?php } ?>
 						<?php if(!$position['onion']) { ?> <li> OHNE Zwiebel </li> <?php } ?>
 						<?php if(!$position['sauce']) { ?> <li> OHNE Sauce </li> <?php } ?>
-						<?php if($position['friedonions']) { ?> <li> MIT Röstzwiebeln </li> <?php } ?>
-						<?php if($position['pickles']) { ?> <li> MIT Essiggurken </li> <?php } ?>
-						<?php if($position['bacon']) { ?> <li> Extra: Bacon </li> <?php } ?>
-						<?php if($position['camembert']) { ?> <li> Extra: Camembert </li> <?php } ?>
-						<?php if($position['beilage'] == 1) { ?> <li> Beilage: Pommes </li> <?php } ?>
-						<?php if($position['beilage'] == 2) { ?> <li> Beilage: Wedges </li> <?php } ?>
+						*/
+
+					</ul>
+
+					<br>
+					<strong>Extras:</strong>
+					<ul>
+						<br>
+						<?php if($position['bacon']) { ?> <li>Bacon </li> <?php } ?>
+						<?php if($position['camembert']) { ?> <li>Camembert </li> <?php } ?>
+						<br>
+					</ul>
+
+					<strong><u>Beilage:</u></strong>
+					<ul>
+					<br>
+						<?php if($position['beilage'] == 1) { ?> <li>Pommes </li> <?php } ?>
+						<?php if($position['beilage'] == 2) { ?> <li>Wedges </li> <?php } ?>
+					<br>
+					</ul>
+
+					<strong>Endstation:</strong>
+					<ul>
+						<br>
+						<?php if($position['friedonions']) { ?> <li>Röstzwiebeln </li> <?php } ?>
+						<?php if($position['pickles']) { ?> <li>Essiggurken </li> <?php } ?>
+						<br>
+					</ul>
+
+
+					<ul><ul><ul><ul>
 						<?php if($position['bier'] != 0) {
 							$bier = '';
 							switch ($position['bier']) {
@@ -72,7 +97,9 @@
 							}
 							echo "<li> Getränk: $bier </li>";
 						} ?>
-					</ul>
+					<br>
+					</ul></ul></ul></ul>
+
 				</li>
 			<?php } ?>
 		</ul>
