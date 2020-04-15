@@ -125,7 +125,7 @@ if ($_POST) {
 						<!--<div id="order_position_title" class="order-position-title">#</div>-->
 						<div class="order-form-card-row">
 							<label class="flex-300">Burger
-								<select name="1-patty" id="burger_1" onchange="precheck(this.id); adjust_price(this.id);">
+								<select name="1-patty" id="burger_1" onchange="precheck(this.id); calculate_price();">
 									<option value='0'>Hamburger (4,00€)</option>
 									<option value='0'>Cheeseburger (4,00€)</option>
 									<option value='1'>Beyond Meat&#8482;-Burger (5,50€)</option>
@@ -144,19 +144,19 @@ if ($_POST) {
 						<div class="order-form-card-row">
 							<label><input type='checkbox' value="1" name="1-f" id=checkRoastedOnions_1>Röstzwiebeln</label>
 							<label><input type='checkbox' value="1" name="1-p" id=checkPickle_1>Essiggurke</label>
-							<label><input type='checkbox' value="1" name="1-b" id=checkBacon_1>Bacon (+0,50€)</label>
-							<label><input type='checkbox' value="1" name="1-y" id=checkCamembert_1>Camembert (+0,50€)</label>
+							<label><input type='checkbox' value="1" name="1-b" id=checkBacon_1  class=check-Bacon onclick="calculate_price()">Bacon (+0,50€)</label>
+							<label><input type='checkbox' value="1" name="1-y" id=checkCamembert_1 class=check-Camembert onclick="calculate_price()">Camembert (+0,50€)</label>
 						</div>
 						<div class="order-form-card-row">
 							<label class="flex-200">Beilage (+1,40€)
-								<select name="1-side">
+								<select name="1-side" onchange="calculate_price()">
 									<option value="1">Pommes</option>
 									<option value="2">Wedges</option>
 									<option value="0">keine Beilage</option>
 								</select>
 							</label>
 							<label class="flex-200">Getränk (+1,40€)
-								<select name="1-bier">
+								<select name="1-bier" onchange="calculate_price()">
 									<option value="1">Augustiner Hell</option>
 									<option value="2">Tegernseer Spezial</option>
 									<option value="3">Schneider Weisse TAP7</option>
@@ -170,24 +170,22 @@ if ($_POST) {
 								</select>
 							</label>
 						</div>
-						<!--
 						<div class="order-position-price">
-							<a>5,00 €</a>
+							<a type=number step="0.01" id='price_order_position_1' class=price-order-position>6.80</a> €
 						</div>
-						-->
 					</div>
 				</div>
 				<div class="add-order-position-button" onclick="add(event)">
 					<i class="fa fa-plus-circle" aria-hidden="true"></i> Menü hinzufügen
 				</div>
-				<!--
-				<div id="oder-total" class="order-total">
-					Bestellung: <a id='price_order'></a> €<br>
-					Lieferung: + <a id='price_delivery'></a> €
+				
+				<div id="order-total" class="order-total">
+					Bestellung: <a type = number id='price_order'>6.80</a> €<br>
+					Lieferung: + <a id='price_delivery'>0.50</a> €
 					<hr>
-					Gesamt: <a id="price_total"></a> €
+					Gesamt: <a id="price_total">7.30</a> €
 				</div>
-				-->
+				
 			</div>
 		</div>
 
@@ -202,8 +200,8 @@ if ($_POST) {
 				</div>
 				<div class="order-form-card-row">
 					<label class="flex-200">Haus
-						<select id='fhouse' name="house" onchange='adjust_price(this.id)'>
-							<?php foreach($houses as $house){ if($house['id'] != 2){?>
+						<select id='fhouse' name="house" onchange='calculate_price()'>
+						<?php foreach($houses as $house){ if($house['id'] != 2){?>
 								<option value='<?php echo $house['id'] ?>' <?php if($house['name']=='HSH') echo 'selected' ?>><?php echo $house['name']; if(!empty($house['alias']))echo(' ('.$house['alias'].')'); ?></option>
 							<?php }} ?>
 						</select><br>
@@ -316,12 +314,14 @@ var text = burger.options[burger.selectedIndex].innerHTML;
 			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + product_count);
 
             var selectElements = new_position.getElementsByTagName('select');
+            var old = 0;
     		for (i = 0; i < selectElements.length; i++) {
 				if(String(selectElements[i].id).includes("burger")) {
 					var old = selectElements[i].id;
 					selectElements[i].id = old.substring(0, old.length - 1) + "" + product_count;
 				}
 			}
+
 
 			var checkElements = new_position.getElementsByTagName('input');
 			//window.alert(checkElements[0].id);
@@ -332,6 +332,11 @@ var text = burger.options[burger.selectedIndex].innerHTML;
 				}
 			}
 
+
+            var price_order_position = document.getElementById('price_order_position_1');
+            var old = price_order_position.id;
+            price_order_position.id = old.substring(0, old.length - 1) + "" + product_count;
+
 			//var newrow = order_table.insertRow(++product_count);
 			//var c0 = newrow.insertCell(0);
 			//var c1 = newrow.insertCell(1);
@@ -341,23 +346,73 @@ var text = burger.options[burger.selectedIndex].innerHTML;
 		} else {
             window.alert("Es können maximal 9 Produkte auf einmal bestellt werden.");
         }
+        calculate_price();
+
 	}
 
-	function adjust_price(changed_input_id){
-		//var changed_input = document.getElementById('changed_input_id');
+	function calculate_price(){
+        var price_order_position = 0;
+		var price_order = 0;
+        
+		var price_delivery = 0.5;
 
-		var price_total = 0;
-		var price_delivery = 0;
+        var burgers = [];
+        var supplements = [];
+        var drinks = [];
+        var bacons = document.getElementsByClassName('check-Bacon');
+        var camemberts = document.getElementsByClassName('check-Camembert');
+        var selectElements = document.getElementsByTagName('select');
 
-		var form_fields = document.querySelectorAll('*[name]');
-		for (field of form_fields) {
-			if (field.name == 'house') {
-				if (field.value == 1) { price_delivery = 0.5; } else { price_delivery = 1; }
-			}
-		}
+    		for (i = 0; i < selectElements.length; i++) {
+				if(String(selectElements[i].id).includes("burger")) {
+                    burgers[burgers.length] = String(selectElements[i].options[selectElements[i].selectedIndex].innerHTML);
+                }
+                else if(String(selectElements[i].name).includes("side")) {
+                    supplements[supplements.length] = String(selectElements[i].options[selectElements[i].selectedIndex].innerHTML);
+                }
+                else if(String(selectElements[i].name).includes("bier")) {
+                    drinks[drinks.length] = String(selectElements[i].options[selectElements[i].selectedIndex].innerHTML);
+                }
+            }
 
-		//document.getElementById('price_delivery').innerHTML = price_delivery;
-		//document.getElementById('price_total').innerHTML = (price_total + price_delivery);
+        var prices_order_positions = document.getElementsByClassName('price-order-position');
+        for(i=0; i<prices_order_positions.length; i++){
+            price_order_position = 0;
+            if(burgers[i].includes('Cheeseburger') || burgers[i].includes('Hamburger')){
+                price_order_position += 4;
+
+            }
+            else if(burgers[i].includes('Beyond Meat') || burgers[i].includes('Double-Burger')){
+                price_order_position += 5.5;
+            }
+
+            if(! supplements[i].includes('keine Beilage')) price_order_position += 1.4;
+            if(! drinks[i].includes('kein Getränk')) price_order_position += 1.4;
+
+            if(bacons[i].checked) price_order_position += 0.5;
+            if(camemberts[i].checked) price_order_position += 0.5;
+
+
+            prices_order_positions[i].innerHTML = price_order_position.toFixed(2);
+            price_order += price_order_position;
+        }
+
+        if(document.getElementById('fhouse').value == 1) price_delivery = 0.5;
+        else price_delivery = 1;
+
+
+        document.getElementById('price_delivery').innerHTML = price_delivery.toFixed(2);
+		document.getElementById('price_total').innerHTML = (price_order + price_delivery).toFixed(2);
+        document.getElementById('price_order').innerHTML = price_order.toFixed(2);
+
+		//var form_fields = document.querySelectorAll('*[name]');
+		//for (field of form_fields) {
+		//	if (field.name == 'house') {
+		//		if (field.value == 1) { price_delivery = 0.5; } else { price_delivery = 1; }
+		//	}
+		//}
+
+		//
 	}
 </script>
 
