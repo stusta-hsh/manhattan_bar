@@ -11,12 +11,18 @@
 	$db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
 	if(!$db) exit("Database connection error: ".mysqli_connect_error());
 
-	$orders = mysqli_query($db, "SELECT o.id, o.date, o.name, o.phone, o.paid, o.comment, h.name as house, o.room FROM orders o JOIN houses h ON (o.house = h.id) ORDER BY -o.paid, o.house, o.room");
+	$date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+
+	$orders = mysqli_query($db,
+	"SELECT o.id, o.date, o.slot, o.name, o.phone, o.paid, o.comment, h.name as house, o.room
+	FROM orders o JOIN houses h ON (o.house = h.id)
+	WHERE deleted = 0 AND DATE(date) = '$date'
+	ORDER BY -o.paid, o.slot, o.house, o.room");
 
 	foreach ($orders as $order) { ?>
 
 		<p> --------------------------------------------------------------------------- </p>
-		<p> ## Bestellung <?php echo $order['id']; ?> (<?php echo $order['date']; ?>) ## </p>
+		<p> ## Slot <?php echo($order['slot'] + 1); ?> - Bestellung <?php echo $order['id']; ?> (<?php echo $order['date']; ?>) ## </p>
 		<p>
 			<?php echo $order['house']; ?>, <?php echo $order['room']; ?>,
 			<?php echo $order['name']; ?>, Tel: <?php echo $order['phone']; ?>
@@ -81,8 +87,8 @@
 							case 9: $bier = 'Club Mate'; break;
 							default: break;
 						}
-						echo "<strong>Getränk </strong>".$bier;
-					} ?>
+						echo "<ul><ul><ul><strong>Getränk </strong>".$bier.'</ul></ul></ul>';
+					} ?><br>
 
 					<!--
 					<ul><ul><ul><ul>
