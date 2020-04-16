@@ -125,7 +125,7 @@ if ($_POST) {
 						<!--<div id="order_position_title" class="order-position-title">#</div>-->
 						<div class="order-form-card-row">
 							<label class="flex-300">Burger
-								<select name="1-patty" id="burger_1" onchange="calculate_price(); update_ingredients(this.id);"">
+								<select name="1-patty" id="burger_1" onchange="calculate_price(); update_ingredients(this.id);">
 									<option value='0'>Hamburger (4,00€)</option>
 									<!--<option value='0'>Cheeseburger (4,00€)</option>-->
 									<option value='1'>Beyond Meat&#8482;-Burger (5,50€)</option>
@@ -134,7 +134,7 @@ if ($_POST) {
 							</label>
 							<!-- <p class='fa fa-trash' onclick="delete_click(this)"/> -->
 						</div>
-						<p class="hint" id="ingredients_burger_1" style="text-align: right; margin-top: -5px;">mit Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce</p>
+						<p class="hint ingredient" id="ingredients_burger_1">mit Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce (nicht vegan)</p>
 						<!--<div class="order-form-card-row">
                             <label><input type='checkbox' value="1" name="1-c" id=checkCheese_1>Käse</label>
                             <label><input type='checkbox' value="1" checked name="1-s" id=checkSalad_1>Salat</label>
@@ -184,14 +184,14 @@ if ($_POST) {
 				<div class="add-order-position-button" onclick="add(event)">
 					<i class="fa fa-plus-circle" aria-hidden="true"></i> Menü hinzufügen
 				</div>
-				
+
 				<div id="order-total" class="order-total">
 					Bestellung: <a type = number id='price_order'>6.80</a> €<br>
 					Lieferung: + <a id='price_delivery'>0.50</a> €
 					<hr>
 					Gesamt: <a id="price_total">7.30</a> €
 				</div>
-				
+
 			</div>
 		</div>
 
@@ -269,11 +269,11 @@ if ($_POST) {
 		var ingredients = document.getElementById("ingredients_"+id);
 		var burger = document.getElementById(id).value;
 		if (burger == 0) {
-			ingredients.innerHTML = "mit Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce";
+			ingredients.innerHTML = "mit Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce (nicht vegan)";
 		} else if (burger == 1) {
-			ingredients.innerHTML = "mit veganem Patty, Salat, Tomaten, Zwiebeln und Burgersauce";
+			ingredients.innerHTML = "mit veganem Patty, Salat, Tomaten, Zwiebeln und Burgersauce (nicht vegan)";
 		} else {
-			ingredients.innerHTML = "mit doppeltem Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce";
+			ingredients.innerHTML = "mit doppeltem Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce (nicht vegan)";
 		}
 	}
 
@@ -333,7 +333,7 @@ if ($_POST) {
 	function calculate_price(){
         var price_order_position = 0;
 		var price_order = 0;
-        
+
 		var price_delivery = 0.5;
 
         var burgers = [];
