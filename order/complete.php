@@ -40,9 +40,8 @@ $price = mysqli_fetch_row(mysqli_query($db,
 
 	<div class='content'>
 		<h2> Vielen Dank für deine Bestellung! </h2>
-		<p> Wir beginnen um 19 Uhr mit der Zubereitung und Auslieferung der Menüs. Da wir das Ganze heute zum ersten Mal ausprobieren, könnte die Lieferung ein bisschen dauern. Wir danken für Eure Geduld. </p>
 
-		<p> Bitte überweise <b>noch vor 18:30 Uhr</b> den Betrag von</p>
+		<p> Bitte überweise <b>möglichst bald</b> den Betrag von</p>
 
 		<p id='complete_price'> <?php echo $price; ?> € </p>
 
