@@ -231,7 +231,11 @@
 				</div>
 			<?php }
 			if(!$current_schedule['mo_open'] && !$current_schedule['di_open'] && !$current_schedule['mi_open'] && !$current_schedule['do_open'] && !$current_schedule['fr_open'] && !$current_schedule['sa_open'] && !$current_schedule['so_open']){ ?>
-				<div class="textbox subtitle" style="margin-top: 100px; margin-bottom: 200px;"><h2><?php echo $settings['away_text'] ?></h2></div>
+				<div class="textbox subtitle" style="margin-top: 100px; margin-bottom: 200px;"><h2><?php echo $settings['away_text'] ?></h2>
+				<?php if (date('w') == 4 && (date('H') >= 10) && (date('H') < 17)) { ?>
+					<div class="go-to-order-button" onclick="location.href='bestellen/'"><h3>Zum Bestellformular <i class="fa fa-arrow-right" aria-hidden="true"></i></h3></div>
+				<?php } ?>
+				</div>
 			<?php } else { ?>
 				<div class="textbox wochenplan">
 					<table>
