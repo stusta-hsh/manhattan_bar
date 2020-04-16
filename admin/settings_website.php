@@ -25,7 +25,7 @@ if($_POST){
 		mysqli_stmt_execute($sql_query);
 		mysqli_stmt_close($sql_query);
 	}
-	header('Location: settings.php');
+	header('Location: settings_website.php');
 	exit();
 }
 

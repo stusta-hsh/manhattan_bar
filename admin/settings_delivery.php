@@ -25,7 +25,7 @@ if($_POST){
 		mysqli_stmt_execute($sql_query);
 		mysqli_stmt_close($sql_query);
 	}
-	header('Location: settings.php');
+	header('Location: settings_delivery.php');
 	exit();
 }
 
@@ -36,7 +36,19 @@ include('settings_header.php');
 		<div class="card">
 			<div class="card-title">Lieferservice</div>
 			<div class="card-content">
-				
+				<form method='post' action=''>
+					<div class="card-form-box">
+						<div class="card-form-row">
+							<label class="flex-100">Bestellformular offen ab
+								<input type="time" name="order_opentime" value="<?php echo $settings['order_opentime'] ?>">
+							</label>
+							<label class="flex-100">Bestellformular offen bis
+								<input type="time" name="order_closetime" value="<?php echo $settings['order_closetime'] ?>">
+							</label>
+						</div>
+					</div>
+					<input type='submit' value='Anwenden'></input>
+				</form>
 			</div>
 		</div>
 	</div>
