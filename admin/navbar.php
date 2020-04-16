@@ -26,6 +26,6 @@ mysqli_stmt_close($sql_query);
 		<!--<a class='tab <?php if($page_title=='events') echo 'active-tab'; ?>' title='Events'><i style='color: #888' class='fa fa-bullhorn'></i></a> -->
 		<a class='tab <?php if($page_title=='finances') echo 'active-tab'; ?>' title='Finanzen' href='finances_product_list.php'><i class='fa fa-euro'></i></a>
 		<!-- <a class='tab <?php if($page_title=='stats') echo 'active-tab'; ?>' title='Statistiken'><i style='color: #888' class='fa fa-bar-chart'></i></a>-->
-		<a class='tab <?php if($page_title=='settings') echo 'active-tab'; ?>' href='settings.php' title='Einstellungen'><i class='fa fa-cog'></i></a>
+		<a class='tab <?php if($page_title=='settings') echo 'active-tab'; ?>' href='settings_website.php' title='Einstellungen'><i class='fa fa-cog'></i></a>
 	</div>
 </div>

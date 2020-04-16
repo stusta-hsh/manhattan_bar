@@ -1,7 +1,4 @@
-<!--<link href="form.css" rel="stylesheet" type="text/css" media="all">-->
-
 <?php
-$page_title='settings';
 
 include('header.php');
 
@@ -31,6 +28,8 @@ if($_POST){
 	header('Location: settings.php');
 	exit();
 }
+
+include('settings_header.php');
 
 ?>
 	<div class="content">
