@@ -16,8 +16,8 @@ $houses = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);
 
 if ($_POST) {
-
-	$name = ''; $house = 0; $room = ''; $phone = ''; $comment = '';
+	print_r($_POST);
+	$name = ''; $house = 0; $room = ''; $phone = ''; $slot = ''; $comment = '';
 
 	foreach ($_POST as $key=>$value) {
 		switch ($key) {
@@ -25,13 +25,14 @@ if ($_POST) {
 			case 'house': $house = $value; break;
 			case 'room': $room = $value; break;
 			case 'phone': $phone = $value; break;
+			case 'timeslot': $slot = $value; break;
 			case 'comment': $comment = $value; break;
 			default: break; // die Bestellpositionen erstmal weglassen
 		}
 	}
 
-	$sql_query = mysqli_prepare($db, "INSERT INTO orders (name, house, room, phone, comment) VALUES (?, ?, ?, ?, ?)");
-	mysqli_stmt_bind_param($sql_query, 'sisss', $name, $house, $room, $phone, $comment);
+	$sql_query = mysqli_prepare($db, "INSERT INTO orders (name, house, room, phone, slot, comment) VALUES (?, ?, ?, ?, ?, ?)");
+	mysqli_stmt_bind_param($sql_query, 'sissis', $name, $house, $room, $phone, $slot, $comment);
 
 	if (mysqli_stmt_execute($sql_query))
 	{
@@ -93,13 +94,13 @@ if ($_POST) {
 
 		<p>Auch in Zeiten der häuslichen Isolation wollen wir euch weiter jeden Donnerstag mit leckeren Burgern versorgen!</p>
 		<p>
-			Hier könnt ihr bis 17:00 Uhr eure Bestellung abgeben. Ab 18:00 Uhr bereiten wir die Burger frisch zu und bringen sie euch bis an die Zimmertür. Bitte habt Verständnis, dass wir für das Liefern einen kleinen Betrag verlangen. Getränke werden gekühlt in Flaschen geliefert.
+			Hier könnt ihr bis 17:00 Uhr eure Bestellung abgeben. Dann bereiten wir die Burger frisch zu und bringen sie euch an die Zimmertür. Für die Lieferung verlangen wir einen kleinen Betrag. Getränke werden gekühlt in Flaschen geliefert.
 		</p>
 		<p>
-			Die Bezahlung erfolgt <b>ausschließlich</b> kontaktlos und im Voraus via PayPal. Nach Abschluss der Bestellung seht ihr den zu zahlenden Betrag und einen PayPal-Link. Wählt bei der Bezahlung bitte unbedingt "Geld an Freunde und Familie senden", damit keine PayPal-Gebühr anfällt.
+			Die Bezahlung erfolgt <b>ausschließlich</b> kontaktlos und im Voraus via PayPal. Nach Abschluss der Bestellung seht ihr den zu zahlenden Betrag und einen PayPal-Link. Wählt bei der Bezahlung unbedingt "Geld an Freunde und Familie senden", damit keine PayPal-Gebühr anfällt.
 		</p>
 		<p>
-			<b>Nur Bestellungen, die bis 17:00 Uhr bezahlt sind, werden auch zubereitet und ausgeliefert!</b>
+			<b>Nur Bestellungen, die bis 17:00 Uhr bezahlt sind, werden auch zubereitet und ausgeliefert! Da die Anzahl der Bestellungen begrenzt ist, zahlt bitte innerhalb von 15 Minuten nach Bestellabgabe.</b>
 		</p>
 
 		<!--
@@ -211,7 +212,7 @@ if ($_POST) {
 						<?php foreach($houses as $house){ if($house['id'] != 2){?>
 								<option value='<?php echo $house['id'] ?>' <?php if($house['name']=='HSH') echo 'selected' ?>><?php echo $house['name']; if(!empty($house['alias']))echo(' ('.$house['alias'].')'); ?></option>
 							<?php }} ?>
-						</select><br>
+						</select>
 					</label>
 
 					<label class="flex-100">Zimmer / WG *
@@ -219,11 +220,17 @@ if ($_POST) {
 					</label>
 				</div>
 
-				<label>Handynummer (optional, bei Rückfragen oder Lieferung)
-					<input id='fphone' type='tel' name='phone'/>
-				</label>
-
-				<br/>
+				<div class="order-form-card-row">
+					<label class="flex-200">Handynummer (optional)
+						<input id='fphone' type='tel' name='phone'/>
+					</label>
+					<label class="flex-100">Lieferzeitraum
+						<select name='timeslot'>
+							<option value="0">18:00 - 19:30</option>
+							<option value="1">19:30 - 21:00</option>
+						</select>
+					</label>
+				</div>
 				<label>Anmerkungen
 					<textarea rows="4" id='fcomment' name="comment" maxlength="300" placeholder="Hinweise zur Bestellung oder Lieferung"></textarea>
 				</label>
