@@ -5,7 +5,7 @@ include('header.php');
 include('order_header.php');
 
 $date = isset($_GET['date']) ? strtotime($_GET['date']) : time();
-$soll = 0; $ist = 0; 
+$soll = 0; $ist = 0;
 
 if ($_POST) {
 	$sql_pay = ""; $sql_unpay = "";
@@ -34,6 +34,8 @@ if ($_POST) {
 				</a>
 			</div>
 			<div class="card-content">
+				Slot 1: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0 GROUP BY slot"))[0];?>/25, 
+				Slot 2: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0];?>/25
 				<form method='post'>
 					<table>
 						<tr>
@@ -47,14 +49,14 @@ if ($_POST) {
 						</tr>
 
 						<?php
-						
+
 						$orders = mysqli_query($db,
 						"SELECT o.id, TIME(o.date) as time, o.slot, o.name, o.paid,
 							(CASE WHEN o.house = 1 THEN 0.5 ELSE 1 END) +
 							SUM(price) as sum
 						FROM orders o
 							LEFT JOIN (
-								SELECT p.order_id, p.position, 4.00 + 
+								SELECT p.order_id, p.position, 4.00 +
 									(CASE WHEN p.patty = 0 THEN 0 ELSE 1.5 END) +
 									(CASE WHEN p.bacon = 1 THEN 0.5 ELSE 0 END) +
 									(CASE WHEN p.camembert = 1 THEN 0.5 ELSE 0 END) +
@@ -63,12 +65,12 @@ if ($_POST) {
 								FROM menu_positions p
 								) AS positions ON (o.id = order_id)
 						WHERE deleted = 0 AND DATE(o.date) = '" . date('Y-m-d', $date) . "' GROUP BY o.id");
-						
+
 						foreach ($orders as $order) { ?>
 							<tr>
 								<td style="text-align: left"> <?php echo $order['id']; ?> </td>
 								<td style="text-align: left"> <?php echo $order['time']; ?> </td>
-								<td style="text-align: left"> <?php echo $order['slot']; ?> </td>
+								<td style="text-align: left"> <?php echo $order['slot']+1; ?> </td>
 								<td style="text-align: left"> <?php echo $order['name']; ?> </td>
 								<td style="text-align: right"> <?php echo $order['sum']; ?> </td>
 								<td>
@@ -81,7 +83,7 @@ if ($_POST) {
 								</td>
 							</tr>
 						<?php
-							$soll += $order['sum']; 
+							$soll += $order['sum'];
 							$ist += $order['paid'] ? $order['sum'] : 0;
 						} ?>
 					</table>
