@@ -93,13 +93,13 @@ if ($_POST) {
 
 		<p>Auch in Zeiten der häuslichen Isolation wollen wir euch weiter jeden Donnerstag mit leckeren Burgern versorgen!</p>
 		<p>
-			Hier könnt ihr bis 18:30 Uhr eure Bestellung abgeben. Ab 19:00 Uhr bereiten wir die Burger frisch zu und bringen sie euch bis an die Zimmertür. Bitte habt Verständnis, dass wir für das Liefern einen kleinen Betrag verlangen. Getränke werden gekühlt in Flaschen geliefert.
+			Hier könnt ihr bis 17:00 Uhr eure Bestellung abgeben. Ab 18:00 Uhr bereiten wir die Burger frisch zu und bringen sie euch bis an die Zimmertür. Bitte habt Verständnis, dass wir für das Liefern einen kleinen Betrag verlangen. Getränke werden gekühlt in Flaschen geliefert.
 		</p>
 		<p>
 			Die Bezahlung erfolgt <b>ausschließlich</b> kontaktlos und im Voraus via PayPal. Nach Abschluss der Bestellung seht ihr den zu zahlenden Betrag und einen PayPal-Link. Wählt bei der Bezahlung bitte unbedingt "Geld an Freunde und Familie senden", damit keine PayPal-Gebühr anfällt.
 		</p>
 		<p>
-			<b>Nur Bestellungen, die bis 18:30 Uhr bezahlt sind, werden auch zubereitet und ausgeliefert!</b>
+			<b>Nur Bestellungen, die bis 17:00 Uhr bezahlt sind, werden auch zubereitet und ausgeliefert!</b>
 		</p>
 
 		<!--
@@ -293,6 +293,7 @@ if ($_POST) {
 
 			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + product_count);
 			new_position.innerHTML = first_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + product_count);
+			document.getElementsByName(product_count+"-patty")[0].id.replace(/.$/,""+product_count);
 
             var selectElements = new_position.getElementsByTagName('select');
             var old = 0;
@@ -303,8 +304,8 @@ if ($_POST) {
 				}
 			}
 
+
 			var checkElements = new_position.getElementsByTagName('input');
-			//window.alert(checkElements[0].id);
 			for (i = 0; i < checkElements.length; i++) {
 				if(String(checkElements[i].id).includes("check")) {
 					var old = checkElements[i].id;
@@ -358,7 +359,7 @@ if ($_POST) {
         var prices_order_positions = document.getElementsByClassName('price-order-position');
         for(i=0; i<prices_order_positions.length; i++){
             price_order_position = 0;
-            if(burgers[i].includes('Cheeseburger') || burgers[i].includes('Hamburger')){
+            if(burgers[i].includes('Hamburger')){
                 price_order_position += 4;
 
             }
