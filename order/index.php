@@ -293,7 +293,6 @@ if ($_POST) {
 
 			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + product_count);
 			new_position.innerHTML = first_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + product_count);
-			document.getElementsByName(product_count+"-patty")[0].id.replace(/.$/,""+product_count);
 
             var selectElements = new_position.getElementsByTagName('select');
             var old = 0;
