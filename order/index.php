@@ -125,7 +125,7 @@ if ($_POST) {
 						<!--<div id="order_position_title" class="order-position-title">#</div>-->
 						<div class="order-form-card-row">
 							<label class="flex-300">Burger
-								<select name="1-patty" id="burger_1" onchange="precheck(this.id); calculate_price(); update_ingredients(this.id);">
+								<select name="1-patty" id="burger_1" onchange="calculate_price(); update_ingredients(this.id);">
 									<option value='0'>Hamburger (4,00€)</option>
 									<!--<option value='0'>Cheeseburger (4,00€)</option>-->
 									<option value='1'>Beyond Meat&#8482;-Burger (5,50€)</option>
@@ -262,38 +262,6 @@ if ($_POST) {
 			if (document.getElementById('fname').value == "") { hint.innerHTML = 'Bitte gib deinen Namen ein.' }
 			else if (document.getElementById('froom').value == "") { hint.innerHTML = 'Bitte gib deine Zimmernummer ein.' }
 			else if (document.getElementById('fname').value == "") { hint.innerHTML = 'Bitte bestätige, dass du Paypal hast.' }
-		}
-	}
-
-	function delete_click(element) { }
-
-	function precheck(id) {
-		var idNumber = id.substring(id.length-1);
-		var burger = document.getElementById(id);
-		var text = burger.options[burger.selectedIndex].innerHTML;
-		if(String(text).includes("Hamburger") || String(text).includes("Beyond Meat") || String(text).includes("Double-Burger")) {
-
-			document.getElementById("checkSalad_"+idNumber).checked = true;
-			document.getElementById("checkTomato_"+idNumber).checked = true;
-			document.getElementById("checkOnions_"+idNumber).checked = true;
-			document.getElementById("checkSauce_"+idNumber).checked = true;
-
-			document.getElementById("checkCheese_"+idNumber).checked = false;
-			document.getElementById("checkRoastedOnions_"+idNumber).checked = false;
-			document.getElementById("checkPickle_"+idNumber).checked = false;
-			document.getElementById("checkBacon_"+idNumber).checked = false;
-			document.getElementById("checkCamembert_"+idNumber).checked = false;
-		} else if (String(text).includes("Cheeseburger")) {
-			document.getElementById("checkSalad_"+idNumber).checked = true;
-			document.getElementById("checkTomato_"+idNumber).checked = true;
-			document.getElementById("checkOnions_"+idNumber).checked = true;
-			document.getElementById("checkSauce_"+idNumber).checked = true;
-			document.getElementById("checkCheese_"+idNumber).checked = true;
-
-			document.getElementById("checkRoastedOnions_"+idNumber).checked = false;
-			document.getElementById("checkPickle_"+idNumber).checked = false;
-			document.getElementById("checkBacon_"+idNumber).checked = false;
-			document.getElementById("checkCamembert_"+idNumber).checked = false;
 		}
 	}
 
