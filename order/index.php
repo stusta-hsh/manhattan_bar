@@ -191,6 +191,7 @@ if ($_POST) {
 					<hr>
 					Gesamt: <a id="price_total">7.30</a> €
 				</div>
+				<p class='hint'> Innerhalb des HSH kostet die Lieferung 0,50 €, in die übrige Studentenstadt 1 €. </p>
 
 			</div>
 		</div>
@@ -226,8 +227,6 @@ if ($_POST) {
 				<label>Anmerkungen
 					<textarea rows="4" id='fcomment' name="comment" maxlength="300" placeholder="Hinweise zur Bestellung oder Lieferung"></textarea>
 				</label>
-
-				<p class='hint'> Innerhalb des HSH kostet die Lieferung 0,50 €, in die übrige Studentenstadt 1 €. </p>
 			</div>
 		</div>
 
