@@ -34,7 +34,7 @@ if ($_POST) {
 				</a>
 			</div>
 			<div class="card-content">
-				Slot 1: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0 GROUP BY slot"))[0];?>/25, 
+				Slot 1: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0 GROUP BY slot"))[0];?>/25,
 				Slot 2: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0];?>/25
 				<form method='post'>
 					<table>
@@ -72,7 +72,7 @@ if ($_POST) {
 								<td style="text-align: left"> <?php echo $order['time']; ?> </td>
 								<td style="text-align: left"> <?php echo $order['slot']+1; ?> </td>
 								<td style="text-align: left"> <?php echo $order['name']; ?> </td>
-								<td style="text-align: right"> <?php echo $order['sum']; ?> </td>
+								<td style="text-align: right"> <?php echo $order['sum']; ?> € </td>
 								<td>
 									<input type='hidden' name='<?php echo $order['id'] ?>' value='0'/>
 									<input type='checkbox' name='<?php echo $order['id'] ?>' value='1' <?php echo ($order['paid'] ? "checked='checked'" : ""); ?> />
