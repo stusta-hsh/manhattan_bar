@@ -264,9 +264,7 @@ if ($_POST) {
 			else if (document.getElementById('fname').value == "") { hint.innerHTML = 'Bitte bestätige, dass du Paypal hast.' }
 		}
 	}
-
-	function delete_click(element) { }
-
+	
 	function precheck(id) {
 		var idNumber = id.substring(id.length-1);
 		var burger = document.getElementById(id);
