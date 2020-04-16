@@ -23,7 +23,7 @@ if ($_POST) {
 		switch ($key) {
 			case 'name': $name = $value; break;
 			case 'house': $house = $value; break;
-			case 'room': $room = $value; break;
+			case 'room': $room = intval($value) == 0 ? $value : sprintf("%04d", $value); break;
 			case 'phone': $phone = $value; break;
 			case 'timeslot': $slot = $value; break;
 			case 'comment': $comment = $value; break;
