@@ -158,7 +158,7 @@ if ($_POST) {
 							<label class="flex-200">Beilage (+1,40€)
 								<select name="1-side" onchange="calculate_price()">
 									<option value="1">Pommes frites</option>
-									<option value="2">Wedges</option>
+									<option value="2">Potato Wedges</option>
 									<option value="0">keine Beilage</option>
 								</select>
 							</label>
