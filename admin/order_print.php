@@ -34,50 +34,43 @@
 							break;
 						case 1:
 							$burger = 'Beyond-Meat-Burger';
-							if($position['cheese']) $burger .= ' mit Käse';
 							break;
 						case 2:
 							$burger = 'Double-Burger';
-							if($position['cheese']) $burger .= ' mit Käse';
 							break;
 					}
 				?>
 
-				 <strong><?php echo "$burger \r\n"; ?></strong>
+				 <strong><?php echo "$burger"; ?></strong>
+				 	<!--
 					<ul>
-						/*
 					 	<?php if(!$position['salad']) { ?> <li> OHNE Salat </li> <?php } ?>
 						<?php if(!$position['tomato']) { ?> <li> OHNE Tomate </li> <?php } ?>
 						<?php if(!$position['onion']) { ?> <li> OHNE Zwiebel </li> <?php } ?>
 						<?php if(!$position['sauce']) { ?> <li> OHNE Sauce </li> <?php } ?>
-						*/
-
 					</ul>
-
-					<br>
-					<strong>Extras:</strong>
-					<ul>
-						<br>
-						<?php if($position['bacon']) { ?> <li>Bacon </li> <?php } ?>
-						<?php if($position['camembert']) { ?> <li>Camembert </li> <?php } ?>
-						<br>
-					</ul>
-
-					<strong><u>Beilage:</u></strong>
-					<ul>
-					<br>
-						<?php if($position['beilage'] == 1) { ?> <li>Pommes </li> <?php } ?>
-						<?php if($position['beilage'] == 2) { ?> <li>Wedges </li> <?php } ?>
-					<br>
-					</ul>
-
-					<strong>Endstation:</strong>
-					<ul>
-						<br>
-						<?php if($position['friedonions']) { ?> <li>Röstzwiebeln </li> <?php } ?>
-						<?php if($position['pickles']) { ?> <li>Essiggurken </li> <?php } ?>
-						<br>
-					</ul>
+			 		-->
+					<?php
+						if(($position['cheese'] && ($position['patty'] != 0)) || $position['bacon'] || $position['camembert']){
+							echo '<ul>mit ';
+							if($position['cheese'] && ($position['patty'] != 0)) { ?>Käse, <?php }
+							if($position['bacon']) { ?>Bacon, <?php }
+							if($position['camembert']) { ?>Camembert<?php } ?>
+							</ul><?php
+						} else {
+							echo '<br>';
+						}
+						if ($position['beilage'] != 0){
+							echo '<strong>';
+							echo ($position['beilage'] == 1 ? 'Pommes' : 'Wedges');
+							echo '</strong><br>';
+						}
+						if($position['friedonions'] || $position['pickles']) { ?>
+							<strong>Endstation</strong><ul>
+							<?php if($position['friedonions']) { ?>Röstzwiebeln<?php } ?>
+							<?php if($position['friedonions'] && $position['pickles']) echo ', ' ?>
+							<?php if($position['pickles']) { ?>Essiggurken<?php } ?>
+						</ul><?php } ?>
 
 
 					<ul><ul><ul><ul>
@@ -95,12 +88,10 @@
 								case 9: $bier = 'Club Mate'; break;
 								default: break;
 							}
-							echo "<li> Getränk: $bier </li>";
+							echo "<li> $bier </li>";
 						} ?>
-					<br>
 					</ul></ul></ul></ul>
-
-				</li>
+					<br>
 			<?php } ?>
 		</ul>
 		<?php if($order['comment'] != '') echo '<p>** '.$order['comment'].' **</p>'; ?>
