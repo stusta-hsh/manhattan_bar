@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-// if (date('w') != 4 || (date('H') >= 18 && date('i') > 35)) { exit("Leider zu spät."); } // Ab 18:35 nicht mehr anzeigen
+if (date('w') != 4 || (date('H') < 10) || (date('H') >= 17)) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
 
 include('../sql_config.php');
 $db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
