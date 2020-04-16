@@ -1,5 +1,6 @@
 <?php
 
+$page_title='settings';
 include('header.php');
 
 // Datenbankabfrage Settings
