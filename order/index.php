@@ -300,7 +300,7 @@ if ($_POST) {
             //var childArr = Array.prototype.slice.call(new_position.childNodes);
 
 			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + product_count);
-			new_position.innerHTML = first_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + product_count);
+			new_position.innerHTML = new_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + product_count);
 
             var selectElements = new_position.getElementsByTagName('select');
             var old = 0;
