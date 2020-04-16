@@ -224,10 +224,11 @@ if ($_POST) {
 					<label class="flex-200">Handynummer (optional)
 						<input id='fphone' type='tel' name='phone'/>
 					</label>
-					<label class="flex-100">Lieferzeitraum
-						<select name='timeslot'>
-							<option value="0">18:00 - 19:30</option>
-							<option value="1">19:30 - 21:00</option>
+					<label class="flex-100">Lieferzeitraum *
+						<select name='timeslot' id="timeslot" onchange='enableSubmit(this)'>
+							<option value="">Bitte wählen</option>
+							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < 26) as free FROM orders WHERE DATE(date) = '" . date('Y-m-d') . "' AND slot = 0"))[0] == 0) echo 'disabled';?> value="0">18:00 - 19:30</option>
+							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < 26) as free FROM orders WHERE DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0] == 0) echo 'disabled';?> value="1">19:30 - 21:00</option>
 						</select>
 					</label>
 				</div>
@@ -259,6 +260,7 @@ if ($_POST) {
 		document.getElementById('submit_button').disabled =
 			!(document.getElementById('fname').value != "" &&
 			document.getElementById('froom').value != "" &&
+			document.getElementById('timeslot').value != "" &&
 		 	document.getElementById('paypal_check').checked);
 	}
 
