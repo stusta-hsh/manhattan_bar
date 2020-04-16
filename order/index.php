@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <?php
 
-if (date('w') != 4 || (date('H') < 10) || (date('H') >= 17)) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
-
 include('../sql_config.php');
 $db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
 if(!$db) exit("Database connection error: ".mysqli_connect_error());
+
+// Datenbankabfrage Settings
+$sql = 'SELECT title, value FROM settings';
+$sql_query = mysqli_prepare($db, $sql);
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
+mysqli_stmt_execute($sql_query);
+$results = mysqli_stmt_get_result($sql_query);
+mysqli_stmt_close($sql_query);
+
+$settings = [];
+foreach($results as $result){
+	$settings[$result['title']] = $result['value'];
+}
 
 // Datenbankabfrage Häuser
 $sql = 'SELECT id, name, alias FROM houses ORDER BY no ASC';
@@ -70,6 +81,8 @@ if ($_POST) {
 	}
 	mysqli_stmt_close($sql_query);
 }
+
+if (date('w') != 4 || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
 ?>
 
 
