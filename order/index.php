@@ -205,7 +205,7 @@ if ($_POST) {
 					<br>
 				</div>
 				<div class="order-form-card-row">
-					<label class="flex-200">Haus
+					<label class="flex-200">Haus *
 						<select id='fhouse' name="house" onchange='calculate_price()'>
 						<?php foreach($houses as $house){ if($house['id'] != 2){?>
 								<option value='<?php echo $house['id'] ?>' <?php if($house['name']=='HSH') echo 'selected' ?>><?php echo $house['name']; if(!empty($house['alias']))echo(' ('.$house['alias'].')'); ?></option>
