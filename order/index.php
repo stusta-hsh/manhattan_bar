@@ -82,7 +82,7 @@ if ($_POST) {
 	mysqli_stmt_close($sql_query);
 }
 
-if (date('w') != 4 || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
+if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
 ?>
 
 
@@ -240,8 +240,8 @@ if (date('w') != 4 || (date('H:i') < date('H:i', strtotime($settings['order_open
 					<label class="flex-100">Lieferzeitraum *
 						<select name='timeslot' id="timeslot" onchange='enableSubmit(this)'>
 							<option value="">Bitte wählen</option>
-							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < 25) as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0"))[0] == 0) echo 'disabled';?> value="0">18:00 - 19:30</option>
-							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < 25) as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0] == 0) echo 'disabled';?> value="1">19:30 - 21:00</option>
+							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < ".$settings['order_max_slot'].") as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0"))[0] == 0) echo 'disabled';?> value="0">18:00 - 19:30</option>
+							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < ".$settings['order_max_slot'].") as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0] == 0) echo 'disabled';?> value="1">19:30 - 21:00</option>
 						</select>
 					</label>
 				</div>
@@ -300,7 +300,7 @@ if (date('w') != 4 || (date('H:i') < date('H:i', strtotime($settings['order_open
 
 	function add(e) {
 		e.preventDefault();
-		if (product_count < 5) {
+		if (product_count < <?php echo $settings["order_max_position"] ?>) {
 			//var order_table = document.getElementById('order_table');
 			//var product_select = document.getElementById('product_select');
 
@@ -345,7 +345,7 @@ if (date('w') != 4 || (date('H:i') < date('H:i', strtotime($settings['order_open
 			//c0.innerHTML = "<input name=\'" + product_count + "-" + product_select.value +"\' type=\'number\' min=\'0\' step=\'1\' value=\'1\'/>"
 			//c1.innerHTML = product_select.selectedOptions[0].text;
 		} else {
-            window.alert("Es können maximal 5 Menüs auf einmal bestellt werden.");
+            window.alert("Es können maximal "+<?php echo $settings["order_max_position"] ?>+" Menüs auf einmal bestellt werden.");
         }
         calculate_price();
 

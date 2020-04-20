@@ -454,6 +454,10 @@ input[type="submit"]{
 
 }
 
+.card-form-row input:disabled {
+	color: #ccc;
+}
+
 .card-content .button-wrapper {
 	padding: 5px;
 	text-align: right;

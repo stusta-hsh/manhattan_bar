@@ -34,8 +34,8 @@ if ($_POST) {
 				</a>
 			</div>
 			<div class="card-content">
-				Slot 1: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0 GROUP BY slot"))[0];?>/25,
-				Slot 2: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0];?>/25
+				Slot 1: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0 GROUP BY slot"))[0];?>/<?php echo $settings['order_max_slot'] ?>,
+				Slot 2: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0];?>/<?php echo $settings['order_max_slot'] ?>
 				<form method='post'>
 					<table>
 						<tr>
