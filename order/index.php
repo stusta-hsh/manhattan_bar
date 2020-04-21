@@ -314,16 +314,8 @@ if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtot
 
 			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + product_count);
 			new_position.innerHTML = new_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + product_count);
-
-            var selectElements = new_position.getElementsByTagName('select');
-            var old = 0;
-    		for (i = 0; i < selectElements.length; i++) {
-				if(String(selectElements[i].id).includes("burger")) {
-					var old = selectElements[i].id;
-					selectElements[i].id = old.substring(0, old.length - 1) + "" + product_count;
-				}
-			}
-
+			new_position.innerHTML = first_position.innerHTML.replace(/id=\"price_order_position_\d/, "id=\"price_order_position_" + product_count);
+			new_position.innerHTML = first_position.innerHTML.replace(/id=\"burger_\d/, "id=\"burger_" + product_count);
 
 			var checkElements = new_position.getElementsByTagName('input');
 			for (i = 0; i < checkElements.length; i++) {
@@ -332,10 +324,6 @@ if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtot
 					checkElements[i].id = old.substring(0, old.length - 1) + "" + product_count;
 				}
 			}
-
-            var price_order_position = document.getElementById('price_order_position_1');
-            var old = price_order_position.id;
-            price_order_position.id = old.substring(0, old.length - 1) + "" + product_count;
 			update_ingredients("burger_" + product_count);
 
 			//var newrow = order_table.insertRow(++product_count);
