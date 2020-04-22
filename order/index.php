@@ -193,8 +193,8 @@ if ($_POST) {
 							</label>
 						</div>
 						<div class="order-form-card-row">
-							<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1>Tütchen Ketchup</label>
-							<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1>Tütchen Mayonnaise</label>
+						<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1 class=check-Ketchup onclick="calculate_price()">Tütchen Ketchup (+0,10 €)</label>
+						<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1 class=check-Mayo onclick="calculate_price()">Tütchen Mayonnaise (+0,10 €)</label>
 						</div>
 						<div class="order-position-price">
 							<a type=number step="0.01" id='price_order_position_1' class=price-order-position>6.80</a> €
@@ -354,6 +354,8 @@ if ($_POST) {
         var burgers = [];
         var supplements = [];
         var drinks = [];
+		var ketchups = document.getElementsByClassName('check-Ketchup');
+        var mayos = document.getElementsByClassName('check-Mayo');
         var bacons = document.getElementsByClassName('check-Bacon');
         var camemberts = document.getElementsByClassName('check-Camembert');
         var selectElements = document.getElementsByTagName('select');
@@ -386,6 +388,8 @@ if ($_POST) {
 
             if(bacons[i].checked) price_order_position += 0.5;
             if(camemberts[i].checked) price_order_position += 0.5;
+			if(mayos[i].checked) price_order_position += 0.1;
+            if(ketchups[i].checked) price_order_position += 0.1;
 
 
             prices_order_positions[i].innerHTML = price_order_position.toFixed(2);
