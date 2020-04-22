@@ -48,10 +48,10 @@ if ($_POST) {
 	if (mysqli_stmt_execute($sql_query))
 	{
 		$id = mysqli_insert_id($db);
-		$sql = "INSERT INTO menu_positions (order_id, position, patty, cheese, salad, tomato, onion, sauce, friedonions, pickles, bacon, camembert, beilage, bier) VALUES ";
+		$sql = "INSERT INTO menu_positions (order_id, position, patty, cheese, salad, tomato, onion, sauce, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier) VALUES ";
 		for ($i = 1; $i <= 10; $i++) {
 			$positionexists = false;
-			$patty = 0; $cheese = 0; $salad = 0; $tomato = 0; $onion = 0; $sauce = 0; $friedonions = 0; $pickles = 0; $bacon = 0; $camembert = 0; $side = 0; $bier = 0;
+			$patty = 0; $cheese = 0; $salad = 0; $tomato = 0; $onion = 0; $sauce = 0; $friedonions = 0; $pickles = 0; $bacon = 0; $camembert = 0; $side = 0; $dip_1 = 0; $dip_2 = 0; $bier = 0;
 			foreach ($_POST as $key=>$value) {
 				list($position, $a) = explode('-', $key);
 				if ($position == $i) {
@@ -69,6 +69,8 @@ if ($_POST) {
 						case 'p': $pickles = $value; break;
 						case 'b': $bacon = $value; break;
 						case 'y': $camembert = $value; break;
+						case 'dip_1': $dip_1 = $value; break;
+						case 'dip_2': $dip_2 = $value; break;
 					}
 				}
 			}
@@ -82,7 +84,7 @@ if ($_POST) {
 	mysqli_stmt_close($sql_query);
 }
 
-if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
+// if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
 ?>
 
 
@@ -189,6 +191,10 @@ if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtot
 									<option value="0">kein Getränk</option>
 								</select>
 							</label>
+						</div>
+						<div class="order-form-card-row">
+							<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1>Tütchen Ketchup</label>
+							<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1>Tütchen Mayonnaise</label>
 						</div>
 						<div class="order-position-price">
 							<a type=number step="0.01" id='price_order_position_1' class=price-order-position>6.80</a> €
