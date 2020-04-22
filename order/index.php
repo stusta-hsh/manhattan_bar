@@ -193,8 +193,8 @@ if ($_POST) {
 							</label>
 						</div>
 						<div class="order-form-card-row" style="justify-content: start">
-						<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1 class=check-Ketchup onclick="calculate_price()">Ketchup-Beutel (+0,10 €)</label>
-						<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1 class=check-Mayo onclick="calculate_price()">Mayonnaise-Beutel (+0,10 €)</label>
+							<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1 class=check-Ketchup onclick="calculate_price()">Ketchup-Beutel (+0,10 €)</label>
+							<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1 class=check-Mayo onclick="calculate_price()">Mayonnaise-Beutel (+0,10 €)</label>
 						</div>
 						<div class="order-position-price">
 							<a type=number step="0.01" id='price_order_position_1' class=price-order-position>6.80</a> €
