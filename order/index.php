@@ -49,7 +49,7 @@ if ($_POST) {
 	{
 		$id = mysqli_insert_id($db);
 		$sql = "INSERT INTO menu_positions (order_id, position, patty, cheese, salad, tomato, onion, sauce, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier) VALUES ";
-		for ($i = 1; $i <= 10; $i++) {
+		for ($i = 1; $i <= $settings['order_max_position']; $i++) {
 			$positionexists = false;
 			$patty = 0; $cheese = 0; $salad = 0; $tomato = 0; $onion = 0; $sauce = 0; $friedonions = 0; $pickles = 0; $bacon = 0; $camembert = 0; $side = 0; $dip_1 = 0; $dip_2 = 0; $bier = 0;
 			foreach ($_POST as $key=>$value) {
@@ -74,7 +74,7 @@ if ($_POST) {
 					}
 				}
 			}
-			if ($positionexists) { $sql .= "($id, $i, $patty, $cheese, $salad, $tomato, $onion, $sauce, $friedonions, $pickles, $bacon, $camembert, $side, $bier), "; }
+			if ($positionexists) { $sql .= "($id, $i, $patty, $cheese, $salad, $tomato, $onion, $sauce, $friedonions, $pickles, $bacon, $camembert, $side, $dip_1, $dip_2, $bier), "; }
 		}
 		$sql = substr($sql, 0, -2); // Das letzte Komma entfernen
 		mysqli_query($db, $sql);
@@ -158,7 +158,7 @@ if ($_POST) {
                             <label><input type='checkbox' value="1" checked name="1-o" id=checkOnions_1>Zwiebeln</label>
                             <label><input type='checkbox' value="1" checked name="1-x" id=checkSauce_1>Sauce</label>
     					</div>-->
-						<div class="order-form-card-row">
+						<div class="order-form-card-row" style="justify-content: start">
 							<label><input type='checkbox' value="1" name="1-c" id=checkCheese_1>Käse</label>
 							<input type='hidden' value="1" checked name="1-s" id=checkSalad_1>
 							<input type='hidden' value="1" checked name="1-t" id=checkTomato_1>
@@ -192,9 +192,9 @@ if ($_POST) {
 								</select>
 							</label>
 						</div>
-						<div class="order-form-card-row">
-						<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1 class=check-Ketchup onclick="calculate_price()">Tütchen Ketchup (+0,10 €)</label>
-						<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1 class=check-Mayo onclick="calculate_price()">Tütchen Mayonnaise (+0,10 €)</label>
+						<div class="order-form-card-row" style="justify-content: start">
+						<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1 class=check-Ketchup onclick="calculate_price()">Ketchup-Beutel (+0,10 €)</label>
+						<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1 class=check-Mayo onclick="calculate_price()">Mayonnaise-Beutel (+0,10 €)</label>
 						</div>
 						<div class="order-position-price">
 							<a type=number step="0.01" id='price_order_position_1' class=price-order-position>6.80</a> €
