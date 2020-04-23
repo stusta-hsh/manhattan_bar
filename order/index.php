@@ -342,8 +342,8 @@ if ($_POST) {
 				var add = document.getElementById("add-position");
 				add.parentNode.removeChild(add); //shorter would be add.remove() but this is not supported by older browsers
 			}
-        calculate_price();
-
+        	calculate_price();
+		}
 	}
 
 	function calculate_price(){
