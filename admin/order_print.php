@@ -70,8 +70,16 @@
 					if ($position['beilage'] != 0){
 						echo '<strong>';
 						echo ($position['beilage'] == 1 ? 'Pommes' : 'Wedges');
-						echo '</strong><br>';
-					} ?>
+						echo '</strong>';
+					}
+					if ($position['dip_1'] || $position['dip_2']){
+						if($position['dip_1']) echo ' +Ketchup';
+						if($position['dip_2']) echo ' +Mayo';
+					}
+					if ($position['beilage'] != 0 || $position['dip_1'] || $position['dip_2']){
+						echo '<br>';
+					}
+					?>
 
 					<?php if($position['bier'] != 0) {
 						$bier = '';
