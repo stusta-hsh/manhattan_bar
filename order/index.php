@@ -201,7 +201,7 @@ if ($_POST) {
 						</div>
 					</div>
 				</div>
-				<div class="add-order-position-button" onclick="add(event)">
+				<div class="add-order-position-button" onclick="add(event)" id="add-position">
 					<i class="fa fa-plus-circle" aria-hidden="true"></i> Menü hinzufügen
 				</div>
 
@@ -338,9 +338,10 @@ if ($_POST) {
 
 			//c0.innerHTML = "<input name=\'" + product_count + "-" + product_select.value +"\' type=\'number\' min=\'0\' step=\'1\' value=\'1\'/>"
 			//c1.innerHTML = product_select.selectedOptions[0].text;
-		} else {
-            window.alert("Es können maximal "+<?php echo $settings["order_max_position"] ?>+" Menüs auf einmal bestellt werden.");
-        }
+			if (product_count == <?php echo $settings["order_max_position"] ?>) {
+				var add = document.getElementById("add-position");
+				add.parentNode.removeChild(add); //shorter would be add.remove() but this is not supported by older browsers
+			}
         calculate_price();
 
 	}
