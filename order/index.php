@@ -118,21 +118,6 @@ if ($_POST) {
 			<b>Nur Bestellungen, die bis 17:00 Uhr bezahlt sind, werden auch zubereitet und ausgeliefert! Da die Anzahl der Bestellungen begrenzt ist, zahlt bitte innerhalb von 15 Minuten nach Bestellabgabe.</b>
 		</p>
 
-		<!--
-		<p> Auch in der Coronazeit wollen wir vom Manhattan euch weiter mit Burgern versorgen. </p>
-		<p>
-			Hier könnt ihr <em>bis 19 Uhr</em> eure Bestellung abgeben. Danach bereiten wir eure Burger frisch zu und bringen sie euch bis an die Zimmertür.
-			Bitte habt Verständnis, dass wir für das Liefern einen kleinen Betrag verlangen. Getränke werden in Flaschen geliefert.
-		</p>
-		<p>
-			Die Bezahlung erfolgt <b>ausschließlich</b> kontaktlos über PayPal.
-			Nach Abschluss der Bestellung seht ihr nochmal euren Betrag und einen PayPal-Link, über den ihr den angegebenen Betrag an uns sendet.
-			Gebt bei der Bezahlung bitte Freunde & Familie an (wir vom Manhattan sind nicht nur eure Nachbarn, sondern auch eure Freunde, wenn nicht sogar eine zweite Familie &#x1F609;), damit wir keine Gebühren zahlen müssen.
-			Denkt daran, eure Bestellung vor 19 Uhr zu bezahlen, da wir sie sonst nicht bearbeiten können.
-		</p>
-		<p> Eine Barzahlung können wir leider nicht annehmen. </p>
-		-->
-
 		<div class='card'>
 			<div class='card-title'>Deine Bestellung</div>
 			<div class='card-content' style="background-color: #f5f5f5">
@@ -151,13 +136,6 @@ if ($_POST) {
 							<!-- <p class='fa fa-trash' onclick="delete_click(this)"/> -->
 						</div>
 						<p class="hint ingredient" id="ingredients_burger_1">mit Beef-Patty, Salat, Tomaten, Zwiebeln und Burgersauce (nicht vegan)</p>
-						<!--<div class="order-form-card-row">
-                            <label><input type='checkbox' value="1" name="1-c" id=checkCheese_1>Käse</label>
-                            <label><input type='checkbox' value="1" checked name="1-s" id=checkSalad_1>Salat</label>
-                            <label><input type='checkbox' value="1" checked name="1-t" id=checkTomato_1>Tomate</label>
-                            <label><input type='checkbox' value="1" checked name="1-o" id=checkOnions_1>Zwiebeln</label>
-                            <label><input type='checkbox' value="1" checked name="1-x" id=checkSauce_1>Sauce</label>
-    					</div>-->
 						<div class="order-form-card-row" style="justify-content: start">
 							<label><input type='checkbox' value="1" name="1-c" id=checkCheese_1>Käse</label>
 							<input type='hidden' value="1" checked name="1-s" id=checkSalad_1>
@@ -273,7 +251,7 @@ if ($_POST) {
 
 <script>
 	var order_total = 0.00;
-	var product_count = 1;
+	var position_count = 1;
 
 	function enableSubmit(e) { // Bei unvollständigen Angaben Submit-Button deaktivieren
 		document.getElementById('submit_button').disabled =
@@ -306,39 +284,40 @@ if ($_POST) {
 
 	function add(e) {
 		e.preventDefault();
-		if (product_count < <?php echo $settings["order_max_position"] ?>) {
-			//var order_table = document.getElementById('order_table');
-			//var product_select = document.getElementById('product_select');
-
+		if (position_count < <?php echo $settings["order_max_position"] ?>) {
 			var order_list = document.getElementById('order_list');
 			var first_position = document.getElementById('position_1');
 			var new_position = first_position.cloneNode(true);
-			new_position.id = "position_" + ++product_count;
+			new_position.id = "position_" + ++position_count;
 			order_list.appendChild(new_position);
 
-            //var childArr = Array.prototype.slice.call(new_position.childNodes);
+			<?php /*
+				To add a new order position, copy the first order position and modify it as explained:
+				In HTML-Forms, the 'name' attribute of a from element defines the value key transmitted in HTTP. In order to distinguish the
+				order position the form element belongs to, the name attribute is structured like this:
+					name='[order-position]-[element-name]'
+				Consequently, the [order-position] of the copied position needs to be replaced with the new position number.
+				This is implemented here with the JS-string-replace-function, taking a regular expression (surrounded by slashes),
+				which matches should be replaced. The g specifies, that all matches should be replaced, not only the first one.
+				This implementation is simple, but quite weak, e.g. whitespace around the = breaks the system.
+			*/ ?>
+			
+			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + position_count);
 
-			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + product_count);
-			new_position.innerHTML = new_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + product_count);
-			new_position.innerHTML = new_position.innerHTML.replace(/id=\"price_order_position_\d/, "id=\"price_order_position_" + product_count);
-			new_position.innerHTML = new_position.innerHTML.replace(/id=\"burger_\d/, "id=\"burger_" + product_count);
+			new_position.innerHTML = new_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + position_count);
+			new_position.innerHTML = new_position.innerHTML.replace(/id=\"price_order_position_\d/, "id=\"price_order_position_" + position_count);
+			new_position.innerHTML = new_position.innerHTML.replace(/id=\"burger_\d/, "id=\"burger_" + position_count);
 
 			var checkElements = new_position.getElementsByTagName('input');
 			for (i = 0; i < checkElements.length; i++) {
 				if(String(checkElements[i].id).includes("check")) {
 					var old = checkElements[i].id;
-					checkElements[i].id = old.substring(0, old.length - 1) + "" + product_count;
+					checkElements[i].id = old.substring(0, old.length - 1) + "" + position_count;
 				}
 			}
-			update_ingredients("burger_" + product_count);
+			update_ingredients("burger_" + position_count);
 
-			//var newrow = order_table.insertRow(++product_count);
-			//var c0 = newrow.insertCell(0);
-			//var c1 = newrow.insertCell(1);
-
-			//c0.innerHTML = "<input name=\'" + product_count + "-" + product_select.value +"\' type=\'number\' min=\'0\' step=\'1\' value=\'1\'/>"
-			//c1.innerHTML = product_select.selectedOptions[0].text;
-			if (product_count == <?php echo $settings["order_max_position"] ?>) {
+			if (position_count == <?php echo $settings["order_max_position"] ?>) {
 				var add = document.getElementById("add-position");
 				add.parentNode.removeChild(add); //shorter would be add.remove() but this is not supported by older browsers
 			}
