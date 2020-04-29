@@ -61,6 +61,8 @@ if ($_POST) {
 									(CASE WHEN p.bacon = 1 THEN 0.5 ELSE 0 END) +
 									(CASE WHEN p.camembert = 1 THEN 0.5 ELSE 0 END) +
 									(CASE WHEN p.beilage = 0 THEN 0 ELSE 1.4 END) +
+									(CASE WHEN p.dip_1 = 1 THEN 0.1 ELSE 0 END) +
+									(CASE WHEN p.dip_2 = 1 THEN 0.1 ELSE 0 END) +
 									(CASE WHEN p.bier = 0 THEN 0 ELSE 1.4 END) as price
 								FROM menu_positions p
 								) AS positions ON (o.id = order_id)
