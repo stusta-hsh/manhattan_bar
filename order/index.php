@@ -84,7 +84,7 @@ if ($_POST) {
 	mysqli_stmt_close($sql_query);
 }
 
-// if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
+if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
 ?>
 
 
@@ -171,8 +171,8 @@ if ($_POST) {
 							</label>
 						</div>
 						<div class="order-form-card-row" style="justify-content: start">
-							<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1 class=check-Ketchup onclick="calculate_price()">Ketchup-Beutel (+0,10 €)</label>
-							<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1 class=check-Mayo onclick="calculate_price()">Mayonnaise-Beutel (+0,10 €)</label>
+							<label><input type='checkbox' value="1" name="1-dip_1" id=checkDip1_1 class=check-Ketchup onclick="calculate_price()">Ketchup (+0,10 €)</label>
+							<label><input type='checkbox' value="1" name="1-dip_2" id=checkDip2_1 class=check-Mayo onclick="calculate_price()">Mayonnaise (+0,10 €)</label>
 						</div>
 						<div class="order-position-price">
 							<a type=number step="0.01" id='price_order_position_1' class=price-order-position>6.80</a> €
@@ -301,7 +301,7 @@ if ($_POST) {
 				which matches should be replaced. The g specifies, that all matches should be replaced, not only the first one.
 				This implementation is simple, but quite weak, e.g. whitespace around the = breaks the system.
 			*/ ?>
-			
+
 			new_position.innerHTML = first_position.innerHTML.replace(/name=\"1/g, "name=\"" + position_count);
 
 			new_position.innerHTML = new_position.innerHTML.replace(/id=\"ingredients_burger_1/, "id=\"ingredients_burger_" + position_count);
