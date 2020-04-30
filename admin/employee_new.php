@@ -33,7 +33,7 @@ include('employee_header.php');
 				Neuer Mitarbeiter
 			</div>
 			<div class="card-content">
-				<form method='post' action=''>
+				<form class="card-content-form" method='post' action=''>
 					<div class="card-form-box">
 						<div class="card-form-row">
 							<label class="flex-100">Vorname

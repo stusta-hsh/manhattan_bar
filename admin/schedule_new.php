@@ -48,7 +48,7 @@ if ($_POST) {
 				Neuer Wochenplan
 			</div>
 			<div class="card-content">
-				<form method="post" action="" class="edit_schedule_form">
+				<form class="card-content-form" method="post" action="" class="edit_schedule_form">
 					<div class="card-form-box">
 						<div class="card-form-row">
 							<label class="flex-100">Jahr

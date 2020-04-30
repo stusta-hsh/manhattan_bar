@@ -37,7 +37,7 @@ include('settings_header.php');
 		<div class="card">
 			<div class="card-title">Webseite</div>
 			<div class="card-content">
-				<form method='post' action=''>
+				<form class="card-content-form" method='post' action=''>
 					<div class="card-form-box">
 						<div class="card-form-row">
 							<label class="flex-100">Design

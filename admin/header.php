@@ -186,9 +186,9 @@
 
 		function sortTable(n) {
 		  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-		  table = document.getElementById("employee_list");
+		  table = document.getElementById("sortable_list");
 		  switching = true;
-		  dir = "desc";
+		  dir = "asc";
 		  while (switching) {
 		    switching = false;
 		    rows = table.rows;
@@ -213,8 +213,8 @@
 		      switching = true;
 		      switchcount ++;
 		    } else {
-		      if (switchcount == 0 && dir == "desc") {
-		        dir = "asc";
+		      if (switchcount == 0 && dir == "asc") {
+		        dir = "desc";
 		        switching = true;
 		      }
 		    }

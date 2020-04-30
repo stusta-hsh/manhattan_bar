@@ -98,7 +98,7 @@ if($_POST){
 			</a>
 		</div>
 		<div class="card-content">
-			<form method='post' action=''>
+			<form class="card-content-form" method='post' action=''>
 				<?php for($day=1; $day<8; $day++){ ?>
 					<div class="card-form-box">
 						<div class="card-form-row">

@@ -26,7 +26,7 @@ include('employee_header.php');
 			</div>
 		</div>
 		<div class="card-content">
-			<table class="employee_list" id="employee_list">
+			<table class="employee_list" id="sortable_list">
 				<tr>
 					<th onclick="sortTable(0)"><i title="Zimmer" class="fa fa-map-marker"></i></th>
 					<th onclick="sortTable(1)"><i title="Name" class="fa fa-user"></i></th>
@@ -70,8 +70,6 @@ include('employee_header.php');
 			</table>
 		</div>
 	</div>
-	<!--<h3>Alle Mitarbeiter (<?php echo(mysqli_num_rows($employees)); ?>)</h3>-->
-
 
 
 
