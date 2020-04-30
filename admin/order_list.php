@@ -34,8 +34,32 @@ if ($_POST) {
 				</a>
 			</div>
 			<div class="card-content">
-				Slot 1: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0 GROUP BY slot"))[0];?>/<?php echo $settings['order_max_slot'] ?>,
-				Slot 2: <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0];?>/<?php echo $settings['order_max_slot'] ?>
+				<div class="progress-bar-wrapper">
+
+					<?php
+						// fetching data for progress bars
+						$slot1_current = mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0"))[0];
+						$slot2_current = mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0];
+						$slot_max = $settings['order_max_slot'];
+						$slot1_percent = $slot1_current / $slot_max * 100;
+						$slot2_percent = $slot2_current / $slot_max * 100;
+					?>
+					<div class="progress-bar-wrapper">
+					<div class="progress-bar">
+						<div class="progress" style="width: <?php echo($slot1_percent) ?>%">
+							Slot 1: <?php echo($slot1_current.' / '.$slot_max) ?>
+						</div>
+					</div>
+					</div>
+					<div class="progress-bar-wrapper">
+					<div class="progress-bar">
+						<div class="progress" style="width: <?php echo($slot2_percent) ?>%">
+							Slot 2: <?php echo($slot2_current.' / '.$slot_max) ?>
+						</div>
+					</div>
+					</div>
+				</div>
+
 				<form method='post'>
 					<table>
 						<tr>
