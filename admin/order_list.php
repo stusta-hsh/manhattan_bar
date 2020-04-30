@@ -45,18 +45,18 @@ if ($_POST) {
 						$slot2_percent = $slot2_current / $slot_max * 100;
 					?>
 					<div class="progress-bar-wrapper">
-					<div class="progress-bar">
-						<div class="progress" style="width: <?php echo($slot1_percent) ?>%">
-							Slot 1: <?php echo($slot1_current.' / '.$slot_max) ?>
+						<div class="progress-bar">
+							<div class="progress" style="width: <?php echo($slot1_percent) ?>%">
+								Slot 1: <?php echo($slot1_current.' / '.$slot_max) ?>
+							</div>
 						</div>
-					</div>
 					</div>
 					<div class="progress-bar-wrapper">
-					<div class="progress-bar">
-						<div class="progress" style="width: <?php echo($slot2_percent) ?>%">
-							Slot 2: <?php echo($slot2_current.' / '.$slot_max) ?>
+						<div class="progress-bar">
+							<div class="progress" style="width: <?php echo($slot2_percent) ?>%">
+								Slot 2: <?php echo($slot2_current.' / '.$slot_max) ?>
+							</div>
 						</div>
-					</div>
 					</div>
 				</div>
 
