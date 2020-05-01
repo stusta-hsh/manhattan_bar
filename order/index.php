@@ -207,7 +207,7 @@ if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtot
 					<label class="flex-200">Haus *
 						<select id='fhouse' name="house" onchange='calculate_price()'>
 						<?php foreach($houses as $house){ if($house['id'] != 2){?>
-								<option value='<?php echo $house['id'] ?>' <?php if($house['name']=='HSH') echo 'selected' ?>><?php echo $house['name']; if(!empty($house['alias']))echo(' ('.$house['alias'].')'); ?></option>
+								<option value='<?php echo $house['id'] ?>' <?php if($house['id']=='1') echo 'selected' ?>><?php echo $house['name']; if(!empty($house['alias']))echo(' ('.$house['alias'].')'); ?></option>
 							<?php }} ?>
 						</select>
 					</label>
