@@ -44,13 +44,30 @@ WHERE deleted = 0 AND DATE(o.date) = '" . date('Y-m-d', $date) . "' GROUP BY o.i
 	<div class="content">
 		<div class="card">
 			<div class="card-title">
-				<a class="card-title-arrow-left" href="order_list.php?date=<?php echo date('Y-m-d', $date - 60 * 60 * 24) // TODO letzten öffnungstag herausfinden ?>">
-					<i class='fa fa-chevron-left'></i>
-				</a>
-				<?php echo(' ' . strftime('%a, %d. %b %Y', $date) . ' '); ?>
-				<a class="card-title-arrow-right" href="order_list.php?date=<?php echo date('Y-m-d', $date + 60 * 60 * 24) ?>">
-					<i class='fa fa-chevron-right'></i>
-				</a>
+
+				<?php
+					$date_previous_order = mysqli_fetch_row(mysqli_query($db, 'SELECT DATE(date) FROM orders WHERE DATE(date) < "'.date('Y-m-d', $date).'" AND deleted = 0 GROUP BY DATE(date) ORDER BY date DESC LIMIT 1'))[0];
+					$date_next_order = mysqli_fetch_row(mysqli_query($db, 'SELECT DATE(date) FROM orders WHERE DATE(date) > "'.date('Y-m-d', $date).'" AND deleted = 0 GROUP BY DATE(date) ORDER BY date ASC LIMIT 1'))[0];
+				?>
+
+				<?php if($date_previous_order != ''){ ?>
+					<a class="card-title-arrow-left" href="order_list.php?date=<?php echo $date_previous_order ?>">
+						<i class='fa fa-chevron-left'></i>
+					</a>
+				<?php } else { ?>
+					<a class="card-title-arrow-left"><i class='fa fa-chevron-left' style='color: rgb(1,1,1,0.15);'></i></a>
+				<?php } ?>
+
+				<?php echo(ucfirst($weekdays[date('w',$date)]).'., '.date('j. ', $date).$months[date('n', $date)-1].date(' Y', $date)); ?>
+
+				<?php if($date_next_order != ''){ ?>
+					<a class="card-title-arrow-right" href="order_list.php?date=<?php echo $date_next_order ?>">
+						<i class='fa fa-chevron-right'></i>
+					</a>
+				<?php } else { ?>
+					<a class="card-title-arrow-right"><i class='fa fa-chevron-right' style='color: rgb(1,1,1,0.15);'></i></a>
+				<?php } ?>
+
 			</div>
 			<div class="card-content">
 				<div class="progress-bar-wrapper">
