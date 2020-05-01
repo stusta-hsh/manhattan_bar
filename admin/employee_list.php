@@ -22,7 +22,7 @@ include('employee_header.php');
 			Alle Mitarbeiter (<?php echo(mysqli_num_rows($employees)); ?>)
 			<div class="employee-searchbar">
 				<i class="fa fa-search" aria-hidden="true"></i>
-				<input type="text" id="employee_searchbar" onkeyup="searchlist('employee_searchbar', 'employee_list')" placeholder="" autofocus>
+				<input type="text" id="employee_searchbar" onkeyup="searchlist('employee_searchbar', 'sortable_list')" placeholder="" autofocus>
 			</div>
 		</div>
 		<div class="card-content">
