@@ -144,11 +144,11 @@
 				if($short) $name.=' '.substr($employee['last_name'],0,1).'.';
 				else $name.=' '.$employee['last_name'];
 		}
-		if(!empty($employee['room_number']) || (!empty($employee['house.name']) && $employee['house.name']!='HSH')) $name.=' (';
-		if(!empty($employee['house.name']) && $employee['house.name']!='HSH') $name.=$employee['house.name'];
-		if(!empty($employee['room_number']) && !empty($employee['house.name']) && $employee['house.name']!='HSH') $name.=', ';
+		if(!empty($employee['room_number']) || (!empty($employee['house.shortname']) && $employee['house.shortname']!='HSH')) $name.=' (';
+		if(!empty($employee['house.shortname']) && $employee['house.shortname']!='HSH') $name.=$employee['house.name'];
+		if(!empty($employee['room_number']) && !empty($employee['house.shortname']) && $employee['house.shortname']!='HSH') $name.=', ';
 		if(!empty($employee['room_number'])) $name.=$employee['room_number'];
-		if(!empty($employee['room_number']) || (!empty($employee['house.name']) && $employee['house.name']!='HSH')) $name.=')';
+		if(!empty($employee['room_number']) || (!empty($employee['house.shortname']) && $employee['house.shortname']!='HSH')) $name.=')';
 
 		return $name;
 	}

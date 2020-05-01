@@ -5,7 +5,7 @@ $page_title='team';
 include('header.php');
 
 // Datenbankabfrage Mitarbeiter
-$sql = 'SELECT employees.*, houses.name AS "house.name" FROM employees LEFT JOIN houses ON employees.house = houses.id WHERE employees.id=? AND employees.deleted=0';
+$sql = 'SELECT employees.*, houses.shortname AS "house.shortname", houses.name AS "house.name" FROM employees LEFT JOIN houses ON employees.house = houses.id WHERE employees.id=? AND employees.deleted=0';
 $sql_query = mysqli_prepare($db, $sql);
 mysqli_stmt_bind_param($sql_query, 'i', $id);
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
