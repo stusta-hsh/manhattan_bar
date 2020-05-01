@@ -84,11 +84,11 @@ WHERE deleted = 0 AND DATE(o.date) = '" . date('Y-m-d', $date) . "' GROUP BY o.i
 
 					<span class="progress-bar-label">Slot 1: <?php echo($slot1_current.' / '.$slot_max) ?></span>
 					<div class="progress-bar">
-						<?php foreach ($slot1_orders_by_house as $order) { ?><span class="progress" title="<?php echo($order['house'].': '.$order['num']) ?>" style="width: <?php echo($order['num'] / max($slot_max, $order['num']) * 100) ?>%; background-color: <?php echo($order['color']) ?>;"></span><?php } ?>
+						<?php foreach ($slot1_orders_by_house as $order) { ?><span class="progress" title="<?php echo($order['house'].': '.$order['num']) ?>" style="width: <?php echo($order['num'] / max($slot_max, $slot1_current) * 100) ?>%; background-color: <?php echo($order['color']) ?>;"></span><?php } ?>
 					</div>
 					<span class="progress-bar-label">Slot 2: <?php echo($slot2_current.' / '.$slot_max) ?></span>
 					<div class="progress-bar">
-						<?php foreach ($slot2_orders_by_house as $order) { ?><span class="progress" title="<?php echo($order['house'].': '.$order['num']) ?>" style="width: <?php echo($order['num'] / max($slot_max, $order['num']) * 100) ?>%; background-color: <?php echo($order['color']) ?>;"></span><?php } ?>
+						<?php foreach ($slot2_orders_by_house as $order) { ?><span class="progress" title="<?php echo($order['house'].': '.$order['num']) ?>" style="width: <?php echo($order['num'] / max($slot_max, $slot2_current) * 100) ?>%; background-color: <?php echo($order['color']) ?>;"></span><?php } ?>
 					</div>
 				</div>
 			</div>
