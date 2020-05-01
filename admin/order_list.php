@@ -59,16 +59,19 @@ WHERE deleted = 0 AND DATE(o.date) = '" . date('Y-m-d', $date) . "' GROUP BY o.i
 						$slot1_current = mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d', $date) . "' AND slot = 0"))[0];
 						$slot2_current = mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(slot) FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d', $date) . "' AND slot = 1"))[0];
 						$slot_max = $settings['order_max_slot'];
-						$slot1_percent = $slot1_current / $slot_max * 100;
-						$slot2_percent = $slot2_current / $slot_max * 100;
+
+						$slot1_orders_by_house = mysqli_query($db, "SELECT houses.name AS house, count(house) AS num, color FROM orders LEFT JOIN houses ON orders.house = houses.id WHERE DATE(date) = '" . date('Y-m-d', $date) . "' AND slot = 0 AND deleted = 0 GROUP BY house ORDER BY num DESC");
+
+						$slot2_orders_by_house = mysqli_query($db, "SELECT houses.name AS house, count(house) AS num, color FROM orders LEFT JOIN houses ON orders.house = houses.id WHERE DATE(date) = '" . date('Y-m-d', $date) . "' AND slot = 1 AND deleted = 0 GROUP BY house ORDER BY num DESC");
 					?>
+
 					<span class="progress-bar-label">Slot 1: <?php echo($slot1_current.' / '.$slot_max) ?></span>
 					<div class="progress-bar">
-						<div class="progress" style="width: <?php echo($slot1_percent) ?>%"></div>
+						<?php foreach ($slot1_orders_by_house as $order) { ?><span class="progress" title="<?php echo($order['house'].': '.$order['num']) ?>" style="width: <?php echo($order['num'] / max($slot_max, $order['num']) * 100) ?>%; background-color: <?php echo($order['color']) ?>;"></span><?php } ?>
 					</div>
 					<span class="progress-bar-label">Slot 2: <?php echo($slot2_current.' / '.$slot_max) ?></span>
 					<div class="progress-bar">
-						<div class="progress" style="width: <?php echo($slot2_percent) ?>%"></div>
+						<?php foreach ($slot2_orders_by_house as $order) { ?><span class="progress" title="<?php echo($order['house'].': '.$order['num']) ?>" style="width: <?php echo($order['num'] / max($slot_max, $order['num']) * 100) ?>%; background-color: <?php echo($order['color']) ?>;"></span><?php } ?>
 					</div>
 				</div>
 			</div>
