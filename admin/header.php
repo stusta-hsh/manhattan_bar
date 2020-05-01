@@ -145,7 +145,7 @@
 				else $name.=' '.$employee['last_name'];
 		}
 		if(!empty($employee['room_number']) || (!empty($employee['house.shortname']) && $employee['house.shortname']!='HSH')) $name.=' (';
-		if(!empty($employee['house.shortname']) && $employee['house.shortname']!='HSH') $name.=$employee['house.name'];
+		if(!empty($employee['house.shortname']) && $employee['house.shortname']!='HSH') $name.=$employee['house.shortname'];
 		if(!empty($employee['room_number']) && !empty($employee['house.shortname']) && $employee['house.shortname']!='HSH') $name.=', ';
 		if(!empty($employee['room_number'])) $name.=$employee['room_number'];
 		if(!empty($employee['room_number']) || (!empty($employee['house.shortname']) && $employee['house.shortname']!='HSH')) $name.=')';

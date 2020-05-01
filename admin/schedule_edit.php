@@ -38,7 +38,7 @@ $schedule_next = mysqli_fetch_assoc(mysqli_stmt_get_result($sql_query));
 mysqli_stmt_close($sql_query);
 
 // Datenbankabfrage Liste aller aktiven Mitarbeiter
-$sql = 'SELECT employees.id, employees.first_name, employees.last_name, employees.display_name, employees.room_number, employees.training_0, employees.training_1, employees.training_2, houses.name AS "house.name" FROM employees LEFT JOIN houses ON employees.house = houses.id  WHERE employees.deleted=0 AND employees.active=1 ORDER BY employees.display_name ASC, employees.last_name ASC';
+$sql = 'SELECT employees.id, employees.first_name, employees.last_name, employees.display_name, employees.room_number, employees.training_0, employees.training_1, employees.training_2, houses.shortname AS "house.shortname" FROM employees LEFT JOIN houses ON employees.house = houses.id  WHERE employees.deleted=0 AND employees.active=1 ORDER BY employees.display_name ASC, employees.last_name ASC';
 $sql_query = mysqli_prepare($db, $sql);
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
 mysqli_stmt_execute($sql_query);
@@ -48,7 +48,7 @@ mysqli_stmt_close($sql_query);
 $employee_names=[];
 foreach($employees as $employee){
 	if(!empty($employee['display_name']))
-		$employee_names[$employee['id']]=$employee['display_name'].' ('.($employee['house.name']!='HSH' ? $employee['house.name'] : '').(($employee['house.name']!='HSH' && $employee['room_number']!=0) ? ', ' : '').($employee['room_number']!=0 ? $employee['room_number'] : '').')';
+		$employee_names[$employee['id']]=$employee['display_name'].' ('.($employee['house.shortname']!='HSH' ? $employee['house.shortname'] : '').(($employee['house.shortname']!='HSH' && $employee['room_number']!=0) ? ', ' : '').($employee['room_number']!=0 ? $employee['room_number'] : '').')';
 }
 
 if($_POST){
