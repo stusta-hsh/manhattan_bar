@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 
 include('../sql_config.php');
@@ -27,7 +26,7 @@ $houses = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);
 
 if ($_POST) {
-	print_r($_POST);
+	//print_r($_POST);
 	$name = ''; $house = 0; $room = ''; $phone = ''; $slot = ''; $comment = '';
 
 	foreach ($_POST as $key=>$value) {
@@ -77,6 +76,7 @@ if ($_POST) {
 			if ($positionexists) { $sql .= "($id, $i, $patty, $cheese, $salad, $tomato, $onion, $sauce, $friedonions, $pickles, $bacon, $camembert, $side, $dip_1, $dip_2, $bier), "; }
 		}
 		$sql = substr($sql, 0, -2); // Das letzte Komma entfernen
+		echo $sql;
 		mysqli_query($db, $sql);
 
 		header("Location: complete.php?id=$id"); exit;
@@ -84,10 +84,10 @@ if ($_POST) {
 	mysqli_stmt_close($sql_query);
 }
 
-if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
+//if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtotime($settings['order_opentime']))) || (date('H:i') >= date('H:i', strtotime($settings['order_closetime'])))) { exit("Leider zu spät."); } // Ab 17:00 nicht mehr anzeigen
 ?>
 
-
+<!DOCTYPE html>
 <html>
 <head>
 	<link href="style.css" rel="stylesheet" type="text/css" media="all">
@@ -166,6 +166,8 @@ if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtot
 									<option value="7">Paulaner Spezi</option>
 									<option value="8">Almdudler</option>
 									<option value="9">Club Mate</option>
+									<option value="10">Bulmers Cider (2.50€)</option>
+									<option value="11">Bulmers Cider Pear (2.50€)</option>
 									<option value="0">kein Getränk</option>
 								</select>
 							</label>
@@ -365,6 +367,8 @@ if (date('w') != $settings['order_weekday'] || (date('H:i') < date('H:i', strtot
 
             if(! supplements[i].includes('keine Beilage')) price_order_position += 1.4;
             if(! drinks[i].includes('kein Getränk')) price_order_position += 1.4;
+
+			if(drinks[i].includes('Bulmers Cider')) price_order_position += 1.1;
 
             if(bacons[i].checked) price_order_position += 0.5;
             if(camemberts[i].checked) price_order_position += 0.5;

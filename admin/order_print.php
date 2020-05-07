@@ -93,6 +93,8 @@
 							case 7: $bier = 'Paulaner Spezi'; break;
 							case 8: $bier = 'Almdudler'; break;
 							case 9: $bier = 'Club Mate'; break;
+							case 10: $bier = 'Bulmers Cider'; break;
+							case 11: $bier = 'Bulmers Cider Pear'; break;
 							default: break;
 						}
 						echo "<ul><ul><ul><strong>Getränk </strong>".$bier.'</ul></ul></ul>';

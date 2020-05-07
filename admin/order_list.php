@@ -34,7 +34,9 @@ FROM orders o
 			(CASE WHEN p.beilage = 0 THEN 0 ELSE 1.4 END) +
 			(CASE WHEN p.dip_1 = 1 THEN 0.1 ELSE 0 END) +
 			(CASE WHEN p.dip_2 = 1 THEN 0.1 ELSE 0 END) +
-			(CASE WHEN p.bier = 0 THEN 0 ELSE 1.4 END) as price
+			(CASE WHEN p.bier = 0 THEN 0 ELSE
+					(CASE WHEN p.bier = 10 OR p.bier = 11 THEN 2.5 ELSE 1.4 END)
+			END) as price
 		FROM menu_positions p
 		) AS positions ON (o.id = order_id)
 		LEFT JOIN houses ON o.house = houses.id
