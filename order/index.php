@@ -33,7 +33,7 @@ if ($_POST) {
 		switch ($key) {
 			case 'name': $name = $value; break;
 			case 'house': $house = $value; break;
-			case 'room': $room = intval($value) == 0 ? $value : sprintf("%04d", $value); break;
+			case 'room': $room = intval($value) != 0 && !strpos($value, "/") ? sprintf("%04d", $value) : $value; break;
 			case 'phone': $phone = $value; break;
 			case 'timeslot': $slot = $value; break;
 			case 'comment': $comment = $value; break;
@@ -41,11 +41,15 @@ if ($_POST) {
 		}
 	}
 
+
 	$sql_query = mysqli_prepare($db, "INSERT INTO orders (name, house, room, phone, slot, comment) VALUES (?, ?, ?, ?, ?, ?)");
 	mysqli_stmt_bind_param($sql_query, 'sissis', $name, $house, $room, $phone, $slot, $comment);
 
+	if (mysqli_connect_errno()) { echo("Connect failed: " . mysqli_connect_error()); }
+
 	if (mysqli_stmt_execute($sql_query))
 	{
+		echo "lol";
 		$id = mysqli_insert_id($db);
 		$sql = "INSERT INTO menu_positions (order_id, position, patty, cheese, salad, tomato, onion, sauce, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier) VALUES ";
 		for ($i = 1; $i <= $settings['order_max_position']; $i++) {
@@ -81,6 +85,7 @@ if ($_POST) {
 
 		header("Location: complete.php?id=$id"); exit;
 	}
+	//echo mysqli_stmt_error($sql_query);
 	mysqli_stmt_close($sql_query);
 }
 
