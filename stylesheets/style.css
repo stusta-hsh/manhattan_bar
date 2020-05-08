@@ -18,7 +18,7 @@ h3{font-size:16pt; font-weight: normal; margin:8px 0px;}
 h4{font-size:14pt; font-weight: normal; margin:4px 0px;}
 
 :root{
-	--logo-path: url('/images/logo.png');
+	--logo-path: url('../images/logo_transparent_black.png');
 	--title-color: #03aa2a;
 	--subtitle-color: #222;
 	--background-color-content: white;
@@ -50,8 +50,7 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	position: -webkit-sticky;
-  	position: sticky;
+
 	top: 0px;
 }
 

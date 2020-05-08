@@ -12,6 +12,11 @@
 	--background-image: radial-gradient(5000px 1000px at bottom 0px left 50%, #FAD314, #D7553F, #833954, #3F3E8E);
 }
 
+.logo {
+	position: -webkit-sticky;
+	position: sticky;
+}
+
 .palmtree {
 	background-image: url('../images/palmtree.png');
 	background-size: cover;

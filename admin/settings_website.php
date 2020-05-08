@@ -44,6 +44,7 @@ include('settings_header.php');
 								<select name="stylesheet_id">
 									<option value='0' <?php if($settings['stylesheet_id']==0)echo'selected' ?>>Standard</option>
 									<option value='1' <?php if($settings['stylesheet_id']==1)echo'selected' ?>>Winter</option>
+									<option value='2' <?php if($settings['stylesheet_id']==2)echo'selected' ?>>Sommer</option>
 								</select>
 							</label>
 						</div>

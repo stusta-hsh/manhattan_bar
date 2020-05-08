@@ -186,11 +186,13 @@
 </head>
 <body>
 	<div class="content">
-		<div class="snow" id="snow-down"></div>
-		<div class="snow" id="snow-left"></div>
-		<div class="snow" id="snow-right"></div>
-		<div class="palmtree-spacer"></div>
-		<div class="palmtree"><img src="images/palmtree.png"></div>
+		<?php switch ($settings['stylesheet_id']) {
+			case '1': echo('<div class="snow" id="snow-down"></div><div class="snow" id="snow-left"></div><div class="snow" id="snow-right"></div>');
+				break;
+			case '2': echo('<div class="palmtree-spacer"></div><div class="palmtree"><img src="images/palmtree.png"></div>');
+				break;
+		} ?>
+
 		<div class="logo">
 			<img src="images/logo.png">
 		</div>
