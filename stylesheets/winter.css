@@ -1,5 +1,5 @@
-:root{
-	--logo-path: url('/images/logo_white.png');
+:root {
+	--logo-path: url('../images/logo_white.png');
 	--title-color: #CC2223;
 	--subtitle-color: #C2C9D1;
 	--background-color-content: darkblue;
@@ -12,7 +12,7 @@
 	--background-image: radial-gradient(5000px 1000px at bottom 0px left 50%, #aa3333, #6C7BB2, #2D4174, #0C1D37);
 }
 
-.content{
+.content {
 	position: relative;
 	overflow: hidden;
 }
@@ -24,8 +24,8 @@
 	pointer-events: none;
 }
 
-#snow-down{
-	background-image: url('/images/snow.png');
+#snow-down {
+	background-image: url('../images/snow.png');
 	background-size: 800px 800px;
 	opacity: 0.7;
 	width: 100%;
@@ -38,8 +38,8 @@
 	animation: snow-down 28s linear infinite;
 }
 
-#snow-left{
-	background-image: url('/images/snow.png');
+#snow-left {
+	background-image: url('../images/snow.png');
 	background-size: 600px 600px;
 	opacity: 0.8;
 	width: 250%;
@@ -52,8 +52,8 @@
 	animation: snow-left 30s linear infinite;
 }
 
-#snow-right{
-	background-image: url('/images/snow.png');
+#snow-right {
+	background-image: url('../images/snow.png');
 	background-size: 400px 400px;
 	opacity: 0.7;
 	width: 200%;
