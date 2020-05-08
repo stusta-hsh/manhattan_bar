@@ -13,7 +13,7 @@
 }
 
 h1{font-size:32pt; font-weight: normal;}
-h2{font-size:24pt; font-weight: normal; margin:12px 0px;}
+h2{font-size:22pt; font-weight: normal; margin:12px 0px;}
 h3{font-size:16pt; font-weight: normal; margin:8px 0px;}
 h4{font-size:14pt; font-weight: normal; margin:4px 0px;}
 
@@ -50,6 +50,9 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
+	position: -webkit-sticky;
+  	position: sticky;
+	top: 0px;
 }
 
 .logo img{
@@ -123,9 +126,11 @@ body{
 
 .skyline{
 	position: sticky;
+	position: -webkit-sticky;
 	bottom: 0px;
 	width: 100%;
 	margin-top: 100px;
+	pointer-events: none
 }
 
 .skyline-image-div{
@@ -170,6 +175,7 @@ body{
 .go-to-order-button {
 	border-radius: 5px;
 	cursor: pointer;
-	border: 3px solid black;
-	margin: 20px 0px;
+	margin: 30px 10px;
+	background-color: var(--background-color-table);
+	padding: 5px;
 }

@@ -1,0 +1,40 @@
+:root{
+	--logo-path: url('../images/logo_transparent_white.png');
+	--title-color: #CC2223;
+	--subtitle-color: rgba(255,255,255,0.8);
+	--background-color-content: #D7553F;
+	--background-color-footer: black;
+	--background-color-table: rgba(255,255,255,0.15);
+	--font-color-table-primary: white;
+	--font-color-table-secondary: rgba(255,255,255,0.65);
+	--font-color-footer: #ddd;
+	--icon-color-footer: #ddd;
+	--background-image: radial-gradient(5000px 1000px at bottom 0px left 50%, #FAD314, #D7553F, #833954, #3F3E8E);
+}
+
+.palmtree {
+	background-image: url('../images/palmtree.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+
+	min-height: 300px;
+	max-height: 60%;
+	width: 100%;
+
+	position: fixed;
+	top: 0px;
+
+	opacity: 0.6;
+	pointer-events: none
+}
+
+.palmtree-spacer {
+	height: 100px;
+}
+
+.palmtree img {
+	width: 100%;
+	opacity: 0;
+	pointer-events: none
+}

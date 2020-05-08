@@ -169,9 +169,14 @@
 <html>
 <head>
 	<link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="all">
-	<?php if($settings['stylesheet_id']==1){ ?>
-		<link rel="stylesheet" href="stylesheets/winter.css" type="text/css" media="all">
-	<?php } ?>
+
+	<?php switch ($settings['stylesheet_id']) {
+		case '1': echo('<link rel="stylesheet" href="stylesheets/winter.css" type="text/css" media="all">');
+			break;
+		case '2': echo('<link rel="stylesheet" href="stylesheets/summer.css" type="text/css" media="all">');
+			break;
+	} ?>
+
 	<link rel="stylesheet" href="fonts/fork-awesome/css/fork-awesome.min.css">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -184,6 +189,8 @@
 		<div class="snow" id="snow-down"></div>
 		<div class="snow" id="snow-left"></div>
 		<div class="snow" id="snow-right"></div>
+		<div class="palmtree-spacer"></div>
+		<div class="palmtree"><img src="images/palmtree.png"></div>
 		<div class="logo">
 			<img src="images/logo.png">
 		</div>
@@ -231,7 +238,7 @@
 				</div>
 			<?php }
 			if(!$current_schedule['mo_open'] && !$current_schedule['di_open'] && !$current_schedule['mi_open'] && !$current_schedule['do_open'] && !$current_schedule['fr_open'] && !$current_schedule['sa_open'] && !$current_schedule['so_open']){ ?>
-				<div class="textbox subtitle" style="margin-top: 100px; margin-bottom: 200px;"><h2><?php echo $settings['away_text'] ?></h2>
+				<div class="textbox subtitle" style="margin-top: 100px; margin-bottom: 200px;"><h3><?php echo $settings['away_text'] ?></h3>
 				<?php if (date('w') == $settings['order_weekday'] && (date('H:i') >= date('H:i', strtotime($settings['order_opentime']))) && (date('H:i') < date('H:i', strtotime($settings['order_closetime'])))) { ?>
 					<div class="go-to-order-button" onclick="location.href='bestellen/'"><h3>Zum Bestellformular <i class="fa fa-arrow-right" aria-hidden="true"></i></h3></div>
 				<?php } ?>
