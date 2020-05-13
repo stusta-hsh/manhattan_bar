@@ -5,6 +5,20 @@ include('../sql_config.php');
 $db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
 if(!$db) exit("Database connection error: ".mysqli_connect_error());
 
+// Datenbankabfrage Settings
+$sql = 'SELECT * FROM settings';
+$sql_query = mysqli_prepare($db, $sql);
+if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
+mysqli_stmt_execute($sql_query);
+$results = mysqli_stmt_get_result($sql_query);
+mysqli_stmt_close($sql_query);
+
+$settings = [];
+foreach($results as $result){
+	$settings[$result['title']] = $result['value'];
+}
+
+// Datenbankabfrage Preis
 $price = mysqli_fetch_row(mysqli_query($db,
 	"SELECT (CASE WHEN o.house = 1 THEN 0.5 ELSE 1 END) + SUM(price) as sum
 	FROM orders o
@@ -38,7 +52,7 @@ $price = mysqli_fetch_row(mysqli_query($db,
 <body>
 	<div class="logo-background">
 		<div class='logo'>
-			<a href='index.php'><img src='../images/logo.png' alt='Manhattan' width='100%'></a>
+			<img src='../images/logo.png' alt='Manhattan' width='100%'>
 		</div>
 	</div>
 
@@ -50,7 +64,7 @@ $price = mysqli_fetch_row(mysqli_query($db,
 		<p id='complete_price'> <?php echo $price; ?> € </p>
 
 		<p>
-			an <a href='//paypal.me/manhattanburger'>paypal.me/manhattanburger</a> und gib als Verwendungszweck deine <b> Bestellnummer <?php echo $_GET['id'] ?></b> an.<br/>
+			an <a href="https://<?php echo($settings['paypal_url']); ?>" target="_blank"><?php echo($settings['paypal_url']); ?></a> und gib als Verwendungszweck deine <b> Bestellnummer <?php echo $_GET['id'] ?></b> an.<br/>
 			Denke daran, als "Freunde und Familie" zu bezahlen :)
 		</p>
 	</div>

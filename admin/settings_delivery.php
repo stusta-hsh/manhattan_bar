@@ -67,6 +67,11 @@ include('settings_header.php');
 								<input type="number" name="order_max_position" value="<?php echo $settings['order_max_position'] ?>">
 							</label>
 						</div>
+						<div class="card-form-row">
+							<label class="flex-300">PayPal-Link
+								<input type="text" name="paypal_url" value="<?php echo $settings['paypal_url'] ?>">
+							</label>
+						</div>
 					</div>
 					<input type='submit' value='Anwenden'></input>
 				</form>
