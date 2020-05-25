@@ -32,7 +32,7 @@ $camembert = ['', '+Cam.'];
 $beilage = ['', 'Pommes', 'Wedges'];
 $dip_1 = ['', '+Mayo'];
 $dip_2 = ['', '+Ketchup'];
-$bier = ['', 'Augustiner Helles', 'Tegernseer Spezial', 'Schneider Weiße TAP7', 'Schneider Weiße TAP3', 'Kuchlbauer Alte Liebe', 'Weihenstephaner Naturradler', 'Paulaner Spezi', 'Almdudler', 'Club Mate', 'Bulmers Cider', 'Bulmers Cider Pear'];
+$bier = ['', 'Augustiner', 'Tegernseer', 'Schneider TAP7', 'Schneider TAP3', 'Kuchlbauer', 'Weihenstephaner', 'Spezi', 'Almdudler', 'Club Mate', 'Bulmers', 'Bulmers Pear'];
 
 //PDF-variables
 $pdf = new FPDF();
@@ -81,22 +81,25 @@ function print_cell($order){
 
 	$pdf->SetXY($x + $cell_margin, $y + $cell_margin);
 
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['house'].', '.iconv('UTF-8', 'windows-1252', $order['room']), $draw_borders, 0);
+	$pdf->SetFontSize(8);
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/7, $order['house'].', '.iconv('UTF-8', 'windows-1252', $order['room']), $draw_borders, 0);
 	$pdf->SetXY($x + $cell_margin, $y + $cell_margin);
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['slot'].' #'.$order['id'], 'B', 2, 'R');
-
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $burger.iconv('UTF-8', 'windows-1252', $cheese[$order['cheese']]), $draw_borders, 2);
-	$pdf->SetFontSize(8);
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, iconv('UTF-8', 'windows-1252', $friedonions[$order['friedonions']]).' '.$pickles[$order['pickles']].' '.$bacon[$order['bacon']].' '.$camembert[$order['camembert']], $draw_borders, 2, 'R');
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/7, $order['slot'].' #'.$order['id'], 'B', 2, 'R');
 
 	$pdf->SetFontSize(10);
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $beilage[$order['beilage']], $draw_borders, 0);
-	$pdf->SetXY($x + $cell_margin, $y + $cell_margin+(($cell_height-2*$cell_margin)/8)*3);
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/7, $burger.iconv('UTF-8', 'windows-1252', $cheese[$order['cheese']]), $draw_borders, 2);
 	$pdf->SetFontSize(8);
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $dip_1[$order['dip_1']].' '.$dip_2[$order['dip_2']], $draw_borders, 2, 'R');
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/7, iconv('UTF-8', 'windows-1252', $friedonions[$order['friedonions']]).' '.$pickles[$order['pickles']].' '.$bacon[$order['bacon']].' '.$camembert[$order['camembert']], $draw_borders, 2, 'R');
 
 	$pdf->SetFontSize(10);
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, iconv('UTF-8', 'windows-1252', $bier[$order['bier']]), $draw_borders, 2, 'R');
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/7, $beilage[$order['beilage']], $draw_borders, 2);
+
+	$pdf->SetFontSize(8);
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/7, $dip_1[$order['dip_1']].' '.$dip_2[$order['dip_2']], $draw_borders, 2, 'L');
+	$pdf->SetXY($x + $cell_margin, $y + $cell_margin+(($cell_height-2*$cell_margin)/7)*4);
+
+	$pdf->SetFontSize(10);
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/7, iconv('UTF-8', 'windows-1252', $bier[$order['bier']]), $draw_borders, 2, 'R');
 	$pdf->SetFontSize(8);
 	$pdf->MultiCell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/10, substr(iconv('UTF-8', 'windows-1252',  preg_replace( '/\r|\n/', '', $order['comment'])), 0, 200), 'T');
 
