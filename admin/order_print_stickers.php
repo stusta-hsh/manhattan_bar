@@ -2,7 +2,7 @@
 
 //echo("debug");
 
-if(isset($_GET['date'])) $date = $_GET['date'];
+$date = (isset($_GET['date']) ? $_GET['date'] : date('Y-m-d'));
 
 include('../sql_config.php');
 $db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
@@ -11,40 +11,35 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
 require('fpdf181/fpdf.php');
 
 // Datenbankabfrage Bestellungen
-$sql = 'SELECT id, house, room, comment, patty, cheese, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier FROM menu_positions RIGHT JOIN orders ON menu_positions.order_id = orders.id';
+$sql = 'SELECT orders.id, houses.shortname AS house, room, comment, patty, cheese, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier FROM orders INNER JOIN menu_positions ON menu_positions.order_id = orders.id LEFT JOIN houses ON houses.id = orders.house WHERE orders.deleted = 0 AND DATE(orders.date) = ?';
 $sql_query = mysqli_prepare($db, $sql);
-//mysqli_stmt_bind_param($sql_query, 'i', $date);
+mysqli_stmt_bind_param($sql_query, 's', $date);
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
+//echo($sql);
 mysqli_stmt_execute($sql_query);
 $orders = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);
 
 if(empty($orders)){
-	header('Location: order_list.php');
+	echo('Keine Bestellungen ausgwählt');
 	exit();
 }
 
-$house = ['extern', 'HSH'];
-
 $patty = ['Beef', 'Beyond Meat', 'Double-Burger'];
 $cheese = ['', ' mit Käse'];
-$friedonions = ['', '+ Röstzw.'];
-$pickles = ['', '+ Gurken'];
-$bacon = ['', '+ Bacon'];
-$camembert = ['', '+ Camem.'];
+$friedonions = ['', '+Röstz.'];
+$pickles = ['', '+Gurken'];
+$bacon = ['', '+Bacon'];
+$camembert = ['', '+Cam.'];
 
 $beilage = ['', 'Pommes', 'Wedges'];
-$dip_1 = ['', '+ Mayo'];
-$dip_2 = ['', '+ Ketchup'];
+$dip_1 = ['', '+Mayo'];
+$dip_2 = ['', '+Ketchup'];
 $bier = ['', 'Augustiner', 'Tegernseer', 'Schneider TAP7', 'Schneider TAP3', 'Kuchlbauer', 'Weihenstephaner', 'Spezi', 'Almdudler', 'Club Mate', 'Bulmers', 'Bulmers Pear'];
 
 //echo("debug");
 
 //PDF-variables
-$rows = 8;
-$columns = 3;
-$draw_borders = 0;
-
 $pdf = new FPDF();
 $pdf->AddFont('raleway','','Raleway-Medium.php');
 
@@ -57,11 +52,15 @@ $pdf->SetAutoPageBreak(false, 0);
 
 $pdf->SetFont('Raleway', '', 15);
 
+$rows = 8;
+$columns = 3;
+$draw_borders = 0;
+$cell_margin = 5;
 $cell_width = $pdf->GetPageWidth()/$columns;
 $cell_height = $pdf->GetPageHeight()/$rows;
 
 function print_cell($order){
-	global $pdf, $cell_width, $cell_height, $cheese, $friedonions, $pickles, $bacon, $camembert, $beilage, $dip_1, $dip_2, $bier;
+	global $pdf, $cell_width, $cell_height, $cell_margin, $cheese, $friedonions, $pickles, $bacon, $camembert, $beilage, $dip_1, $dip_2, $bier, $houses;
 
 	if(isset($order['patty'])){
 		switch ($order['patty']) {
@@ -70,7 +69,7 @@ function print_cell($order){
 				$order['cheese'] = 0;
 				break;
 			case 1:
-				$burger = 'Beyond-Meat-Burger';
+				$burger = 'Beyond-Meat';
 				break;
 			case 2:
 				$burger = 'Double-Burger';
@@ -80,27 +79,30 @@ function print_cell($order){
 
 	$x = $pdf->GetX();
 	$y = $pdf->GetY();
-	$pdf->SetFontSize(12);
-
-
-	$pdf->Cell($cell_width, $cell_height/8, $order['house'].', '.iconv('UTF-8', 'windows-1252', $order['room']), $draw_borders, 0);
-	$pdf->SetXY($x, $y);
-	$pdf->Cell($cell_width, $cell_height/8, $order['id'], 'B', 2, 'R');
-
-	$pdf->Cell($cell_width, $cell_height/8, $burger.iconv('UTF-8', 'windows-1252', $cheese[$order['cheese']]), $draw_borders, 2);
 	$pdf->SetFontSize(10);
-	$pdf->Cell($cell_width, $cell_height/8, iconv('UTF-8', 'windows-1252', $friedonions[$order['friedonions']]).' '.$pickles[$order['pickles']].' '.$bacon[$order['bacon']].' '.$camembert[$order['camembert']], $draw_borders, 2, 'R');
 
-	$pdf->SetFontSize(12);
-	$pdf->Cell($cell_width, $cell_height/8, $beilage[$order['beilage']], $draw_borders, 0);
-	$pdf->SetXY($x, $y+($cell_height/8)*3);
-	$pdf->SetFontSize(10);
-	$pdf->Cell($cell_width, $cell_height/8, $dip_1[$order['dip_1']].' '.$dip_2[$order['dip_2']], $draw_borders, 2, 'R');
+	$pdf->Write($date);
 
-	$pdf->SetFontSize(12);
-	$pdf->Cell($cell_width, $cell_height/8, $bier[$order['bier']], $draw_borders, 2, 'R');
+	$pdf->SetXY($x + $cell_margin, $y + $cell_margin);
+
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['house'].', '.iconv('UTF-8', 'windows-1252', $order['room']), $draw_borders, 0);
+	$pdf->SetXY($x + $cell_margin, $y + $cell_margin);
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['id'], 'B', 2, 'R');
+
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $burger.iconv('UTF-8', 'windows-1252', $cheese[$order['cheese']]), $draw_borders, 2);
 	$pdf->SetFontSize(8);
-	$pdf->MultiCell($cell_width, $cell_height/12, iconv('UTF-8', 'windows-1252', $order['comment']), 'T');
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, iconv('UTF-8', 'windows-1252', $friedonions[$order['friedonions']]).' '.$pickles[$order['pickles']].' '.$bacon[$order['bacon']].' '.$camembert[$order['camembert']], $draw_borders, 2, 'R');
+
+	$pdf->SetFontSize(10);
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $beilage[$order['beilage']], $draw_borders, 0);
+	$pdf->SetXY($x + $cell_margin, $y + $cell_margin+(($cell_height-2*$cell_margin)/8)*3);
+	$pdf->SetFontSize(8);
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $dip_1[$order['dip_1']].' '.$dip_2[$order['dip_2']], $draw_borders, 2, 'R');
+
+	$pdf->SetFontSize(10);
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $bier[$order['bier']], $draw_borders, 2, 'R');
+	$pdf->SetFontSize(8);
+	$pdf->MultiCell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/10, substr(iconv('UTF-8', 'windows-1252',  preg_replace( '/\r|\n/', '', $order['comment'])), 0, 200), 'T');
 
 	$pdf->SetXY($x+$cell_width, $y);
 }
