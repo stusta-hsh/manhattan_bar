@@ -24,10 +24,10 @@ if(mysqli_num_rows($orders) == 0){
 
 $patty = ['Beef', 'Beyond Meat', 'Double-Burger'];
 $cheese = ['', ' mit Käse'];
-$friedonions = ['', '+Röstz.'];
-$pickles = ['', '+Gurken'];
+$friedonions = ['', '+Röstz'];
+$pickles = ['', '+Gurke'];
 $bacon = ['', '+Bacon'];
-$camembert = ['', '+Cam.'];
+$camembert = ['', '+Cam'];
 
 $beilage = ['', 'Pommes', 'Wedges'];
 $dip_1 = ['', '+Mayo'];
