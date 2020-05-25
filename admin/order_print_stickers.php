@@ -96,7 +96,7 @@ function print_cell($order){
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $dip_1[$order['dip_1']].' '.$dip_2[$order['dip_2']], $draw_borders, 2, 'R');
 
 	$pdf->SetFontSize(10);
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $bier[$order['bier']], $draw_borders, 2, 'R');
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, iconv('UTF-8', 'windows-1252', $bier[$order['bier']]), $draw_borders, 2, 'R');
 	$pdf->SetFontSize(8);
 	$pdf->MultiCell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/10, substr(iconv('UTF-8', 'windows-1252',  preg_replace( '/\r|\n/', '', $order['comment'])), 0, 200), 'T');
 
