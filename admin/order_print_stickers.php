@@ -1,7 +1,5 @@
 <?php
 
-//echo("debug");
-
 $date = (isset($_GET['date']) ? $_GET['date'] : date('Y-m-d'));
 
 include('../sql_config.php');
@@ -11,11 +9,10 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
 require('fpdf181/fpdf.php');
 
 // Datenbankabfrage Bestellungen
-$sql = 'SELECT orders.id, houses.shortname AS house, room, comment, patty, cheese, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier FROM orders INNER JOIN menu_positions ON menu_positions.order_id = orders.id LEFT JOIN houses ON houses.id = orders.house WHERE orders.deleted = 0 AND DATE(orders.date) = ?';
+$sql = 'SELECT orders.id, houses.shortname AS house, room, slot, comment, patty, cheese, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier FROM orders INNER JOIN menu_positions ON menu_positions.order_id = orders.id LEFT JOIN houses ON houses.id = orders.house WHERE orders.deleted = 0 AND DATE(orders.date) = ? ORDER BY slot ASC, houses.delivery_order ASC, room ASC';
 $sql_query = mysqli_prepare($db, $sql);
 mysqli_stmt_bind_param($sql_query, 's', $date);
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
-//echo($sql);
 mysqli_stmt_execute($sql_query);
 $orders = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);
@@ -35,9 +32,7 @@ $camembert = ['', '+Cam.'];
 $beilage = ['', 'Pommes', 'Wedges'];
 $dip_1 = ['', '+Mayo'];
 $dip_2 = ['', '+Ketchup'];
-$bier = ['', 'Augustiner', 'Tegernseer', 'Schneider TAP7', 'Schneider TAP3', 'Kuchlbauer', 'Weihenstephaner', 'Spezi', 'Almdudler', 'Club Mate', 'Bulmers', 'Bulmers Pear'];
-
-//echo("debug");
+$bier = ['', 'Augustiner Helles', 'Tegernseer Spezial', 'Schneider Weiße TAP7', 'Schneider Weiße TAP3', 'Kuchlbauer Alte Liebe', 'Weihenstephaner Naturradler', 'Paulaner Spezi', 'Almdudler', 'Club Mate', 'Bulmers Cider', 'Bulmers Cider Pear'];
 
 //PDF-variables
 $pdf = new FPDF();
@@ -76,6 +71,7 @@ function print_cell($order){
 				break;
 		}
 	}
+	$order['slot']++;
 
 	$x = $pdf->GetX();
 	$y = $pdf->GetY();
@@ -87,7 +83,7 @@ function print_cell($order){
 
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['house'].', '.iconv('UTF-8', 'windows-1252', $order['room']), $draw_borders, 0);
 	$pdf->SetXY($x + $cell_margin, $y + $cell_margin);
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['id'], 'B', 2, 'R');
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['slot'].' #'.$order['id'], 'B', 2, 'R');
 
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $burger.iconv('UTF-8', 'windows-1252', $cheese[$order['cheese']]), $draw_borders, 2);
 	$pdf->SetFontSize(8);
