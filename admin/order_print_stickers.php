@@ -17,8 +17,8 @@ mysqli_stmt_execute($sql_query);
 $orders = mysqli_stmt_get_result($sql_query);
 mysqli_stmt_close($sql_query);
 
-if(empty($orders)){
-	echo('Keine Bestellungen ausgwählt');
+if(mysqli_num_rows($orders) == 0){
+	echo('Keine Bestellungen ausgewählt');
 	exit();
 }
 
@@ -38,7 +38,7 @@ $bier = ['', 'Augustiner Helles', 'Tegernseer Spezial', 'Schneider Weiße TAP7',
 $pdf = new FPDF();
 $pdf->AddFont('raleway','','Raleway-Medium.php');
 
-//$pdf->SetTitle('Bestellungen '.$date);
+$pdf->SetTitle('Bestellungen '.$date);
 $pdf->SetAuthor(ucfirst($_SERVER['PHP_AUTH_USER']));
 $pdf->SetCreator('Manhattan WebApp');
 
