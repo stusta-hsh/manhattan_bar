@@ -237,7 +237,7 @@ if ($_POST) {
 					</label>
 				</div>
 				<label>Anmerkungen
-					<textarea rows="4" id='fcomment' name="comment" maxlength="300" placeholder="Hinweise zur Bestellung oder Lieferung"></textarea>
+					<textarea rows="4" id='fcomment' name="comment" maxlength="150" placeholder="Hinweise zur Bestellung oder Lieferung"></textarea>
 				</label>
 			</div>
 		</div>
