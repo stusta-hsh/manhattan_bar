@@ -77,8 +77,6 @@ function print_cell($order){
 	$y = $pdf->GetY();
 	$pdf->SetFontSize(10);
 
-	$pdf->Write($date);
-
 	$pdf->SetXY($x + $cell_margin, $y);
 
 	$pdf->SetFontSize(10);
