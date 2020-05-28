@@ -9,7 +9,7 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
 require('fpdf181/fpdf.php');
 
 // Datenbankabfrage Bestellungen
-$sql = 'SELECT orders.id, houses.shortname AS house, room, slot, comment, patty, cheese, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier FROM orders INNER JOIN menu_positions ON menu_positions.order_id = orders.id LEFT JOIN houses ON houses.id = orders.house WHERE orders.deleted = 0 AND DATE(orders.date) = ? ORDER BY slot ASC, houses.delivery_order ASC, room ASC';
+$sql = 'SELECT orders.id, houses.shortname AS house, room, slot, position, comment, patty, cheese, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier FROM orders INNER JOIN menu_positions ON menu_positions.order_id = orders.id LEFT JOIN houses ON houses.id = orders.house WHERE orders.deleted = 0 AND DATE(orders.date) = ? ORDER BY slot ASC, houses.delivery_order ASC, room ASC';
 $sql_query = mysqli_prepare($db, $sql);
 mysqli_stmt_bind_param($sql_query, 's', $date);
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
@@ -84,7 +84,7 @@ function print_cell($order){
 	$pdf->SetFontSize(10);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-$cell_margin)/8, $order['house'].', '.iconv('UTF-8', 'windows-1252', $order['room']), $draw_borders, 0);
 	$pdf->SetXY($x + $cell_margin, $y);
-	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-$cell_margin)/8, $order['slot'].' #'.$order['id'], 'B', 2, 'R');
+	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-$cell_margin)/8, $order['slot'].' #'.$order['id'].'-'.$order['position'], 'B', 2, 'R');
 
 	//$pdf->SetFontSize(12);
 	$pdf->SetFont('courier', 'B', 12);
