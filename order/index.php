@@ -134,7 +134,7 @@ if ($_POST) {
 								<select name="1-patty" id="burger_1" onchange="calculate_price(); update_ingredients(this.id);">
 									<option value='0'>Hamburger (4,00€)</option>
 									<!--<option value='0'>Cheeseburger (4,00€)</option>-->
-									<option value='1'>Beyond Meat&#8482;-Burger (5,50€)</option>
+									<option value='1'>Beyond Meat&#8482;-Burger (6,00€)</option>
 									<option value='2'>Double-Burger (5,50€)</option>
 								</select><br>
 							</label>
@@ -366,7 +366,10 @@ if ($_POST) {
                 price_order_position += 4;
 
             }
-            else if(burgers[i].includes('Beyond Meat') || burgers[i].includes('Double-Burger')){
+            else if(burgers[i].includes('Beyond Meat')) {
+				price_order_position += 6;
+			}
+			else if(burgers[i].includes('Double-Burger')){
                 price_order_position += 5.5;
             }
 

@@ -28,7 +28,8 @@ $orders = mysqli_query($db,
 FROM orders o
 	LEFT JOIN (
 		SELECT p.order_id, p.position, 4.00 +
-			(CASE WHEN p.patty = 0 THEN 0 ELSE 1.5 END) +
+			(CASE WHEN p.patty = 1 THEN 2 ELSE 0 END) +
+			(CASE WHEN p.patty = 2 THEN 1.5 ELSE 0 END) +
 			(CASE WHEN p.bacon = 1 THEN 0.5 ELSE 0 END) +
 			(CASE WHEN p.camembert = 1 THEN 0.5 ELSE 0 END) +
 			(CASE WHEN p.beilage = 0 THEN 0 ELSE 1.4 END) +
