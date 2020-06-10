@@ -4,8 +4,6 @@
 include('../sql_config.php');
 $db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
 if(!$db) exit("Database connection error: ".mysqli_connect_error());
-
-
 ?>
 
 
@@ -17,6 +15,9 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 	<title> Manhattan - Bestellung </title>
+
+	<style>
+	</style>
 </head>
 
 <body>
@@ -33,10 +34,45 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
 
 		<p><b> Wie wichtig ist dir die Marke Beyond Meat bei unseren Burgern? </b></p>
         <p>
-            Seid ihr überzeugt von unseren hochwertigen Patties der Marke Beyond Meat oder 
-            würdet ihr auch vergleichbare Patties von anderen Herstellern mit ähnlicher Qualität bestellen,
+            Bist du überzeugt von unseren hochwertigen Patties der Marke Beyond Meat oder 
+            würdest du auch vergleichbare Patties von anderen Herstellern mit ähnlicher Qualität bestellen,
             die preislich etwas günstiger ausfallen?
         </p>
+
+		<form>
+			<table>
+				<tr>
+					<td> <input type='radio' name='answer' value='0' id='answer0'/> </td>
+					<td> <input type='radio' name='answer' value='1' id='answer1'/> </td>
+					<td> <input type='radio' name='answer' value='2' id='answer2'/> </td>
+					<td> <input type='radio' name='answer' value='3' id='answer3'/> </td>
+					<td> <input type='radio' name='answer' value='4' id='answer4'/> </td>
+				</tr>
+				<tr>
+					<td>
+						<label class='hint' for='answer0' style='vertical-align: top'>Nicht so wichtig. Ich würde auch einen anderen veganen Burger bestellen</label>
+					</td>
+					<td>
+						<label class='hint' for='answer1' style='vertical-align: top'>Eher nicht</label>
+					</td>
+					<td>
+						<label class='hint' for='answer2' style='vertical-align: top'>Unentschlossen</label>
+					</td>
+					<td>
+						<label class='hint' for='answer3' style='vertical-align: top'>Eher schon</label>
+					</td>
+					<td>
+						<label class='hint' for='answer4' style='vertical-align: top'>Sehr wichtig. Ich möchte keinen anderen Burger als Beyond Meat</label>
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<textarea name='comment' placeholder='Kommentar'></textarea>
+			<br/>
+			<input type='submit' value='Abschicken'/>
+			<br/>
+			<a href='complete.php'>Überspringen</a>
+		</form>
 	</div>
 </body>
 
