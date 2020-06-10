@@ -49,7 +49,6 @@ if ($_POST) {
 
 	if (mysqli_stmt_execute($sql_query))
 	{
-		echo "lol";
 		$id = mysqli_insert_id($db);
 		$sql = "INSERT INTO menu_positions (order_id, position, patty, cheese, salad, tomato, onion, sauce, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier) VALUES ";
 		for ($i = 1; $i <= $settings['order_max_position']; $i++) {
@@ -80,10 +79,10 @@ if ($_POST) {
 			if ($positionexists) { $sql .= "($id, $i, $patty, $cheese, $salad, $tomato, $onion, $sauce, $friedonions, $pickles, $bacon, $camembert, $side, $dip_1, $dip_2, $bier), "; }
 		}
 		$sql = substr($sql, 0, -2); // Das letzte Komma entfernen
-		echo $sql;
 		mysqli_query($db, $sql);
 
-		header("Location: complete.php?id=$id"); exit;
+		if ($patty = 1) { header("Location: survey.php?id=$id"); exit; }
+		else { header("Location: complete.php?id=$id"); exit; }
 	}
 	//echo mysqli_stmt_error($sql_query);
 	mysqli_stmt_close($sql_query);

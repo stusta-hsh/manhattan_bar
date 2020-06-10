@@ -4,6 +4,18 @@
 include('../sql_config.php');
 $db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
 if(!$db) exit("Database connection error: ".mysqli_connect_error());
+
+if ($_POST) {
+	$order_id = $_GET['id'];
+	$answer = $_POST['answer'];
+	$comment = $_POST['comment'];
+
+	$sql_query = mysqli_prepare($db, "REPLACE INTO burger_survey (order_id, answer, comment) VALUES (?, ?, ?)");
+	mysqli_stmt_bind_param($sql_query, 'iis', $order_id, $answer, $comment);
+	mysqli_stmt_execute($sql_query);
+
+	header("Location: complete.php?id=$order_id"); exit;
+}
 ?>
 
 
@@ -17,6 +29,10 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
 	<title> Manhattan - Bestellung </title>
 
 	<style>
+		label {
+			font-size: 80%;
+			color: #333;
+		}
 	</style>
 </head>
 
@@ -39,7 +55,7 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
             die preislich etwas günstiger ausfallen?
         </p>
 
-		<form>
+		<form method='post'>
 			<table>
 				<tr>
 					<td> <input type='radio' name='answer' value='0' id='answer0'/> </td>
@@ -50,28 +66,28 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
 				</tr>
 				<tr>
 					<td>
-						<label class='hint' for='answer0' style='vertical-align: top'>Nicht so wichtig. Ich würde auch einen anderen veganen Burger bestellen</label>
+						<label for='answer0' style='vertical-align: top'>Nicht so wichtig. Ich würde auch einen anderen veganen Burger bestellen</label>
 					</td>
 					<td>
-						<label class='hint' for='answer1' style='vertical-align: top'>Eher nicht</label>
+						<label for='answer1' style='vertical-align: top'>Eher nicht</label>
 					</td>
 					<td>
-						<label class='hint' for='answer2' style='vertical-align: top'>Unentschlossen</label>
+						<label for='answer2' style='vertical-align: top'>Unentschlossen</label>
 					</td>
 					<td>
-						<label class='hint' for='answer3' style='vertical-align: top'>Eher schon</label>
+						<label for='answer3' style='vertical-align: top'>Eher schon</label>
 					</td>
 					<td>
-						<label class='hint' for='answer4' style='vertical-align: top'>Sehr wichtig. Ich möchte keinen anderen Burger als Beyond Meat</label>
+						<label for='answer4' style='vertical-align: top'>Sehr wichtig. Ich möchte keinen anderen Burger als Beyond Meat</label>
 					</td>
 				</tr>
 			</table>
 			<br/>
-			<textarea name='comment' placeholder='Kommentar'></textarea>
+			<textarea name='comment' placeholder='Kommentar' rows='4' maxlength='1024' style='width: 100%;'></textarea>
 			<br/>
 			<input type='submit' value='Abschicken'/>
 			<br/>
-			<a href='complete.php'>Überspringen</a>
+			<a href='complete.php?id=<?php echo $_GET['id']; ?>'>Überspringen</a>
 		</form>
 	</div>
 </body>
