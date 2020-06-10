@@ -66,19 +66,19 @@ if ($_POST) {
 				</tr>
 				<tr>
 					<td>
-						<label for='answer0' style='vertical-align: top'>Nicht so wichtig. Ich würde auch einen anderen veganen Burger bestellen</label>
+						<label for='answer0' style='vertical-align: top'>Nicht so wichtig. <br/> Ich würde auch einen anderen veganen Burger bestellen</label>
 					</td>
 					<td>
 						<label for='answer1' style='vertical-align: top'>Eher nicht</label>
 					</td>
 					<td>
-						<label for='answer2' style='vertical-align: top'>Unentschlossen</label>
+						<label for='answer2' style='vertical-align: top'>Unent-schlossen</label>
 					</td>
 					<td>
 						<label for='answer3' style='vertical-align: top'>Eher schon</label>
 					</td>
 					<td>
-						<label for='answer4' style='vertical-align: top'>Sehr wichtig. Ich möchte keinen anderen Burger als Beyond Meat</label>
+						<label for='answer4' style='vertical-align: top'>Sehr wichtig. <br/> Ich möchte keinen anderen Burger als Beyond Meat</label>
 					</td>
 				</tr>
 			</table>
