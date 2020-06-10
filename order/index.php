@@ -169,7 +169,7 @@ if ($_POST) {
 									<option value="5">Kuchlbauer Alte Liebe</option>
 									<option value="6">Weihenstephaner Natur Radler</option>
 									<option value="7">Paulaner Spezi</option>
-									<option value="8">Almdudler</option>
+									<!-- <option value="8">Almdudler</option> -->
 									<option value="9">Club Mate</option>
 									<option value="10">Bulmers Cider (2.50€)</option>
 									<option value="11">Bulmers Cider Pear (2.50€)</option>
