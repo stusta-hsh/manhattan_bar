@@ -6,12 +6,8 @@ $months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August
 $days_from_monday = [6, 0, 1, 2, 3, 4, 5];
 if(isset($_GET['id'])) $id = $_GET['id'];
 
-$servername = "localhost";
-$username = "e00038";
-$password = "hfDAJSDWy7vR5Pmd";
-$dbname = "e00038a";
-
-$db = mysqli_connect($servername, $username, $password, $dbname);
+include('../sql_config.php');
+$db = mysqli_connect($sql_host, $sql_username, $sql_password, $sql_dbname);
 if(!$db) exit("Database connection error: ".mysqli_connect_error());
 
 $page_title='schedules';
