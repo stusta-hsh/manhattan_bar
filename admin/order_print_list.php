@@ -30,8 +30,8 @@ $bacon = ['', '+Bacon'];
 $camembert = ['', '+Cam'];
 
 $beilage = ['', 'Pommes', 'Wedges'];
-$dip_1 = ['', '+Mayo'];
-$dip_2 = ['', '+Ketchup'];
+$dip_1 = ['', '+Ketchup'];
+$dip_2 = ['', '+Mayo'];
 $bier = ['', 'Augustiner', 'Tegernseer', 'Schneider TAP7', 'Schneider TAP3', 'Kuchlbauer', 'Weihenstephaner', 'Spezi', 'Almdudler', 'Club Mate', 'Bulmers', 'Bulmers Pear'];
 
 //PDF-variables
