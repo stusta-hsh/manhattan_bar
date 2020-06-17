@@ -230,8 +230,8 @@ if ($_POST) {
 					<label class="flex-100">Lieferzeitraum *
 						<select name='timeslot' id="timeslot" onchange='enableSubmit(this)'>
 							<option value="">Bitte wählen</option>
-							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < ".$settings['order_max_slot'].") as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0"))[0] == 0) echo 'disabled';?> value="0">18:00 - 19:30</option>
-							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < ".$settings['order_max_slot'].") as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0] == 0) echo 'disabled';?> value="1">19:30 - 21:00</option>
+							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < ".$settings['order_max_slot'].") as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 0"))[0] == 0) echo 'disabled';?> value="0">17:00 - 18:30</option>
+							<option <?php if(mysqli_fetch_row(mysqli_query($db, "SELECT (COUNT(slot) < ".$settings['order_max_slot'].") as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = 1"))[0] == 0) echo 'disabled';?> value="1">18:30 - 20:00</option>
 						</select>
 					</label>
 				</div>
