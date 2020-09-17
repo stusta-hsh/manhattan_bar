@@ -9,7 +9,11 @@ if(!$db) exit("Database connection error: ".mysqli_connect_error());
 require('fpdf181/fpdf.php');
 
 // Datenbankabfrage Bestellungen
-$sql = 'SELECT orders.id, houses.shortname AS house, room, slot, position, comment, patty, cheese, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier FROM orders INNER JOIN menu_positions ON menu_positions.order_id = orders.id LEFT JOIN houses ON houses.id = orders.house WHERE orders.deleted = 0 AND DATE(orders.date) = ? ORDER BY slot ASC, houses.delivery_order ASC, room ASC';
+$sql = "SELECT orders.id, houses.shortname AS house, color, room, slot, position, comment, patty, cheese, friedonions, pickles, bacon, camembert, beilage, dip_1, dip_2, bier
+FROM orders
+	INNER JOIN menu_positions ON menu_positions.order_id = orders.id
+	LEFT JOIN houses ON houses.id = orders.house
+WHERE orders.deleted = 0 AND DATE(orders.date) = ? ORDER BY slot ASC, houses.delivery_order ASC, room ASC";
 $sql_query = mysqli_prepare($db, $sql);
 mysqli_stmt_bind_param($sql_query, 's', $date);
 if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
@@ -77,14 +81,21 @@ function print_cell($order){
 	$y = $pdf->GetY();
 	$pdf->SetFontSize(10);
 
-	$pdf->SetXY($x + $cell_margin, $y + $cell_margin);
+	// ------------------------------------------
+	// Upper line (house & order details)
+	$r = hexdec(substr($order['color'], 1, 2));
+	$g = hexdec(substr($order['color'], 3, 2));
+	$b = hexdec(substr($order['color'], 5, 2));
+	$pdf->SetFillColor($r, $g, $b);
+	$pdf->Rect($x + $cell_margin, $y + $cell_margin, 3, ($cell_height-2*$cell_margin)/8, 'F');
 
-	$pdf->SetFontSize(10);
+	$pdf->SetXY($x + $cell_margin + 3, $y + $cell_margin);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['house'].', '.iconv('UTF-8', 'windows-1252', $order['room']), $draw_borders, 0);
 	$pdf->SetXY($x + $cell_margin, $y + $cell_margin);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['slot'].' #'.$order['id'].'-'.$order['position'], 'B', 2, 'R');
 
-	//$pdf->SetFontSize(12);
+	// ------------------------------------------
+	// Burger Line
 	$pdf->SetFont('courier', 'B', 12);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $burger.iconv('UTF-8', 'windows-1252', $cheese[$order['cheese']]), $draw_borders, 2);
 	$pdf->SetX($x + $cell_width/8);
@@ -93,6 +104,8 @@ function print_cell($order){
 	$pdf->Cell(($cell_width-2*$cell_margin)-($cell_width/5), ($cell_height-2*$cell_margin)/10, iconv('UTF-8', 'windows-1252', $friedonions[$order['friedonions']]).' '.$pickles[$order['pickles']].' '.$bacon[$order['bacon']].' '.$camembert[$order['camembert']], $draw_borders, 2, 'L');
 	$pdf->SetX($x + $cell_margin);
 
+	// ------------------------------------------
+	// Sides Line
 	//$pdf->SetFontSize(12);
 	$pdf->SetFont('courier', 'B', 12);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $beilage[$order['beilage']], $draw_borders, 2);
@@ -105,6 +118,8 @@ function print_cell($order){
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/10, $dip_1[$order['dip_1']].' '.$dip_2[$order['dip_2']], $draw_borders, 2, 'L');
 	$pdf->SetX($x + $cell_margin);
 
+	// ------------------------------------------
+	// Comment line
 	$pdf->SetFontSize(8);
 	$pdf->MultiCell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/13, substr(iconv('UTF-8', 'windows-1252',  preg_replace( '/\r|\n/', ' ', $order['comment'])), 0, 150), 'T');
 
