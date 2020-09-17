@@ -81,39 +81,43 @@ function print_cell($order){
 	$y = $pdf->GetY();
 	$pdf->SetFontSize(10);
 
+	// UPPER LINE
 	// ------------------------------------------
-	// Upper line (house & order details)
+
+	// Color box house
 	$r = hexdec(substr($order['color'], 1, 2));
 	$g = hexdec(substr($order['color'], 3, 2));
 	$b = hexdec(substr($order['color'], 5, 2));
 	$pdf->SetFillColor($r, $g, $b);
 	$pdf->Rect($x + $cell_margin, $y + $cell_margin, 3, ($cell_height-2*$cell_margin)/8, 'F');
 
+	// House and room
 	$pdf->SetXY($x + $cell_margin + 3, $y + $cell_margin);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['house'].', '.iconv('UTF-8', 'windows-1252', $order['room']), $draw_borders, 0);
+
+	// Order details
 	$pdf->SetXY($x + $cell_margin, $y + $cell_margin);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $order['slot'].' #'.$order['id'].'-'.$order['position'], 'B', 2, 'R');
 
+	// BURGER LINE
 	// ------------------------------------------
-	// Burger Line
-	$pdf->SetFont('courier', 'B', 12);
+
+	$pdf->SetFont('courier', 'B', 10);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $burger.iconv('UTF-8', 'windows-1252', $cheese[$order['cheese']]), $draw_borders, 2);
 	$pdf->SetX($x + $cell_width/8);
-	//$pdf->SetFontSize(10);
 	$pdf->SetFont('courier', '', 10);
 	$pdf->Cell(($cell_width-2*$cell_margin)-($cell_width/5), ($cell_height-2*$cell_margin)/10, iconv('UTF-8', 'windows-1252', $friedonions[$order['friedonions']]).' '.$pickles[$order['pickles']].' '.$bacon[$order['bacon']].' '.$camembert[$order['camembert']], $draw_borders, 2, 'L');
 	$pdf->SetX($x + $cell_margin);
-
-	// ------------------------------------------
+	
 	// Sides Line
-	//$pdf->SetFontSize(12);
+	// ------------------------------------------
+
 	$pdf->SetFont('courier', 'B', 12);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, $beilage[$order['beilage']], $draw_borders, 2);
 	$pdf->SetXY($x + $cell_margin, $y + (($cell_height-2*$cell_margin)/12)*5);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/8, iconv('UTF-8', 'windows-1252', $bier[$order['bier']]), $draw_borders, 2, 'R');
 
 	$pdf->SetX($x + $cell_width/8);
-	//$pdf->SetFontSize(10);
 	$pdf->SetFont('courier', '', 10);
 	$pdf->Cell($cell_width-2*$cell_margin, ($cell_height-2*$cell_margin)/10, $dip_1[$order['dip_1']].' '.$dip_2[$order['dip_2']], $draw_borders, 2, 'L');
 	$pdf->SetX($x + $cell_margin);
