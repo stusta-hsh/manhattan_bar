@@ -49,8 +49,8 @@ WHERE deleted = 0 AND DATE(o.date) = '" . date('Y-m-d', $date) . "' GROUP BY o.i
 			<div class="card-title">
 
 				<?php
-					$date_previous_order = mysqli_fetch_row(mysqli_query($db, 'SELECT DATE(date) FROM orders WHERE DATE(date) < "'.date('Y-m-d', $date).'" AND deleted = 0 GROUP BY DATE(date) ORDER BY date DESC LIMIT 1'))[0];
-					$date_next_order = mysqli_fetch_row(mysqli_query($db, 'SELECT DATE(date) FROM orders WHERE DATE(date) > "'.date('Y-m-d', $date).'" AND deleted = 0 GROUP BY DATE(date) ORDER BY date ASC LIMIT 1'))[0];
+					$date_previous_order = mysqli_fetch_row(mysqli_query($db, 'SELECT MAX(DATE(date)) FROM orders WHERE DATE(date) < "'.date('Y-m-d', $date).'" AND deleted = 0'))[0];
+					$date_next_order = mysqli_fetch_row(mysqli_query($db, 'SELECT MAX(DATE(date)) FROM orders WHERE DATE(date) > "'.date('Y-m-d', $date).'" AND deleted = 0'))[0];
 				?>
 
 				<?php if($date_previous_order != ''){ ?>
