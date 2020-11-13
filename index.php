@@ -73,6 +73,33 @@
 		 $status = 0;
 	}
 
+	// Datenbankabfrage Limit der Bestellungen erreicht?
+	$sold_out = true;
+	// Prüfe Anzahl der Slots
+	$sql = "SELECT COUNT(DISTINCT slot) as slot_amount FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "'";
+	$sql_query = mysqli_prepare($db, $sql);
+	if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
+	mysqli_stmt_execute($sql_query);
+	$result = mysqli_stmt_get_result($sql_query);
+	$row = mysqli_fetch_assoc($result);
+	mysqli_stmt_close($sql_query);
+	$slot_amount = $row['slot_amount'];
+
+	$sql = "SELECT (COUNT(*) < ".$settings['order_max_slot'].") as free FROM orders WHERE deleted = 0 AND DATE(date) = '" . date('Y-m-d') . "' AND slot = ?";
+
+	for($i=0; $i<$slot_amount; $i++){
+		$sql_query = mysqli_prepare($db, $sql);
+		if (!$sql_query) die('ERROR: Failed to prepare SQL:<br>'.$sql);
+		mysqli_stmt_bind_param($sql_query, 'i', $i);
+		mysqli_stmt_execute($sql_query);
+		$result = mysqli_stmt_get_result($sql_query);
+		$row = mysqli_fetch_assoc($result);
+		mysqli_stmt_close($sql_query);
+		$slot_has_space = $row['free'];
+		if($slot_has_space)
+			$sold_out = false;
+	}
+
 	// Workaround for currently defunct switch
 	// Also works for cases in which employees forget to use switch
 	// Open between 19:00 and 00:00
@@ -239,11 +266,25 @@
 					?>
 				</div>
 			<?php }
-			if(!$current_schedule['mo_open'] && !$current_schedule['di_open'] && !$current_schedule['mi_open'] && !$current_schedule['do_open'] && !$current_schedule['fr_open'] && !$current_schedule['sa_open'] && !$current_schedule['so_open']){ ?>
-				<div class="textbox subtitle" style="margin-top: 100px; margin-bottom: 200px;"><h3><?php echo $settings['away_text'] ?></h3>
-				<?php if (date('w') == $settings['order_weekday'] && (date('H:i') >= date('H:i', strtotime($settings['order_opentime']))) && (date('H:i') < date('H:i', strtotime($settings['order_closetime'])))) { ?>
-					<div class="go-to-order-button" onclick="location.href='bestellen/'"><h3>Zum Bestellformular <i class="fa fa-arrow-right" aria-hidden="true"></i></h3></div>
-				<?php } ?>
+			if (!$current_schedule['mo_open'] && !$current_schedule['di_open'] && !$current_schedule['mi_open'] && !$current_schedule['do_open'] && !$current_schedule['fr_open'] && !$current_schedule['sa_open'] && !$current_schedule['so_open']){ ?>
+				<div class="textbox subtitle" style="margin-top: 100px; margin-bottom: 200px;">
+					<h3><?php echo $settings['away_text'] ?></h3>
+
+					<?php if (date('w') == $settings['order_weekday'] && (date('H:i') >= date('H:i', strtotime($settings['order_opentime']))) && (date('H:i') < date('H:i', strtotime($settings['order_closetime'])))) { ?>
+						<?php // If sold out display inactive button
+						if ($sold_out){ ?>
+							<div class="sold-out-button">
+								<h3>Für heute ausverkauft <i class="fa fa-frown-o" aria-hidden="true"></i></h3>
+							</div>
+							<div class="textbox subtitle">
+								<h3>Heute haben wir bereits alle Hände voll zu tun. Danke für die vielen Bestellungen!</h3>
+							</div>
+						<?php } else { ?>
+							<div class="go-to-order-button" onclick="location.href='bestellen/'">
+								<h3>Zum Bestellformular <i class="fa fa-arrow-right" aria-hidden="true"></i></h3>
+							</div>
+						<?php } ?>
+					<?php } ?>
 				</div>
 			<?php } else { ?>
 				<div class="textbox wochenplan">
