@@ -182,6 +182,6 @@ body{
 .sold-out-button {
 	border-radius: 5px;
 	margin: 30px 10px;
-	background-color: #ccc;
+	background-color: var(--background-color-table);
 	padding: 5px;
 }
